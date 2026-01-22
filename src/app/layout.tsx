@@ -2,6 +2,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter, Fira_Code } from "next/font/google";
+import Header from "@/components/Header/Header";
 
 export const metadata: Metadata = {
   title: "Chatbot Solutions | Support Assistant Demo",
@@ -27,7 +28,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${firaCode.variable}`}>
-      <body>{children}</body>
+      <body>
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }
