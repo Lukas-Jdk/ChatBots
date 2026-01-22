@@ -1,0 +1,62 @@
+/* src/app/demo/support/supportDemo.module.css */
+.top {
+  position: relative;
+  z-index: 1;
+  padding: 50px 0 80px;
+}
+
+.topRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.back {
+  color: rgba(255,255,255,0.72);
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(0,0,0,0.16);
+  padding: 9px 12px;
+  border-radius: 999px;
+}
+
+.back:hover {
+  border-color: rgba(var(--accent-rgb), 0.25);
+  color: rgba(var(--accent-rgb), 1);
+}
+
+.badge {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: rgba(var(--accent-rgb), 1);
+  background: rgba(0,0,0,0.22);
+  border: 1px solid rgba(var(--accent-rgb), 0.22);
+  padding: 9px 12px;
+  border-radius: 999px;
+}
+
+.h1 {
+  margin: 12px 0 0;
+  font-size: 38px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.h1 span {
+  color: rgba(var(--accent-rgb), 1);
+}
+
+.sub {
+  margin: 12px 0 0;
+  max-width: 72ch;
+  color: rgba(255,255,255,0.62);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.wrap {
+  margin-top: 18px;
+}
