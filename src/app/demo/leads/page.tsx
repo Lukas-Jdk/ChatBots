@@ -3,13 +3,7 @@ import ChatShell from "@/components/support-bot/ChatShell";
 export default function LeadsDemoPage() {
   return (
     <main className="page">
-      <div className="bgWrap" aria-hidden="true">
-        <div className="bgBase" />
-        <div className="bgGrid" />
-        <div className="bgLines" />
-        <div className="bgParticles" />
-        <div className="bgVignette" />
-      </div>
+   
 
       <section className="section">
         <div className="container">

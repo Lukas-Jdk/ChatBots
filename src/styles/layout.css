@@ -23,15 +23,10 @@
   }
 }
 
-/* Glass card helper */
+/* helper card (light) */
 .card {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  backdrop-filter: blur(14px);
-}
-
-.glow {
-  box-shadow: var(--shadow), var(--glow);
 }

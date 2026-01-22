@@ -39,3 +39,16 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+# .bgWrap {
+#   display: none !important;
+# }
+
+# .bgBase,
+# .bgGrid,
+# .bgLines,
+# .bgParticles,
+# .bgVignette {
+#   display: none !important;
+# }

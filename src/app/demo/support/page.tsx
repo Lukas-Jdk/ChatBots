@@ -7,14 +7,6 @@ import styles from "./supportDemo.module.css";
 export default function SupportDemoPage() {
   return (
     <main className="page">
-      <div className="bgWrap" aria-hidden="true">
-        <div className="bgBase" />
-        <div className="bgGrid" />
-        <div className="bgLines" />
-        <div className="bgParticles" />
-        <div className="bgVignette" />
-      </div>
-
       <section className={styles.top}>
         <div className="container">
           <div className={styles.topRow}>

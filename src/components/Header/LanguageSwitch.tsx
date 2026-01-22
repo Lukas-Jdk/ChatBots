@@ -7,16 +7,11 @@ import styles from "./header.module.css";
 
 type Lang = "en" | "lt" | "no";
 
-const LANGS: {
-  code: Lang;
-  label: "EN" | "LT" | "NO";
-  name: string;
-  flag: string;
-}[] = [
+const LANGS = [
   { code: "en", label: "EN", name: "English", flag: "/flags/en.webp" },
   { code: "lt", label: "LT", name: "Lietuvių", flag: "/flags/lt.webp" },
   { code: "no", label: "NO", name: "Norsk", flag: "/flags/no.webp" },
-];
+] as const;
 
 const STORAGE_KEY = "ljd_lang";
 
@@ -27,7 +22,9 @@ export default function LanguageSwitch() {
 
   useEffect(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved === "en" || saved === "lt" || saved === "no") setLang(saved);
+    if (saved === "en" || saved === "lt" || saved === "no") {
+      setLang(saved);
+    }
   }, []);
 
   useEffect(() => {
@@ -50,35 +47,25 @@ export default function LanguageSwitch() {
         type="button"
         className={styles.langBtn}
         onClick={() => setOpen((v) => !v)}
-        aria-haspopup="menu"
-        aria-expanded={open}
       >
-        <span className={styles.flagBox} aria-hidden="true">
-          <Image
-            src={current.flag}
-            alt=""
-            fill
-            sizes="18px"
-            className={styles.flagImg}
-            priority
-            unoptimized
-          />
-        </span>
-
+        <Image
+          src={current.flag}
+          alt=""
+          width={18}
+          height={12}
+          className={styles.langFlag}
+        />
         <span className={styles.langCode}>{current.label}</span>
         <span className={styles.langChevron}>▾</span>
       </button>
 
       {open && (
-        <div className={styles.langMenu} role="menu">
+        <div className={styles.langMenu}>
           {LANGS.map((l) => {
             const active = l.code === lang;
-
             return (
               <button
                 key={l.code}
-                type="button"
-                role="menuitem"
                 className={`${styles.langItem} ${
                   active ? styles.langItemActive : ""
                 }`}
@@ -87,21 +74,17 @@ export default function LanguageSwitch() {
                   setOpen(false);
                 }}
               >
-                <span className={styles.flagBox} aria-hidden="true">
-                  <Image
-                    src={l.flag}
-                    alt=""
-                    fill
-                    sizes="18px"
-                    className={styles.flagImg}
-                    unoptimized
-                  />
-                </span>
-
-                <span className={styles.langItemText}>
-                  <span className={styles.langItemLabel}>{l.label}</span>
-                  <span className={styles.langItemName}>{l.name}</span>
-                </span>
+                <Image
+                  src={l.flag}
+                  alt=""
+                  width={18}
+                  height={12}
+                  className={styles.langFlag}
+                />
+                <div className={styles.langItemText}>
+                  <div className={styles.langItemLabel}>{l.label}</div>
+                  <div className={styles.langItemName}>{l.name}</div>
+                </div>
               </button>
             );
           })}
