@@ -3,12 +3,14 @@ import styles from "./supportBot.module.css";
 
 export default function TicketSummary({
   topic,
+  subtopic,
   priority,
   email,
   message,
   onEmailDraft,
 }: {
   topic: string;
+  subtopic?: string;
   priority: string;
   email: string;
   message: string;
@@ -23,10 +25,19 @@ export default function TicketSummary({
           <div className={styles.summaryLabel}>Topic</div>
           <div className={styles.summaryValue}>{topic}</div>
         </div>
+
+        {subtopic ? (
+          <div className={styles.summaryItem}>
+            <div className={styles.summaryLabel}>Details</div>
+            <div className={styles.summaryValue}>{subtopic}</div>
+          </div>
+        ) : null}
+
         <div className={styles.summaryItem}>
-          <div className={styles.summaryLabel}>Priority</div>
+          <div className={styles.summaryLabel}>Urgency</div>
           <div className={styles.summaryValue}>{priority}</div>
         </div>
+
         <div className={styles.summaryItem}>
           <div className={styles.summaryLabel}>Email</div>
           <div className={styles.summaryValue}>{email}</div>
