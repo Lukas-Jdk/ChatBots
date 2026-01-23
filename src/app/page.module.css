@@ -16,13 +16,16 @@
 .h1 {
   margin: 0;
   font-size: 34px;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: -0.02em;
-  color: rgba(var(--fg-rgb), 0.92);
+  color: var(--color-text-main);
 }
 
 .h1 span {
-  color: rgba(var(--accent-rgb), 1);
+  background: var(--btn-primary-bg);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 @media (min-width: 900px) {
@@ -34,7 +37,7 @@
 .sub {
   margin: 10px auto 0;
   max-width: 70ch;
-  color: rgba(var(--accent-rgb), 1);
+  color: var(--color-text-muted);
   font-size: 14px;
   line-height: 1.7;
 }
@@ -47,51 +50,17 @@
   flex-wrap: wrap;
 }
 
-.primaryBtn,
-.secondaryBtn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 11px 16px;
-  border-radius: 12px;
-  font-weight: 700;
-  font-size: 14px;
-  border: 1px solid transparent;
-  transition: transform 160ms ease, filter 180ms ease, background 180ms ease;
-}
 
-.primaryBtn {
-  color: #fff;
-  background: rgba(var(--accent-rgb), 1);
-  border-color: rgba(var(--accent-rgb), 0.30);
-  box-shadow: 0 12px 30px rgba(var(--accent-rgb), 0.18);
-}
 
-.primaryBtn:hover {
-  transform: translateY(-1px);
-  filter: brightness(1.03);
-}
-
-.secondaryBtn {
-  color: rgba(var(--accent-rgb), 1);
-  background: rgba(var(--accent-rgb), 0.08);
-  border-color: rgba(var(--accent-rgb), 0.18);
-}
-
-.secondaryBtn:hover {
-  transform: translateY(-1px);
-  background: rgba(var(--accent-rgb), 0.10);
-}
-
-/* HERO IMAGE (leidžiam iki 1300) */
+/* HERO IMAGE */
 .heroImageWrap {
   margin: 16px auto 0;
   max-width: 1300px;
-  border-radius: 22px;
+  border-radius: var(--radius-xl);
   overflow: hidden;
-  background: rgba(255,255,255,0.7);
-  box-shadow: 0 22px 55px rgba(0, 20, 60, 0.10);
-  border: 1px solid rgba(12,14,18,0.08);
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-border-soft);
 }
 
 .heroImage {
@@ -100,7 +69,7 @@
   display: block;
 }
 
-/* BOT CARDS (1200) */
+/* BOT CARDS */
 .botCards {
   margin: 14px auto 0;
   display: grid;
@@ -120,23 +89,22 @@
   display: grid;
   gap: 8px;
   padding: 16px;
-  border-radius: 18px;
-  background: rgba(255,255,255,0.96);
-  border: 1px solid rgba(12,14,18,0.10);
-  box-shadow: 0 18px 45px rgba(0, 20, 60, 0.08);
+  border-radius: var(--radius-xl);
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid var(--color-border-soft);
+  box-shadow: var(--shadow-card);
   text-align: left;
-  transition: transform 160ms ease, border-color 180ms ease, box-shadow 180ms ease;
+  transition: transform 160ms ease, filter 180ms ease;
 }
 
 .botCard:hover {
   transform: translateY(-2px);
-  border-color: rgba(var(--accent-rgb), 0.22);
-  box-shadow: 0 22px 60px rgba(0, 20, 60, 0.10);
+  filter: brightness(1.01);
 }
 
 .botCardTitle {
   font-weight: 900;
-  color: rgba(var(--fg-rgb), 0.92);
+  color: var(--color-text-main);
   font-size: 16px;
 }
 
@@ -145,14 +113,13 @@
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.02em;
-  color: rgba(12, 14, 18, 0.55);
+  color: var(--color-text-muted);
 }
 
-/* bullet list kortelėje */
 .botCardList {
   margin: 8px 0 0;
   padding-left: 18px;
-  color: rgba(12, 14, 18, 0.72);
+  color: var(--color-text-muted);
   font-size: 13px;
   line-height: 1.55;
 }
@@ -163,14 +130,13 @@
 
 .botCardTagline {
   margin-top: 8px;
-  color: rgba(var(--accent-rgb), 1);
+  color: var(--color-text-main);
   font-size: 13px;
   line-height: 1.55;
   font-weight: 700;
   min-height: 40px;
 }
 
-/* Learn more */
 .learnMore {
   margin-top: 4px;
   display: inline-flex;
@@ -179,12 +145,13 @@
   justify-self: start;
 
   padding: 9px 12px;
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   font-weight: 900;
   font-size: 12px;
-  color: rgba(var(--accent-rgb), 1);
-  background: rgba(var(--accent-rgb), 0.08);
-  border: 1px solid rgba(var(--accent-rgb), 0.18);
+
+  color: var(--btn-secondary-text);
+  background: var(--btn-secondary-bg);
+  border: 1px solid var(--color-border-soft);
 }
 
 /* SECTIONS */
@@ -202,10 +169,10 @@
   font-size: 26px;
   font-weight: 900;
   letter-spacing: -0.02em;
-  color: rgba(var(--fg-rgb), 0.92);
+  color: var(--color-text-main);
 }
 
-/* WHY GRID (1200) */
+/* WHY GRID */
 .whyGrid {
   display: grid;
   grid-template-columns: 1fr;
@@ -223,10 +190,10 @@
 
 .whyCard {
   padding: 16px;
-  border-radius: 18px;
-  background: rgba(255,255,255,0.96);
-  border: 1px solid rgba(12,14,18,0.10);
-  box-shadow: 0 18px 45px rgba(0, 20, 60, 0.08);
+  border-radius: var(--radius-xl);
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid var(--color-border-soft);
+  box-shadow: var(--shadow-card);
   text-align: center;
 }
 
@@ -241,10 +208,8 @@
   position: relative;
   overflow: hidden;
 
-  background: rgba(var(--accent-rgb), 0.10);
-  border: 1px solid rgba(var(--accent-rgb), 0.18);
-
-  box-shadow: 0 10px 22px rgba(0, 25, 80, 0.08);
+  background: rgba(79, 140, 255, 0.12);
+  border: 1px solid rgba(79, 140, 255, 0.22);
 }
 
 .whyIconImg {
@@ -253,39 +218,30 @@
 
 .whyTitle {
   font-weight: 900;
-  color: rgba(var(--fg-rgb), 0.90);
+  color: var(--color-text-main);
 }
 
 .whyText {
   margin-top: 6px;
-  color: rgba(var(--accent-rgb), 1);
+  color: var(--color-text-muted);
   font-size: 14px;
   line-height: 1.6;
   font-weight: 500;
 }
 
-/* CONTACT (1200) */
+/* CONTACT */
 .contactWrap {
   max-width: 1200px;
   margin: 0 auto;
 
   padding: 28px 24px;
-  border-radius: 22px;
+  border-radius: var(--radius-xl);
 
   text-align: center;
 
-  background: linear-gradient(
-    180deg,
-    #ffffff 0%,
-    #f6faff 50%,
-    #ffffff 100%
-  );
-
-  border: 1px solid rgba(220, 235, 255, 0.9);
-
-  box-shadow:
-    0 18px 45px rgba(0, 25, 80, 0.10),
-    0 1px 0 rgba(255, 255, 255, 0.9) inset;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--color-border-soft);
+  box-shadow: var(--shadow-card);
 }
 
 .contactTitle {
@@ -293,7 +249,7 @@
   font-size: 22px;
   font-weight: 900;
   letter-spacing: -0.02em;
-  color: rgba(0,0,0,0.92);
+  color: var(--color-text-main);
 }
 
 .contactText {
@@ -301,7 +257,7 @@
   max-width: 70ch;
   font-size: 14px;
   line-height: 1.7;
-  color: rgba(0,0,0,0.62);
+  color: var(--color-text-muted);
 }
 
 .contactActions {
@@ -312,16 +268,16 @@
   flex-wrap: wrap;
 }
 
-/* FOOTER */
+/* FOOTER (palikta kaip yra kol pats išmesi; rekomenduoju išmesti iš čia) */
 .footer {
   padding: 26px 0 34px;
 }
 
 .footerInner {
   text-align: center;
-  border-top: 1px solid rgba(12,14,18,0.10);
+  border-top: 1px solid var(--color-border-soft);
   padding-top: 18px;
   font-family: var(--font-mono);
-  color: rgba(var(--fg-rgb), 0.56);
+  color: var(--color-text-muted);
   font-size: 12px;
 }

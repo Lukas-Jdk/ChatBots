@@ -16,10 +16,10 @@ export default function Page() {
             <p className={styles.sub}>Automate conversations & boost efficiency.</p>
 
             <div className={styles.heroCtas}>
-              <a className={styles.primaryBtn} href="#bots">
+              <a className="btn btnPrimary" href="#bots">
                 Get Started
               </a>
-              <a className={styles.secondaryBtn} href="#why">
+              <a className="btn btnSecondary" href="#why">
                 Why Chatbots?
               </a>
             </div>
@@ -39,7 +39,6 @@ export default function Page() {
 
           {/* BOT CARDS */}
           <div id="bots" className={styles.botCards}>
-            {/* FAQ */}
             <Link className={styles.botCard} href="/demo/faq">
               <div className={styles.botCardTitle}>FAQ Bot</div>
               <div className={styles.botCardType}>Self-Service / Knowledge Base</div>
@@ -57,7 +56,6 @@ export default function Page() {
               <div className={styles.learnMore}>Learn More →</div>
             </Link>
 
-            {/* SUPPORT */}
             <Link className={styles.botCard} href="/demo/support">
               <div className={styles.botCardTitle}>Support Assistant</div>
               <div className={styles.botCardType}>Post-sale / Helpdesk Bot</div>
@@ -75,7 +73,6 @@ export default function Page() {
               <div className={styles.learnMore}>Learn More →</div>
             </Link>
 
-            {/* LEADS */}
             <Link className={styles.botCard} href="/demo/leads">
               <div className={styles.botCardTitle}>Leads Bot</div>
               <div className={styles.botCardType}>Lead Qualification</div>
@@ -93,7 +90,6 @@ export default function Page() {
               <div className={styles.learnMore}>Learn More →</div>
             </Link>
 
-            {/* SALES / AI AGENT */}
             <Link className={styles.botCard} href="/demo/sales">
               <div className={styles.botCardTitle}>Sales Assistant</div>
               <div className={styles.botCardType}>Pre-sale + Human Handoff</div>
@@ -181,14 +177,14 @@ export default function Page() {
 
             <div className={styles.contactActions}>
               <a
-                className={styles.primaryBtn}
+                className="btn btnPrimary"
                 href="mailto:lukas.juodeikis.dev@gmail.com?subject=Chatbot%20Inquiry"
               >
                 Contact Me
               </a>
 
               <a
-                className={styles.secondaryBtn}
+                className="btn btnSecondary"
                 href="https://your-portfolio-link.com"
                 target="_blank"
                 rel="noreferrer"
@@ -199,14 +195,6 @@ export default function Page() {
           </div>
         </div>
       </section>
-
-      <footer className={styles.footer}>
-        <div className="container">
-          <div className={styles.footerInner}>
-            © {new Date().getFullYear()} LjD. Chatbot demos.
-          </div>
-        </div>
-      </footer>
     </main>
   );
 }

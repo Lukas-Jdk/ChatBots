@@ -1,35 +1,160 @@
 /* src/styles/variables.css */
 :root {
-  /* Accent (mėlyna paliekam) */
-  --accent-rgb: 1, 60, 150;
+  /* =========================
+     BRAND / GLOBAL
+  ========================= */
 
-  /* Tekstas */
-  --fg-rgb: 12, 14, 18;
- 
-  /* Background */
-  --bg-0: #ffffff;
-  --bg-1: #ffffff;
+  --color-bg-main: #f7f8fd;
+  --color-bg-gradient: linear-gradient(
+    135deg,
+    #f3f6ff 0%,
+    #f9f2ff 50%,
+    #eef9ff 100%
+  );
 
-  /* Kortelės */
-  --card: rgba(255, 255, 255, 0.95);
-  --border: rgba(12, 14, 18, 0.10);
+  --color-text-main: #1f2937;
+  --color-text-muted: #6b7280;
 
-  /* Text helpers */
-  --text-1: rgba(var(--fg-rgb), 0.92);
-  --text-2: rgba(var(--fg-rgb), 0.72);
-  --text-3: rgba(var(--fg-rgb), 0.56);
- 
+  --color-border-soft: #e5e7f2;
 
-  /* Shadows */
-  --shadow: 0 18px 45px rgba(0, 20, 60, 0.08);
-  --glow: 0 0 0 1px rgba(var(--accent-rgb), 0.10),
-    0 10px 30px rgba(var(--accent-rgb), 0.06);
+  /* =========================
+     CHAT KORTELĖ
+  ========================= */
 
-  /* Layout */
-  --max: 1120px;
-  --radius: 18px;
+  --color-chat-header-from: #4f8cff;
+  --color-chat-header-to: #6b6dff;
 
-  /* Fonts */
+  --color-chat-bg: #ffffff;
+  --color-chat-bubble: #f3f4f8;
+  --color-chat-input-bg: #f9fafb;
+
+  --color-live-badge: #3b82f6;
+
+  /* =========================
+     TOPIC TAGAI (pill buttons) — GRADIENTAI
+  ========================= */
+
+  /* General question (žalia) */
+  --topic-general-from: #9acd6a;
+  --topic-general-to: #6fcf8a;
+  --topic-general-text: #ffffff;
+
+  /* Account help / Technical (mėlyna→violetinė) */
+  --topic-account-from: #4fa3ff;
+  --topic-account-to: #6b6dff;
+  --topic-account-text: #ffffff;
+
+  /* Billing issue (rožinė→purpurinė) */
+  --topic-billing-from: #ec4899;
+  --topic-billing-to: #c026d3;
+  --topic-billing-text: #ffffff;
+
+  /* Booking / Appointment (mėtinė→žalia) */
+  --topic-booking-from: #34d399;
+  --topic-booking-to: #22c55e;
+  --topic-booking-text: #ffffff;
+
+  /* Something else (pilkšva→melsva) */
+  --topic-other-from: #94a3b8;
+  --topic-other-to: #60a5fa;
+  --topic-other-text: #ffffff;
+
+  /* =========================
+     URGENCY MYGTUKAI — GRADIENTAI
+  ========================= */
+
+  --urgency-low-from: #f59e0b;
+  --urgency-low-to: #fbbf24;
+  --urgency-low-text: #ffffff;
+
+  --urgency-medium-from: #6366f1;
+  --urgency-medium-to: #7c3aed;
+  --urgency-medium-text: #ffffff;
+
+  --urgency-high-from: #ef4444;
+  --urgency-high-to: #f97316;
+  --urgency-high-text: #ffffff;
+
+/* =========================
+     SUBTOPIC QUICK REPLIES (gradientai)
+  ========================= */
+
+  /* Tech subtopics */
+  --subtech-1-from: #4fa3ff;
+  --subtech-1-to: #6b6dff;
+
+  --subtech-2-from: #22c55e;
+  --subtech-2-to: #34d399;
+
+  --subtech-3-from: #f59e0b;
+  --subtech-3-to: #fbbf24;
+
+  --subtech-4-from: #a855f7;
+  --subtech-4-to: #ec4899;
+
+  /* Pricing subtopics */
+  --subprice-1-from: #6366f1;
+  --subprice-1-to: #7c3aed;
+
+  --subprice-2-from: #ec4899;
+  --subprice-2-to: #c026d3;
+
+  --subprice-3-from: #2563eb;
+  --subprice-3-to: #1d4ed8;
+
+  --subprice-4-from: #22c55e;
+  --subprice-4-to: #34d399;
+
+
+  /* =========================
+     DEŠINĖS KORTELĖS
+  ========================= */
+
+  --card-info-bg: linear-gradient(135deg, #e8f2ff, #f0f7ff);
+  --card-great-bg: linear-gradient(135deg, #f3e8ff, #fdf4ff);
+  --card-next-bg: linear-gradient(135deg, #eafff1, #f3fff8);
+
+  /* Header juostos (kaip screenshot’e) */
+  --card-info-head: linear-gradient(135deg, rgba(79, 140, 255, 0.35), rgba(107, 109, 255, 0.22));
+  --card-great-head: linear-gradient(135deg, rgba(168, 85, 247, 0.28), rgba(236, 72, 153, 0.18));
+  --card-next-head: linear-gradient(135deg, rgba(34, 197, 94, 0.26), rgba(16, 185, 129, 0.18));
+
+  /* =========================
+     "GREAT FOR" TAGAI
+  ========================= */
+
+  --tag-service-bg: #fbbf24;
+  --tag-agency-bg: #a855f7;
+  --tag-booking-bg: #ec4899;
+  --tag-tech-bg: #3b82f6;
+  --tag-web-bg: #22c55e;
+
+  /* =========================
+     CTA MYGTUKAI
+  ========================= */
+
+  --btn-primary-bg: linear-gradient(135deg, #2563eb, #1d4ed8);
+  --btn-primary-text: #ffffff;
+
+  --btn-secondary-bg: #eef2ff;
+  --btn-secondary-text: #1e3a8a;
+
+  /* =========================
+     SHADOWS & RADIUS
+  ========================= */
+
+  --shadow-card: 0 20px 40px rgba(0, 0, 0, 0.08);
+
+  --radius-xl: 18px;
+  --radius-lg: 14px;
+  --radius-pill: 999px;
+
+  /* =========================
+     LAYOUT + FONTS
+  ========================= */
+
+  --max: 1300px;
+
   --font-sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter,
     Arial, "Apple Color Emoji", "Segoe UI Emoji";
 

@@ -1,3 +1,4 @@
+// src/app/demo/leads/page.tsx
 import ChatShell from "@/components/support-bot/ChatShell";
 
 export default function LeadsDemoPage() {

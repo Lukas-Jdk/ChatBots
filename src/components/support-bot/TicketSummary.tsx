@@ -17,7 +17,11 @@ export default function TicketSummary({
   onEmailDraft: () => void;
 }) {
   return (
-    <div className={styles.summaryCard} role="region" aria-label="Ticket summary">
+    <div
+      className={styles.summaryCard}
+      role="region"
+      aria-label="Ticket summary"
+    >
       <div className={styles.summaryTitle}>Ticket Summary</div>
 
       <div className={styles.summaryGrid}>
@@ -49,12 +53,17 @@ export default function TicketSummary({
         <div className={styles.summaryValue}>{message}</div>
       </div>
 
-      <button className={styles.primaryBtn} type="button" onClick={onEmailDraft}>
+      <button
+        className="btn btnPrimary btnFull"
+        type="button"
+        onClick={onEmailDraft}
+      >
         Send to support (opens email)
       </button>
 
       <div className={styles.summaryNote}>
-        Demo: this opens a pre-filled email draft. In production you’d send this to your helpdesk.
+        Demo: this opens a pre-filled email draft. In production you’d send this
+        to your helpdesk.
       </div>
     </div>
   );

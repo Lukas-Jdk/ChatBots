@@ -1,19 +1,14 @@
-/* src/styles/layout.css */
 .page {
   min-height: 100vh;
-  position: relative;
-  overflow: visible;
-  padding-top: 0;
 }
 
 .container {
   max-width: var(--max);
-  padding: 0 20px;
+  padding: 0 24px;
   margin: 0 auto;
 }
 
 .section {
-  position: relative;
   padding: 70px 0;
 }
 
@@ -23,10 +18,10 @@
   }
 }
 
-/* helper card (light) */
+/* helper card */
 .card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  background: var(--color-chat-bg);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
 }

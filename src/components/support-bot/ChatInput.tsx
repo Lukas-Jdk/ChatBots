@@ -37,9 +37,9 @@ export default function ChatInput({
           if (e.key === "Enter") submit();
         }}
       />
-      <button className={styles.sendBtn} type="button" onClick={submit} disabled={disabled}>
-        Send
-      </button>
+      <button className="btn btnPrimary" type="button" onClick={submit} disabled={disabled}>
+  Send
+</button>
     </div>
   );
 }

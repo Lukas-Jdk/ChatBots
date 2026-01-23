@@ -12,6 +12,9 @@ import {
   SUPPORT_TOPICS,
   PRICING_SUBTOPICS,
   TECH_SUBTOPICS,
+  TECH_CONTEXT,
+  COMPANY_SIZE,
+  CONTACT_METHOD,
 } from "@/data/supportFlow";
 
 import styles from "./supportBot.module.css";
@@ -20,7 +23,10 @@ type Step =
   | "topic"
   | "pricing_subtopic"
   | "tech_subtopic"
+  | "tech_context"
+  | "company_size"
   | "priority"
+  | "contact_method"
   | "email"
   | "message"
   | "done";
@@ -32,7 +38,10 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
 
   const [topic, setTopic] = useState("");
   const [subtopic, setSubtopic] = useState("");
+  const [techContext, setTechContext] = useState("");
+  const [companySize, setCompanySize] = useState("");
   const [priority, setPriority] = useState("");
+  const [contactMethod, setContactMethod] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
@@ -60,6 +69,9 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
   const priorityOptions = useMemo(() => [...SUPPORT_PRIORITIES], []);
   const pricingOptions = useMemo(() => [...PRICING_SUBTOPICS], []);
   const techOptions = useMemo(() => [...TECH_SUBTOPICS], []);
+  const techContextOptions = useMemo(() => [...TECH_CONTEXT], []);
+  const companySizeOptions = useMemo(() => [...COMPANY_SIZE], []);
+  const contactMethodOptions = useMemo(() => [...CONTACT_METHOD], []);
 
   function push(role: "bot" | "user", text: string) {
     setMessages((prev) => [
@@ -72,6 +84,13 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
   function pickTopic(v: string) {
     setTopic(v);
     setSubtopic("");
+    setTechContext("");
+    setCompanySize("");
+    setPriority("");
+    setContactMethod("");
+    setEmail("");
+    setMessage("");
+
     push("user", v);
 
     if (v === "Billing / Pricing") {
@@ -86,35 +105,69 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
       return;
     }
 
-    push("bot", "Thanks. How urgent is this?");
-    setStep("priority");
+    // For other topics, still add one extra step to make demo richer
+    push("bot", "Thanks — what best describes your business size?");
+    setStep("company_size");
   }
 
-  // 2a) pricing subtopic
+  // 2a) pricing subtopic -> company size
   function pickPricingSubtopic(v: string) {
     setSubtopic(v);
     push("user", v);
-    push("bot", "Thanks. How urgent is this?");
-    setStep("priority");
+
+    push("bot", "Thanks — what best describes your business size?");
+    setStep("company_size");
   }
 
-  // 2b) tech subtopic
+  // 2b) tech subtopic -> tech context
   function pickTechSubtopic(v: string) {
     setSubtopic(v);
     push("user", v);
+
+    push("bot", "Thanks — where does this happen most often?");
+    setStep("tech_context");
+  }
+
+  // 3) tech context -> company size
+  function pickTechContext(v: string) {
+    setTechContext(v);
+    push("user", v);
+
+    push("bot", "Got it — what best describes your business size?");
+    setStep("company_size");
+  }
+
+  // 4) company size -> urgency
+  function pickCompanySize(v: string) {
+    setCompanySize(v);
+    push("user", v);
+
     push("bot", "Thanks. How urgent is this?");
     setStep("priority");
   }
 
-  // 3) urgency
+  // 5) urgency -> contact method
   function pickPriority(v: string) {
     setPriority(v);
     push("user", v);
+
+    push(
+      "bot",
+      "How would you like us to reply? (Demo note: we’ll collect email either way.)"
+    );
+    setStep("contact_method");
+  }
+
+  // 6) contact method -> email
+  function pickContactMethod(v: string) {
+    setContactMethod(v);
+    push("user", v);
+
     push("bot", "Where should we reply? Please enter your email.");
     setStep("email");
   }
 
-  // 4) email
+  // 7) email -> message
   function submitEmail(v: string) {
     const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
     if (!ok) {
@@ -123,14 +176,16 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
     }
     setEmail(v);
     push("user", v);
+
     push("bot", "Great. Please describe your issue in a few words.");
     setStep("message");
   }
 
-  // 5) message
+  // 8) message -> done
   function submitMessage(v: string) {
     setMessage(v);
     push("user", v);
+
     push("bot", "All set — here’s the ticket summary.");
     setStep("done");
   }
@@ -151,7 +206,10 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
       `New support request\n\n` +
       `Topic: ${topic}\n` +
       (subtopic ? `Details: ${subtopic}\n` : "") +
+      (techContext ? `Context: ${techContext}\n` : "") +
+      (companySize ? `Company size: ${companySize}\n` : "") +
       `Urgency: ${priority}\n` +
+      (contactMethod ? `Preferred contact: ${contactMethod}\n` : "") +
       `Email: ${email}\n\n` +
       `Message:\n${message}\n\n` +
       `---\nSent from Support Assistant Bot demo.`;
@@ -169,7 +227,10 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
     setStep("topic");
     setTopic("");
     setSubtopic("");
+    setTechContext("");
+    setCompanySize("");
     setPriority("");
+    setContactMethod("");
     setEmail("");
     setMessage("");
 
@@ -191,25 +252,55 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
 
         {step === "topic" && (
           <div className={styles.botTools}>
-            <QuickReplies options={topicOptions as unknown as string[]} onPick={pickTopic} />
+            <QuickReplies variant="topic" options={topicOptions as unknown as string[]} onPick={pickTopic} />
           </div>
         )}
 
         {step === "pricing_subtopic" && (
           <div className={styles.botTools}>
-            <QuickReplies options={pricingOptions as unknown as string[]} onPick={pickPricingSubtopic} />
+            <QuickReplies variant="pricing" options={pricingOptions as unknown as string[]} onPick={pickPricingSubtopic} />
           </div>
         )}
 
         {step === "tech_subtopic" && (
           <div className={styles.botTools}>
-            <QuickReplies options={techOptions as unknown as string[]} onPick={pickTechSubtopic} />
+            <QuickReplies variant="tech" options={techOptions as unknown as string[]} onPick={pickTechSubtopic} />
+          </div>
+        )}
+
+        {step === "tech_context" && (
+          <div className={styles.botTools}>
+            <QuickReplies
+              variant="tech"
+              options={techContextOptions as unknown as string[]}
+              onPick={pickTechContext}
+            />
+          </div>
+        )}
+
+        {step === "company_size" && (
+          <div className={styles.botTools}>
+            <QuickReplies
+              variant="pricing"
+              options={companySizeOptions as unknown as string[]}
+              onPick={pickCompanySize}
+            />
           </div>
         )}
 
         {step === "priority" && (
           <div className={styles.botTools}>
-            <QuickReplies options={priorityOptions as unknown as string[]} onPick={pickPriority} />
+            <QuickReplies variant="priority" options={priorityOptions as unknown as string[]} onPick={pickPriority} />
+          </div>
+        )}
+
+        {step === "contact_method" && (
+          <div className={styles.botTools}>
+            <QuickReplies
+              variant="pricing"
+              options={contactMethodOptions as unknown as string[]}
+              onPick={pickContactMethod}
+            />
           </div>
         )}
 
@@ -224,14 +315,13 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
               subtopic={subtopic}
             />
 
-            <button className={styles.ghostBtn} type="button" onClick={reset}>
+            <button className="btn btnGhost btnFull" type="button" onClick={reset}>
               Restart demo
             </button>
           </div>
         )}
       </div>
 
-      {/* Input always visible only for email/message steps */}
       {step === "email" && (
         <ChatInput placeholder="your@email.com" type="email" onSend={submitEmail} />
       )}

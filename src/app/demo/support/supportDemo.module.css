@@ -18,20 +18,19 @@
 
 .back {
   padding: 8px 12px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   font-weight: 800;
   font-size: 12px;
   text-decoration: none;
 
-  background: #fff;
-  border: 1px solid rgba(0,0,0,0.10);
-  color: rgba(0,0,0,0.72);
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--color-border-soft);
+  color: var(--color-text-muted);
 }
 
 .back:hover {
-  background: rgba(var(--accent-rgb), 0.06);
-  border-color: rgba(var(--accent-rgb), 0.22);
-  color: rgba(0,0,0,0.92);
+  filter: brightness(1.02);
+  color: var(--color-text-main);
 }
 
 .badge {
@@ -42,11 +41,11 @@
   text-transform: uppercase;
 
   padding: 8px 12px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
 
-  background: rgba(var(--accent-rgb), 0.08);
-  border: 1px solid rgba(var(--accent-rgb), 0.18);
-  color: rgba(0,0,0,0.72);
+  background: rgba(79, 140, 255, 0.12);
+  border: 1px solid rgba(79, 140, 255, 0.22);
+  color: var(--color-text-main);
 }
 
 .h1 {
@@ -54,12 +53,15 @@
   font-size: 38px;
   font-weight: 900;
   letter-spacing: -0.02em;
-  color: rgba(0,0,0,0.92);
+  color: var(--color-text-main);
   line-height: 1.08;
 }
 
 .h1 span {
-  color: rgb(var(--accent-rgb));
+  background: var(--btn-primary-bg);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .sub {
@@ -67,14 +69,19 @@
   max-width: 75ch;
   font-size: 15px;
   line-height: 1.7;
-  color: rgba(0,0,0,0.62);
+  color: var(--color-text-muted);
 }
 
+/* =========================
+   MAIN GRID
+   - chatas šiek tiek siauresnis
+   - dešinė pusė platesnė
+========================= */
 .grid {
   margin-top: 18px;
   display: grid;
   gap: 18px;
-  grid-template-columns: 1.15fr 0.85fr;
+  grid-template-columns: 1fr 1.05fr; /* buvo 1.15 / 0.85 */
   align-items: start;
 }
 
@@ -85,32 +92,79 @@
 
 .note {
   font-size: 12px;
-  color: rgba(0,0,0,0.55);
+  color: var(--color-text-muted);
   text-align: center;
 }
 
+/* =========================
+   RIGHT SIDE GRID
+   - 2 kolonos viršuje
+   - "Next step" per abi apačioje
+========================= */
 .side {
   display: grid;
   gap: 12px;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
 }
 
+/* kortelės bazė */
 .card {
   padding: 18px;
-  border-radius: 22px;
-  background: linear-gradient(180deg, #ffffff 0%, #f6faff 55%, #ffffff 100%);
-  border: 1px solid rgba(220, 235, 255, 0.9);
-  box-shadow: 0 18px 45px rgba(0, 25, 80, 0.10);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border-soft);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  min-width: 0; /* kad tekstas nelaužytų grid */
 }
 
+/* --- išdėstymas dešinėje --- */
+.card:nth-child(1) {
+  grid-column: 1 / 2; /* What it does */
+  background: var(--card-info-bg);
+}
+
+.card:nth-child(2) {
+  grid-column: 2 / 3; /* Great for */
+  background: var(--card-great-bg);
+}
+
+.card:nth-child(3) {
+  grid-column: 1 / -1; /* Next step per abi kolonas */
+  background: var(--card-next-bg);
+}
+
+/* ====== HEADER JUOSTA ====== */
 .cardTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
   font-weight: 900;
-  color: rgba(0,0,0,0.92);
+  color: var(--color-text-main);
   letter-spacing: -0.01em;
+
+  padding: 12px 14px;
+  margin: -18px -18px 12px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+/* header gradientai pagal kortelę */
+.card:nth-child(1) .cardTitle {
+  background: var(--card-info-head);
+}
+
+.card:nth-child(2) .cardTitle {
+  background: var(--card-great-head);
+}
+
+.card:nth-child(3) .cardTitle {
+  background: var(--card-next-head);
 }
 
 .cardText {
   margin: 10px 0 0;
-  color: rgba(0,0,0,0.62);
+  color: var(--color-text-muted);
   font-size: 14px;
   line-height: 1.7;
 }
@@ -118,7 +172,7 @@
 .list {
   margin: 10px 0 0;
   padding-left: 18px;
-  color: rgba(0,0,0,0.62);
+  color: var(--color-text-muted);
   font-size: 14px;
   line-height: 1.7;
 }
@@ -134,13 +188,20 @@
   display: inline-flex;
   align-items: center;
   padding: 8px 12px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   font-size: 12px;
-  font-weight: 800;
-  color: rgba(0,0,0,0.74);
-  background: #fff;
-  border: 1px solid rgba(0,0,0,0.10);
+  font-weight: 900;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.0);
+  white-space: nowrap;
 }
+
+/* 5 tag spalvos */
+.pill:nth-child(1) { background: var(--tag-service-bg); }
+.pill:nth-child(2) { background: var(--tag-agency-bg); }
+.pill:nth-child(3) { background: var(--tag-booking-bg); }
+.pill:nth-child(4) { background: var(--tag-tech-bg); }
+.pill:nth-child(5) { background: var(--tag-web-bg); }
 
 .actions {
   margin-top: 12px;
@@ -148,46 +209,10 @@
   gap: 10px;
 }
 
-.primaryBtn,
-.secondaryBtn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px 14px;
-  border-radius: 14px;
-  font-weight: 900;
-  font-size: 13px;
-  text-decoration: none;
-}
-
-.primaryBtn {
-  background: rgb(var(--accent-rgb));
-  color: #fff;
-  border: 1px solid rgba(var(--accent-rgb), 0.30);
-  box-shadow: 0 12px 30px rgba(var(--accent-rgb), 0.18);
-}
-
-.primaryBtn:hover {
-  transform: translateY(-1px);
-  filter: brightness(1.02);
-}
-
-.secondaryBtn {
-  background: #fff;
-  color: rgba(0,0,0,0.78);
-  border: 1px solid rgba(0,0,0,0.10);
-}
-
-.secondaryBtn:hover {
-  transform: translateY(-1px);
-  background: rgba(var(--accent-rgb), 0.06);
-  border-color: rgba(var(--accent-rgb), 0.22);
-}
-
 .mini {
   margin-top: 10px;
   font-size: 12px;
-  color: rgba(0,0,0,0.55);
+  color: var(--color-text-muted);
   text-align: center;
   line-height: 1.6;
 }
@@ -199,12 +224,31 @@
 
 .bottomLink {
   font-weight: 900;
-  color: rgba(0,0,0,0.72);
+  color: var(--color-text-muted);
   text-decoration: none;
 }
 
 .bottomLink:hover {
-  color: rgb(var(--accent-rgb));
+  color: var(--color-text-main);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 1100px) {
+  .grid {
+    grid-template-columns: 1fr; /* chat viršuje, kortelės apačioje */
+  }
+
+  .side {
+    grid-template-columns: 1fr; /* dešinė pusė į 1 stulpelį */
+  }
+
+  .card:nth-child(1),
+  .card:nth-child(2),
+  .card:nth-child(3) {
+    grid-column: auto;
+  }
 }
 
 @media (max-width: 980px) {

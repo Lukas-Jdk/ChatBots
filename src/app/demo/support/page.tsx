@@ -6,8 +6,6 @@ import ChatShell from "@/components/support-bot/ChatShell";
 import SupportBot from "@/components/support-bot/SupportBot";
 import styles from "./supportDemo.module.css";
 
-
-
 export default function SupportDemoPage() {
   return (
     <main className={styles.page}>
@@ -29,7 +27,6 @@ export default function SupportDemoPage() {
           </p>
 
           <div className={styles.grid}>
-            {/* LEFT: Chat demo */}
             <div className={styles.demo}>
               <ChatShell
                 title="Support Assistant"
@@ -43,7 +40,6 @@ export default function SupportDemoPage() {
               </div>
             </div>
 
-            {/* RIGHT: Explanation */}
             <div className={styles.side}>
               <div className={styles.card}>
                 <div className={styles.cardTitle}>What it does</div>
@@ -74,13 +70,13 @@ export default function SupportDemoPage() {
 
                 <div className={styles.actions}>
                   <a
-                    className={styles.primaryBtn}
+                    className="btn btnPrimary"
                     href="mailto:lukas.juodeikis.dev@gmail.com?subject=Support%20Assistant%20Chatbot&body=Hi%20Lukas,%0A%0AWebsite:%20%0ABusiness%20type:%20%0AWhat%20support%20requests%20do%20you%20get%20most%20often?%20%0AWhere%20should%20tickets%20go%20(email%2Fhelpdesk%2FCRM)?%20%0A%0AThanks!"
                   >
                     Discuss your chatbot
                   </a>
 
-                  <Link className={styles.secondaryBtn} href="/demo/faq">
+                  <Link className="btn btnSecondary" href="/demo/faq">
                     View FAQ Demo
                   </Link>
                 </div>
