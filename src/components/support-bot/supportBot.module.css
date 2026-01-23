@@ -9,7 +9,7 @@
 .shellHeader {
   padding: 16px 16px 12px;
   border-bottom: 1px solid rgba(255,255,255,0.08);
-  background: rgba(0, 0, 0, 0.16);
+ background: linear-gradient(180deg, rgba(2,18,50,0.96) 0%, rgba(1,12,32,0.96) 100%);
 }
 
 .shellTitleRow {
@@ -52,13 +52,17 @@
   gap: 12px;
 }
 
+/* Chat container */
 .chatList {
   height: 420px;
   overflow: auto;
   padding: 12px;
   border-radius: 18px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(0,0,0,0.14);
+
+  /* NEW */
+  background: linear-gradient(180deg, rgba(2,18,50,0.96) 0%, rgba(1,12,32,0.96) 100%);
+  border: 1px solid rgba(1, 60, 150, 0.25);
+  box-shadow: 0 18px 55px rgba(1, 60, 150, 0.10);
 }
 
 /* tweak for embedded mode */

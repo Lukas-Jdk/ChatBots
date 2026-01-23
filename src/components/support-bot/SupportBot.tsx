@@ -168,7 +168,9 @@ export default function SupportBot({
           placeholder="Describe your issue..."
           onSend={submitMessage}
         />
+        
       )}
+      
     </div>
   );
 }

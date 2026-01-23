@@ -1,116 +1,101 @@
 // src/app/demo/support/page.tsx
+export const dynamic = "force-dynamic";
+
 import Link from "next/link";
 import ChatShell from "@/components/support-bot/ChatShell";
 import SupportBot from "@/components/support-bot/SupportBot";
 import styles from "./supportDemo.module.css";
 
+
+
 export default function SupportDemoPage() {
   return (
-    <main className="page">
-      <section className={styles.top}>
+    <main className={styles.page}>
+      <section className={styles.hero}>
         <div className="container">
           <div className={styles.topRow}>
             <Link className={styles.back} href="/">
-              ← Back to landing
+              ← Back to home
             </Link>
-
-            <div className={styles.badge}>Support Bot Demo</div>
+            <div className={styles.badge}>Support Assistant Demo</div>
           </div>
 
           <h1 className={styles.h1}>
-            Support chatbot that <span>creates tickets</span>
+            Turn chats into <span>support tickets</span>
           </h1>
-
           <p className={styles.sub}>
-            This demo collects a topic, priority, email and message — then generates a clean ticket summary.
-            Demo version opens an email draft; production versions can send tickets to helpdesk/CRM.
+            This demo shows a Support Assistant chatbot that collects the issue, priority and contact details —
+            then generates a ticket-ready summary.
           </p>
 
           <div className={styles.grid}>
-            {/* LEFT: guidance */}
-            <div className={`${styles.side} card glow`}>
-              <div className={styles.sideTitle}>What to try</div>
-
-              <div className={styles.sideList}>
-                <div className={styles.sideItem}>
-                  <span className={styles.dot} />
-                  Choose a topic and urgency
-                </div>
-                <div className={styles.sideItem}>
-                  <span className={styles.dot} />
-                  Enter any email (validation included)
-                </div>
-                <div className={styles.sideItem}>
-                  <span className={styles.dot} />
-                  Describe the issue → get ticket summary
-                </div>
-              </div>
-
-              <div className={styles.sideTitle2}>Where this is useful</div>
-              <div className={styles.tags}>
-                <div className={styles.tag}>Appointments</div>
-                <div className={styles.tag}>Pricing questions</div>
-                <div className={styles.tag}>Website issues</div>
-                <div className={styles.tag}>General support</div>
-              </div>
-
-              <div className={styles.sideCtas}>
-                <a className={styles.primary} href="#request">
-                  Request setup
-                </a>
-                <Link className={styles.ghost} href="/">
-                  See overview
-                </Link>
-              </div>
-
-              <div className={styles.note}>
-                Built by Lukas Juodeikis. Custom chatbot flows, languages, branding, and integrations.
-              </div>
-            </div>
-
-            {/* RIGHT: demo */}
-            <div className={styles.wrap}>
+            {/* LEFT: Chat demo */}
+            <div className={styles.demo}>
               <ChatShell
-                title="Support Assistant Bot"
-                subtitle="Click quick replies. When done, generate a ticket summary."
+                title="Support Assistant"
+                subtitle="Try it: pick a topic → set urgency → enter email → describe the issue."
               >
                 <SupportBot mode="page" />
               </ChatShell>
+
+              <div className={styles.note}>
+                Demo behavior: it opens a pre-filled email draft. In production it can send tickets to your inbox/helpdesk.
+              </div>
+            </div>
+
+            {/* RIGHT: Explanation */}
+            <div className={styles.side}>
+              <div className={styles.card}>
+                <div className={styles.cardTitle}>What it does</div>
+                <ul className={styles.list}>
+                  <li>Collects topic, urgency, email and message.</li>
+                  <li>Prepares a clean ticket summary.</li>
+                  <li>Prevents “missing info” back-and-forth.</li>
+                  <li>Works 24/7 on your website.</li>
+                </ul>
+              </div>
+
+              <div className={styles.card}>
+                <div className={styles.cardTitle}>Great for</div>
+                <div className={styles.pills}>
+                  <span className={styles.pill}>Service businesses</span>
+                  <span className={styles.pill}>Agencies</span>
+                  <span className={styles.pill}>Bookings</span>
+                  <span className={styles.pill}>Tech support</span>
+                  <span className={styles.pill}>Website inquiries</span>
+                </div>
+              </div>
+
+              <div className={styles.card}>
+                <div className={styles.cardTitle}>Next step</div>
+                <p className={styles.cardText}>
+                  Want this customized for your business? I can adapt questions, tone, and routing (email/helpdesk/CRM).
+                </p>
+
+                <div className={styles.actions}>
+                  <a
+                    className={styles.primaryBtn}
+                    href="mailto:lukas.juodeikis.dev@gmail.com?subject=Support%20Assistant%20Chatbot&body=Hi%20Lukas,%0A%0AWebsite:%20%0ABusiness%20type:%20%0AWhat%20support%20requests%20do%20you%20get%20most%20often?%20%0AWhere%20should%20tickets%20go%20(email%2Fhelpdesk%2FCRM)?%20%0A%0AThanks!"
+                  >
+                    Discuss your chatbot
+                  </a>
+
+                  <Link className={styles.secondaryBtn} href="/demo/faq">
+                    View FAQ Demo
+                  </Link>
+                </div>
+
+                <div className={styles.mini}>
+                  Typical setup: topic + priority + contact → ticket summary. AI can be added later.
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* REQUEST */}
-      <section id="request" className={styles.requestSection}>
-        <div className="container">
-          <div className={`${styles.requestCard} card glow`}>
-            <h2 className={styles.requestTitle}>
-              Want this bot on your website? <span>Let’s build it</span>
-            </h2>
-            <p className={styles.requestText}>
-              I’ll customize the questions, language, and ticket format for your business.
-              Tell me your website link and what you want to collect from customers.
-            </p>
-
-            <div className={styles.requestActions}>
-              <a
-                className={styles.primary}
-                href="https://mail.google.com/mail/?view=cm&fs=1&to=lukas.juodeikis.dev@gmail.com&su=Support%20Bot%20Setup%20Request&body=Hi%20Lukas%2C%0A%0AI%20want%20the%20Support%20Bot%20for%20my%20business.%0A%0AWebsite%3A%20%0AWhat%20services%2Ftopics%3A%20%0AWhat%20should%20it%20collect%3A%20%0ALanguage%3A%20%0A%0AThanks!"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Request setup (email)
-              </a>
-
-              <Link className={styles.ghost} href="/">
-                Back to landing
-              </Link>
-            </div>
-
-            <div className={styles.requestFoot}>
-              Tip: in production, this can send tickets to your inbox/helpdesk automatically.
-            </div>
+          <div className={styles.bottomNav}>
+            <Link className={styles.bottomLink} href="/demo/leads">
+              Next demo: Leads Bot →
+            </Link>
           </div>
         </div>
       </section>
