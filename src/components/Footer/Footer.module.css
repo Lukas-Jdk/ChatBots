@@ -1,0 +1,17 @@
+
+/* FOOTER */
+.footer {
+  padding: 26px 0 34px;
+}
+
+.footerInner {
+  text-align: center;
+  border-top: 1px solid rgba(12,14,18,0.10);
+  padding-top: 18px;
+  color: rgba(var(--fg-rgb), 0.56);
+  font-size: 12px;
+}
+.footerName {
+  font-size: 12px;
+  font-family: var(--font-mono);
+}
