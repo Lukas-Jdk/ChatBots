@@ -25,11 +25,12 @@ export default function LeadsDemoPage() {
           </p>
 
           <div className={styles.grid}>
-            {/* LEFT: Chat demo */}
+            {/* LEFT */}
             <div className={styles.demo}>
               <ChatShell
                 title="Leads Bot"
-                subtitle="Try it: pick options → enter email → (optional) message → summary."
+                subtitle="I’ll ask a few quick questions to see if we’re a good fit."
+                theme="leads"
               >
                 <LeadsBot mode="page" />
               </ChatShell>
@@ -39,7 +40,7 @@ export default function LeadsDemoPage() {
               </div>
             </div>
 
-            {/* RIGHT: Explanation */}
+            {/* RIGHT */}
             <div className={styles.side}>
               <div className={styles.card}>
                 <div className={styles.cardTitle}>What it collects</div>
@@ -58,23 +59,20 @@ export default function LeadsDemoPage() {
                 </p>
               </div>
 
-              <div className={styles.card}>
+              {/* NEXT STEP (narrow width, 1 CTA only) */}
+              <div className={`${styles.card} ${styles.nextCard}`}>
                 <div className={styles.cardTitle}>Next step</div>
                 <p className={styles.cardText}>
-                  Want this customized for your niche? We can adjust questions, routing (CRM/email), and add qualification scoring.
+                  Want this customized for your niche? We can adjust questions, add lead scoring, and route leads to your CRM/email.
                 </p>
 
                 <div className={styles.actions}>
                   <a
-                    className="btn btnPrimary"
-                    href="mailto:lukas.juodeikis.dev@gmail.com?subject=Leads%20Bot%20Chatbot&body=Hi%20Lukas,%0A%0AWebsite:%20%0ABusiness%20type:%20%0AIdeal%20customer:%20%0AWhat%20info%20should%20the%20bot%20collect?%20%0AWhere%20should%20leads%20go%20(email%2FCRM)?%20%0A%0AThanks!"
+                    className={styles.themePrimaryBtn}
+                    href="mailto:lukas.juodeikis.dev@gmail.com?subject=Leads%20Bot%20Chatbot&body=Hi%20Lukas,%0A%0AI%E2%80%99d%20like%20to%20discuss%20a%20Leads%20Bot%20for%20my%20website.%0A%0AWebsite:%20%0ABusiness%20type:%20%0AIdeal%20customer:%20%0AWhat%20info%20should%20the%20bot%20collect?%20%0AWhere%20should%20leads%20go%20(email%2FCRM)?%20%0A%0AThanks!"
                   >
                     Discuss your leads bot
                   </a>
-
-                  <Link className="btn btnSecondary" href="/demo/support">
-                    View Support Demo
-                  </Link>
                 </div>
               </div>
             </div>

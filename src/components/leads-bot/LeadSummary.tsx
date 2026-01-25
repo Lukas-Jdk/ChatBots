@@ -62,7 +62,7 @@ export default function LeadSummary({
       </div>
 
       <button className="btn btnPrimary btnFull" type="button" onClick={onEmailDraft}>
-        Send lead (opens email)
+        Send qualified lead (opens email)
       </button>
 
       <div className={styles.summaryNote}>

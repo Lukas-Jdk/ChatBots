@@ -10,6 +10,7 @@ const items = [
   { label: "FAQ", href: "/demo/faq" },
   { label: "Support", href: "/demo/support" },
   { label: "Leads", href: "/demo/leads" },
+  { label: "Sales", href: "/demo/sales" },
 ] as const;
 
 export default function Nav() {

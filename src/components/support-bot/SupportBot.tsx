@@ -12,9 +12,6 @@ import {
   SUPPORT_TOPICS,
   PRICING_SUBTOPICS,
   TECH_SUBTOPICS,
-  TECH_CONTEXT,
-  COMPANY_SIZE,
-  CONTACT_METHOD,
 } from "@/data/supportFlow";
 
 import styles from "./supportBot.module.css";
@@ -23,26 +20,27 @@ type Step =
   | "topic"
   | "pricing_subtopic"
   | "tech_subtopic"
-  | "tech_context"
-  | "company_size"
   | "priority"
   | "contact_method"
   | "email"
+  | "phone"
   | "message"
   | "done";
 
 type Mode = "embedded" | "page";
+type ContactMethod = "Email" | "Phone call";
 
 export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
   const [step, setStep] = useState<Step>("topic");
 
   const [topic, setTopic] = useState("");
   const [subtopic, setSubtopic] = useState("");
-  const [techContext, setTechContext] = useState("");
-  const [companySize, setCompanySize] = useState("");
   const [priority, setPriority] = useState("");
-  const [contactMethod, setContactMethod] = useState("");
+
+  const [contactMethod, setContactMethod] = useState<ContactMethod | "">("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+
   const [message, setMessage] = useState("");
 
   const [messages, setMessages] = useState<Message[]>(() => [
@@ -69,9 +67,7 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
   const priorityOptions = useMemo(() => [...SUPPORT_PRIORITIES], []);
   const pricingOptions = useMemo(() => [...PRICING_SUBTOPICS], []);
   const techOptions = useMemo(() => [...TECH_SUBTOPICS], []);
-  const techContextOptions = useMemo(() => [...TECH_CONTEXT], []);
-  const companySizeOptions = useMemo(() => [...COMPANY_SIZE], []);
-  const contactMethodOptions = useMemo(() => [...CONTACT_METHOD], []);
+  const contactOptions = useMemo(() => ["Email", "Phone call"] as ContactMethod[], []);
 
   function push(role: "bot" | "user", text: string) {
     setMessages((prev) => [
@@ -84,13 +80,6 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
   function pickTopic(v: string) {
     setTopic(v);
     setSubtopic("");
-    setTechContext("");
-    setCompanySize("");
-    setPriority("");
-    setContactMethod("");
-    setEmail("");
-    setMessage("");
-
     push("user", v);
 
     if (v === "Billing / Pricing") {
@@ -105,69 +94,50 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
       return;
     }
 
-    // For other topics, still add one extra step to make demo richer
-    push("bot", "Thanks — what best describes your business size?");
-    setStep("company_size");
-  }
-
-  // 2a) pricing subtopic -> company size
-  function pickPricingSubtopic(v: string) {
-    setSubtopic(v);
-    push("user", v);
-
-    push("bot", "Thanks — what best describes your business size?");
-    setStep("company_size");
-  }
-
-  // 2b) tech subtopic -> tech context
-  function pickTechSubtopic(v: string) {
-    setSubtopic(v);
-    push("user", v);
-
-    push("bot", "Thanks — where does this happen most often?");
-    setStep("tech_context");
-  }
-
-  // 3) tech context -> company size
-  function pickTechContext(v: string) {
-    setTechContext(v);
-    push("user", v);
-
-    push("bot", "Got it — what best describes your business size?");
-    setStep("company_size");
-  }
-
-  // 4) company size -> urgency
-  function pickCompanySize(v: string) {
-    setCompanySize(v);
-    push("user", v);
-
     push("bot", "Thanks. How urgent is this?");
     setStep("priority");
   }
 
-  // 5) urgency -> contact method
+  // 2a) pricing subtopic
+  function pickPricingSubtopic(v: string) {
+    setSubtopic(v);
+    push("user", v);
+    push("bot", "Thanks. How urgent is this?");
+    setStep("priority");
+  }
+
+  // 2b) tech subtopic
+  function pickTechSubtopic(v: string) {
+    setSubtopic(v);
+    push("user", v);
+    push("bot", "Thanks. How urgent is this?");
+    setStep("priority");
+  }
+
+  // 3) urgency
   function pickPriority(v: string) {
     setPriority(v);
     push("user", v);
-
-    push(
-      "bot",
-      "How would you like us to reply? (Demo note: we’ll collect email either way.)"
-    );
+    push("bot", "How would you like us to contact you?");
     setStep("contact_method");
   }
 
-  // 6) contact method -> email
-  function pickContactMethod(v: string) {
+  // 4) contact method
+  function pickContactMethod(v: ContactMethod) {
     setContactMethod(v);
     push("user", v);
+
+    if (v === "Phone call") {
+      push("bot", "Got it. Please enter your phone number (include country code if possible).");
+      setStep("phone");
+      return;
+    }
 
     push("bot", "Where should we reply? Please enter your email.");
     setStep("email");
   }
 
-  // 7) email -> message
+  // 5a) email
   function submitEmail(v: string) {
     const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
     if (!ok) {
@@ -176,16 +146,28 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
     }
     setEmail(v);
     push("user", v);
-
     push("bot", "Great. Please describe your issue in a few words.");
     setStep("message");
   }
 
-  // 8) message -> done
+  // 5b) phone
+  function submitPhone(v: string) {
+    const cleaned = v.trim();
+    const ok = /^[+\d][\d\s()-]{6,}$/.test(cleaned);
+    if (!ok) {
+      push("bot", "That doesn’t look like a valid phone number. Please try again (e.g. +370 6xx xxxxx).");
+      return;
+    }
+    setPhone(cleaned);
+    push("user", cleaned);
+    push("bot", "Thanks. Please describe your issue in a few words.");
+    setStep("message");
+  }
+
+  // 6) message
   function submitMessage(v: string) {
     setMessage(v);
     push("user", v);
-
     push("bot", "All set — here’s the ticket summary.");
     setStep("done");
   }
@@ -202,15 +184,18 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
 
     const subject = subjectParts.join(" ");
 
+    const contactLine =
+      contactMethod === "Phone call"
+        ? `Phone: ${phone || "(not provided)"}`
+        : `Email: ${email || "(not provided)"}`;
+
     const body =
       `New support request\n\n` +
       `Topic: ${topic}\n` +
       (subtopic ? `Details: ${subtopic}\n` : "") +
-      (techContext ? `Context: ${techContext}\n` : "") +
-      (companySize ? `Company size: ${companySize}\n` : "") +
       `Urgency: ${priority}\n` +
-      (contactMethod ? `Preferred contact: ${contactMethod}\n` : "") +
-      `Email: ${email}\n\n` +
+      `Preferred contact: ${contactMethod || "Email"}\n` +
+      `${contactLine}\n\n` +
       `Message:\n${message}\n\n` +
       `---\nSent from Support Assistant Bot demo.`;
 
@@ -227,11 +212,10 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
     setStep("topic");
     setTopic("");
     setSubtopic("");
-    setTechContext("");
-    setCompanySize("");
     setPriority("");
     setContactMethod("");
     setEmail("");
+    setPhone("");
     setMessage("");
 
     setMessages([
@@ -252,54 +236,34 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
 
         {step === "topic" && (
           <div className={styles.botTools}>
-            <QuickReplies variant="topic" options={topicOptions as unknown as string[]} onPick={pickTopic} />
+            <QuickReplies options={topicOptions as unknown as string[]} onPick={pickTopic} />
           </div>
         )}
 
         {step === "pricing_subtopic" && (
           <div className={styles.botTools}>
-            <QuickReplies variant="pricing" options={pricingOptions as unknown as string[]} onPick={pickPricingSubtopic} />
+            <QuickReplies options={pricingOptions as unknown as string[]} onPick={pickPricingSubtopic} />
           </div>
         )}
 
         {step === "tech_subtopic" && (
           <div className={styles.botTools}>
-            <QuickReplies variant="tech" options={techOptions as unknown as string[]} onPick={pickTechSubtopic} />
-          </div>
-        )}
-
-        {step === "tech_context" && (
-          <div className={styles.botTools}>
-            <QuickReplies
-              variant="tech"
-              options={techContextOptions as unknown as string[]}
-              onPick={pickTechContext}
-            />
-          </div>
-        )}
-
-        {step === "company_size" && (
-          <div className={styles.botTools}>
-            <QuickReplies
-              variant="pricing"
-              options={companySizeOptions as unknown as string[]}
-              onPick={pickCompanySize}
-            />
+            <QuickReplies options={techOptions as unknown as string[]} onPick={pickTechSubtopic} />
           </div>
         )}
 
         {step === "priority" && (
           <div className={styles.botTools}>
-            <QuickReplies variant="priority" options={priorityOptions as unknown as string[]} onPick={pickPriority} />
+            <QuickReplies options={priorityOptions as unknown as string[]} onPick={pickPriority} />
           </div>
         )}
 
+        {/* ✅ FIX: onPick gauna string, mes konvertuojam į ContactMethod */}
         {step === "contact_method" && (
           <div className={styles.botTools}>
             <QuickReplies
-              variant="pricing"
-              options={contactMethodOptions as unknown as string[]}
-              onPick={pickContactMethod}
+              options={contactOptions as unknown as string[]}
+              onPick={(v) => pickContactMethod(v as ContactMethod)}
             />
           </div>
         )}
@@ -308,14 +272,16 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
           <div className={styles.botTools}>
             <TicketSummary
               topic={topic}
+              subtopic={subtopic}
               priority={priority}
+              contactMethod={(contactMethod || "Email") as "Email" | "Phone call"}
               email={email}
+              phone={phone}
               message={message}
               onEmailDraft={openEmailDraft}
-              subtopic={subtopic}
             />
 
-            <button className="btn btnGhost btnFull" type="button" onClick={reset}>
+            <button className={styles.ghostBtn} type="button" onClick={reset}>
               Restart demo
             </button>
           </div>
@@ -326,8 +292,12 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
         <ChatInput placeholder="your@email.com" type="email" onSend={submitEmail} />
       )}
 
+      {step === "phone" && (
+        <ChatInput placeholder="e.g. +370 6xx xxxxx" onSend={submitPhone} />
+      )}
+
       {step === "message" && (
-        <ChatInput placeholder='e.g. "I need custom pricing for a small team"' onSend={submitMessage} />
+        <ChatInput placeholder='e.g. "I can’t log in to my account"' onSend={submitMessage} />
       )}
     </div>
   );

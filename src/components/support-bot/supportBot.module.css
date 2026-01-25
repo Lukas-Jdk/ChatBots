@@ -258,3 +258,28 @@
   font-size: 11px;
   color: var(--color-text-muted);
 }
+
+/* =========================
+   CHAT THEMES
+========================= */
+
+.theme_support .shellHeader {
+  background: linear-gradient(135deg, var(--support-from), var(--support-to));
+}
+
+.theme_leads .shellHeader {
+  background: linear-gradient(135deg, var(--leads-from), var(--leads-to));
+}
+
+.theme_sales .shellHeader {
+  background: linear-gradient(135deg, var(--sales-from), var(--sales-to));
+}
+
+/* user bubble per tema */
+.theme_leads .bubbleUser {
+  background: linear-gradient(135deg, var(--leads-from), var(--leads-to));
+}
+
+.theme_sales .bubbleUser {
+  background: linear-gradient(135deg, var(--sales-from), var(--sales-to));
+}

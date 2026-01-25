@@ -5,23 +5,25 @@ export default function TicketSummary({
   topic,
   subtopic,
   priority,
+  contactMethod,
   email,
+  phone,
   message,
   onEmailDraft,
 }: {
   topic: string;
   subtopic?: string;
   priority: string;
+  contactMethod: "Email" | "Phone call";
   email: string;
+  phone: string;
   message: string;
   onEmailDraft: () => void;
 }) {
+  const contactValue = contactMethod === "Phone call" ? phone : email;
+
   return (
-    <div
-      className={styles.summaryCard}
-      role="region"
-      aria-label="Ticket summary"
-    >
+    <div className={styles.summaryCard} role="region" aria-label="Ticket summary">
       <div className={styles.summaryTitle}>Ticket Summary</div>
 
       <div className={styles.summaryGrid}>
@@ -43,8 +45,10 @@ export default function TicketSummary({
         </div>
 
         <div className={styles.summaryItem}>
-          <div className={styles.summaryLabel}>Email</div>
-          <div className={styles.summaryValue}>{email}</div>
+          <div className={styles.summaryLabel}>Contact</div>
+          <div className={styles.summaryValue}>
+            {contactMethod} {contactValue ? `— ${contactValue}` : ""}
+          </div>
         </div>
       </div>
 
@@ -53,17 +57,12 @@ export default function TicketSummary({
         <div className={styles.summaryValue}>{message}</div>
       </div>
 
-      <button
-        className="btn btnPrimary btnFull"
-        type="button"
-        onClick={onEmailDraft}
-      >
+      <button className={styles.primaryBtn} type="button" onClick={onEmailDraft}>
         Send to support (opens email)
       </button>
 
       <div className={styles.summaryNote}>
-        Demo: this opens a pre-filled email draft. In production you’d send this
-        to your helpdesk.
+        Demo: this opens a pre-filled email draft. In production you’d route this to inbox/helpdesk and call if needed.
       </div>
     </div>
   );

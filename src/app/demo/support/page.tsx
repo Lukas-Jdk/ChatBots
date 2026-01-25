@@ -31,6 +31,7 @@ export default function SupportDemoPage() {
               <ChatShell
                 title="Support Assistant"
                 subtitle="Try it: pick a topic → set urgency → enter email → describe the issue."
+                theme="support"
               >
                 <SupportBot mode="page" />
               </ChatShell>
@@ -62,7 +63,8 @@ export default function SupportDemoPage() {
                 </div>
               </div>
 
-              <div className={styles.card}>
+              {/* Next step – siauresne kortele */}
+              <div className={`${styles.card} ${styles.nextCard}`}>
                 <div className={styles.cardTitle}>Next step</div>
                 <p className={styles.cardText}>
                   Want this customized for your business? I can adapt questions, tone, and routing (email/helpdesk/CRM).
@@ -70,15 +72,11 @@ export default function SupportDemoPage() {
 
                 <div className={styles.actions}>
                   <a
-                    className="btn btnPrimary"
+                    className={styles.themePrimaryBtn}
                     href="mailto:lukas.juodeikis.dev@gmail.com?subject=Support%20Assistant%20Chatbot&body=Hi%20Lukas,%0A%0AWebsite:%20%0ABusiness%20type:%20%0AWhat%20support%20requests%20do%20you%20get%20most%20often?%20%0AWhere%20should%20tickets%20go%20(email%2Fhelpdesk%2FCRM)?%20%0A%0AThanks!"
                   >
                     Discuss your chatbot
                   </a>
-
-                  <Link className="btn btnSecondary" href="/demo/faq">
-                    View FAQ Demo
-                  </Link>
                 </div>
 
                 <div className={styles.mini}>

@@ -13,7 +13,7 @@
   );
 
   --color-text-main: #1f2937;
-  --color-text-muted: #6b7280;
+  --color-text-muted: #34373d;
 
   --color-border-soft: #e5e7f2;
 
@@ -29,6 +29,23 @@
   --color-chat-input-bg: #f9fafb;
 
   --color-live-badge: #3b82f6;
+
+  /* =========================
+   BOT THEMES
+========================= */
+
+/* SUPPORT (blue – default) */
+--support-from: #4f8cff;
+--support-to: #6b6dff;
+
+/* LEADS (green) */
+--leads-from: #22c55e;
+--leads-to: #16a34a;
+
+/* SALES (orange) */
+--sales-from: #f59e0b;
+--sales-to: #ea580c;
+
 
   /* =========================
      TOPIC TAGAI (pill buttons) — GRADIENTAI
@@ -76,7 +93,7 @@
   --urgency-high-text: #ffffff;
 
 /* =========================
-     SUBTOPIC QUICK REPLIES (gradientai)
+     SUBTOPIC QUICK REPLIES 
   ========================= */
 
   /* Tech subtopics */
@@ -114,7 +131,7 @@
   --card-great-bg: linear-gradient(135deg, #f3e8ff, #fdf4ff);
   --card-next-bg: linear-gradient(135deg, #eafff1, #f3fff8);
 
-  /* Header juostos (kaip screenshot’e) */
+  /* Header juostos  */
   --card-info-head: linear-gradient(135deg, rgba(79, 140, 255, 0.35), rgba(107, 109, 255, 0.22));
   --card-great-head: linear-gradient(135deg, rgba(168, 85, 247, 0.28), rgba(236, 72, 153, 0.18));
   --card-next-head: linear-gradient(135deg, rgba(34, 197, 94, 0.26), rgba(16, 185, 129, 0.18));
