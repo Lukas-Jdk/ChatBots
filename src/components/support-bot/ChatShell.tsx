@@ -22,11 +22,7 @@ export default function ChatShell({
       <header className={styles.shellHeader}>
         <div className={styles.shellTitleRow}>
           <div className={styles.shellTitle}>{title}</div>
-          <div className={styles.pillLive}>
-            {theme === "support" && "SUPPORT FLOW"}
-            {theme === "leads" && "LEAD QUALIFICATION"}
-            {theme === "sales" && "RECOMMENDATION"}
-          </div>
+       
         </div>
         {subtitle ? <div className={styles.shellSub}>{subtitle}</div> : null}
       </header>

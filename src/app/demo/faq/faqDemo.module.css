@@ -5,7 +5,7 @@
 
 .nextCard {
   display: grid;
-  grid-template-columns: 1.25fr 0.75fr;
+  grid-template-columns: 1.25fr .75fr;
   gap: 18px;
   align-items: center;
 
@@ -101,12 +101,6 @@
   transform: translateY(-1px);
   background: rgba(var(--accent-rgb), 0.06);
   border-color: rgba(var(--accent-rgb), 0.22);
-}
-
-.nextNote {
-  font-size: 12px;
-  color: rgba(0,0,0,0.50);
-  text-align: center;
 }
 
 @media (max-width: 860px) {

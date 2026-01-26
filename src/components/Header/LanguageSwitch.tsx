@@ -4,16 +4,14 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import styles from "./header.module.css";
+import type { Lang } from "@/i18n/translations";
 
-type Lang = "en" | "lt" | "no";
+const STORAGE_KEY = "ljd_lang";
 
 const LANGS = [
   { code: "en", label: "EN", name: "English", flag: "/flags/en.webp" },
   { code: "lt", label: "LT", name: "Lietuvių", flag: "/flags/lt.webp" },
-  { code: "no", label: "NO", name: "Norsk", flag: "/flags/no.webp" },
 ] as const;
-
-const STORAGE_KEY = "ljd_lang";
 
 export default function LanguageSwitch() {
   const [open, setOpen] = useState(false);
@@ -22,9 +20,8 @@ export default function LanguageSwitch() {
 
   useEffect(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved === "en" || saved === "lt" || saved === "no") {
-      setLang(saved);
-    }
+    if (saved === "en" || saved === "lt") setLang(saved);
+    else localStorage.setItem(STORAGE_KEY, "en");
   }, []);
 
   useEffect(() => {
@@ -35,11 +32,14 @@ export default function LanguageSwitch() {
     return () => document.removeEventListener("mousedown", onClick);
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, lang);
-  }, [lang]);
+  const current = LANGS.find((l) => l.code === lang) ?? LANGS[0];
 
-  const current = LANGS.find((l) => l.code === lang)!;
+  function choose(next: Lang) {
+    localStorage.setItem(STORAGE_KEY, next);
+    setLang(next);
+    setOpen(false);
+    window.location.reload();
+  }
 
   return (
     <div className={styles.langWrap} ref={ref}>
@@ -69,10 +69,7 @@ export default function LanguageSwitch() {
                 className={`${styles.langItem} ${
                   active ? styles.langItemActive : ""
                 }`}
-                onClick={() => {
-                  setLang(l.code);
-                  setOpen(false);
-                }}
+                onClick={() => choose(l.code)}
               >
                 <Image
                   src={l.flag}

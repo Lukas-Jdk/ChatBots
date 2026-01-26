@@ -5,16 +5,21 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styles from "./header.module.css";
 
-const items = [
-  { label: "Home", href: "/" },
-  { label: "FAQ", href: "/demo/faq" },
-  { label: "Support", href: "/demo/support" },
-  { label: "Leads", href: "/demo/leads" },
-  { label: "Sales", href: "/demo/sales" },
-] as const;
+import { useLang } from "@/i18n/useLang";
+import { t } from "@/i18n/translations";
 
 export default function Nav() {
   const pathname = usePathname();
+  const lang = useLang();
+  const tr = t(lang);
+
+  const items = [
+    { label: tr.nav.home, href: "/" },
+    { label: tr.nav.faq, href: "/demo/faq" },
+    { label: tr.nav.support, href: "/demo/support" },
+    { label: tr.nav.leads, href: "/demo/leads" },
+    { label: tr.nav.sales, href: "/demo/sales" },
+  ] as const;
 
   return (
     <nav className={styles.nav} aria-label="Primary">

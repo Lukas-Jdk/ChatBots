@@ -1,7 +1,7 @@
 /* src/app/demo/support/supportDemo.module.css */
 
 .page {
-  padding: 24px 0 70px;
+  padding: 14px 0 70px;
 }
 
 .hero {
@@ -66,7 +66,7 @@
 
 .sub {
   margin: 12px 0 0;
-  max-width: 75ch;
+  max-width: 85ch;
   font-size: 15px;
   line-height: 1.7;
   color: var(--color-text-muted);
@@ -127,12 +127,12 @@
 
 .card:nth-child(2) {
   grid-column: 2 / 3;
-  background: var(--card-great-bg);
+  background: var(--card-info-bg);
 }
 
 .card:nth-child(3) {
   grid-column: 1 / -1;
-  background: var(--card-next-bg);
+  background: var(--card-info-bg);
 }
 
 /* Next step – siauresnė per plotį */
@@ -191,8 +191,8 @@
   padding: 8px 12px;
   border-radius: var(--radius-pill);
   font-size: 12px;
-  font-weight: 900;
-  color: #fff;
+  font-weight: 600;
+  color: #ffffff;
   border: 1px solid rgba(255, 255, 255, 0.0);
   white-space: nowrap;
 }
@@ -208,7 +208,7 @@
 .actions {
   margin-top: 12px;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
 }
 
 .themePrimaryBtn {
@@ -216,14 +216,14 @@
   align-items: center;
   justify-content: center;
 
-  max-width: 200px;
+  max-width: 250px;
   width: 100%;
 
   padding: 12px 14px;
   border-radius: var(--radius-lg);
 
-  font-weight: 900;
-  font-size: 13px;
+  font-weight: 700;
+  font-size: 15px;
   text-decoration: none;
 
   color: #fff;
