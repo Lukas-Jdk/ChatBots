@@ -1,49 +1,47 @@
-// src/data/salesFlow.ts
-
 export const SALES_GOALS = [
-  "Get more leads",
-  "Reduce support workload",
-  "Increase sales conversions",
-  "Automate bookings",
+  { id: "more_leads", key: "more_leads" },
+  { id: "reduce_support", key: "reduce_support" },
+  { id: "increase_conversions", key: "increase_conversions" },
+  { id: "automate_bookings", key: "automate_bookings" },
 ] as const;
 
 export const TRAFFIC_LEVELS = [
-  "Low (0–500/month)",
-  "Medium (500–5k/month)",
-  "High (5k+/month)",
-  "Not sure",
+  { id: "low", key: "low" },
+  { id: "medium", key: "medium" },
+  { id: "high", key: "high" },
+  { id: "not_sure", key: "not_sure" },
 ] as const;
 
 export const SALES_CHANNELS = [
-  "Website only",
-  "Website + ads",
-  "Website + social",
-  "Multiple channels",
+  { id: "website_only", key: "website_only" },
+  { id: "website_ads", key: "website_ads" },
+  { id: "website_social", key: "website_social" },
+  { id: "multiple", key: "multiple" },
 ] as const;
 
 export const CRM_STATUS = [
-  "No CRM yet",
-  "Using a spreadsheet",
-  "Have a CRM (HubSpot, Pipedrive, etc.)",
-  "Not sure",
+  { id: "no_crm", key: "no_crm" },
+  { id: "spreadsheet", key: "spreadsheet" },
+  { id: "have_crm", key: "have_crm" },
+  { id: "not_sure", key: "not_sure" },
 ] as const;
 
 export const HANDOFF_PREF = [
-  "Book a call",
-  "Start with a demo/trial",
-  "Send a message first",
+  { id: "book_call", key: "book_call" },
+  { id: "demo_trial", key: "demo_trial" },
+  { id: "message_first", key: "message_first" },
 ] as const;
 
 export const LANGUAGE_NEEDS = [
-  "English only",
-  "English + one more",
-  "Multiple languages",
-  "Not sure",
+  { id: "en_only", key: "en_only" },
+  { id: "en_plus_one", key: "en_plus_one" },
+  { id: "multi", key: "multi" },
+  { id: "not_sure", key: "not_sure" },
 ] as const;
 
-export type SalesGoal = (typeof SALES_GOALS)[number];
-export type TrafficLevel = (typeof TRAFFIC_LEVELS)[number];
-export type SalesChannel = (typeof SALES_CHANNELS)[number];
-export type CrmStatus = (typeof CRM_STATUS)[number];
-export type HandoffPref = (typeof HANDOFF_PREF)[number];
-export type LanguageNeeds = (typeof LANGUAGE_NEEDS)[number];
+export type SalesGoalId = (typeof SALES_GOALS)[number]["id"];
+export type TrafficLevelId = (typeof TRAFFIC_LEVELS)[number]["id"];
+export type SalesChannelId = (typeof SALES_CHANNELS)[number]["id"];
+export type CrmStatusId = (typeof CRM_STATUS)[number]["id"];
+export type HandoffPrefId = (typeof HANDOFF_PREF)[number]["id"];
+export type LanguageNeedsId = (typeof LANGUAGE_NEEDS)[number]["id"];

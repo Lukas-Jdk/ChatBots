@@ -30,21 +30,12 @@ export default function FaqDemoPage() {
               </div>
 
               <div className={styles.nextRight}>
-                <a
-                  className={styles.nextPrimary}
-                  href="mailto:lukas.juodeikis.dev@gmail.com?subject=Chatbot%20Recommendation"
-                >
+                <Link href="/demo/sales" className="btn btnPrimary">
                   {tr.faq.nextPrimary}
-                </a>
-
-                <Link className={styles.nextSecondary} href="/demo/sales">
-                  {tr.faq.nextSecondary}
                 </Link>
-
               </div>
             </div>
           </div>
-
         </div>
       </section>
     </main>

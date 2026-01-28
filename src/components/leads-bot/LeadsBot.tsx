@@ -1,11 +1,10 @@
 // src/components/leads-bot/LeadsBot.tsx
 "use client";
 
-// src/components/leads-bot/LeadsBot.tsx
 import { useEffect, useMemo, useRef, useState } from "react";
 import ChatMessage, { type Message } from "@/components/support-bot/ChatMessage";
 import ChatInput from "@/components/support-bot/ChatInput";
-import QuickReplies from "@/components/support-bot/QuickReplies";
+import QuickReplies, { type QuickOption } from "@/components/support-bot/QuickReplies";
 import LeadSummary from "./LeadSummary";
 
 import {
@@ -14,7 +13,15 @@ import {
   COMPANY_SIZES,
   TIMEFRAMES,
   BUDGET_RANGES,
+  type BudgetRangeId,
+  type BusinessTypeId,
+  type CompanySizeId,
+  type LeadIntentId,
+  type TimeframeId,
 } from "@/data/leadsFlow";
+
+import { useLang } from "@/i18n/useLang";
+import { t } from "@/i18n/translations";
 
 import styles from "@/components/support-bot/supportBot.module.css";
 
@@ -31,13 +38,17 @@ type Step =
 type Mode = "embedded" | "page";
 
 export default function LeadsBot({ mode = "page" }: { mode?: Mode }) {
+  const lang = useLang();
+  const tr = t(lang);
+
   const [step, setStep] = useState<Step>("intent");
 
-  const [intent, setIntent] = useState("");
-  const [businessType, setBusinessType] = useState("");
-  const [companySize, setCompanySize] = useState("");
-  const [timeframe, setTimeframe] = useState("");
-  const [budget, setBudget] = useState("");
+  const [intentId, setIntentId] = useState<LeadIntentId | "">("");
+  const [businessId, setBusinessId] = useState<BusinessTypeId | "">("");
+  const [sizeId, setSizeId] = useState<CompanySizeId | "">("");
+  const [timeframeId, setTimeframeId] = useState<TimeframeId | "">("");
+  const [budgetId, setBudgetId] = useState<BudgetRangeId | "">("");
+
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
@@ -45,10 +56,7 @@ export default function LeadsBot({ mode = "page" }: { mode?: Mode }) {
     {
       id: "m1",
       role: "bot",
-      text:
-        mode === "embedded"
-          ? "Hi! I’m the Leads Bot demo. What are you looking for?"
-          : "Welcome! I’m the Leads Bot demo. What are you looking for?",
+      text: mode === "embedded" ? tr.leadsBot.welcomeEmbedded : tr.leadsBot.welcome,
     },
   ]);
 
@@ -61,11 +69,19 @@ export default function LeadsBot({ mode = "page" }: { mode?: Mode }) {
     });
   }, [messages, step]);
 
-  const intentOptions = useMemo(() => [...LEAD_INTENTS], []);
-  const businessOptions = useMemo(() => [...BUSINESS_TYPES], []);
-  const sizeOptions = useMemo(() => [...COMPANY_SIZES], []);
-  const timeframeOptions = useMemo(() => [...TIMEFRAMES], []);
-  const budgetOptions = useMemo(() => [...BUDGET_RANGES], []);
+  useEffect(() => {
+  if (step === "intent" && messages.length === 1) {
+    setMessages([
+      {
+        id: "m1",
+        role: "bot",
+        text: mode === "embedded" ? tr.leadsBot.welcomeEmbedded : tr.leadsBot.welcome,
+      },
+    ]);
+  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [lang]);
+
 
   function push(role: "bot" | "user", text: string) {
     setMessages((prev) => [
@@ -74,84 +90,118 @@ export default function LeadsBot({ mode = "page" }: { mode?: Mode }) {
     ]);
   }
 
-  function pickIntent(v: string) {
-    setIntent(v);
-    push("user", v);
+  const intentOptions: QuickOption[] = useMemo(
+    () => LEAD_INTENTS.map((x) => ({ id: x.id, label: tr.leadsBot.intents[x.key] })),
+    [tr]
+  );
+  const businessOptions: QuickOption[] = useMemo(
+    () => BUSINESS_TYPES.map((x) => ({ id: x.id, label: tr.leadsBot.businessTypes[x.key] })),
+    [tr]
+  );
+  const sizeOptions: QuickOption[] = useMemo(
+    () => COMPANY_SIZES.map((x) => ({ id: x.id, label: tr.leadsBot.companySizes[x.key] })),
+    [tr]
+  );
+  const timeframeOptions: QuickOption[] = useMemo(
+    () => TIMEFRAMES.map((x) => ({ id: x.id, label: tr.leadsBot.timeframes[x.key] })),
+    [tr]
+  );
+  const budgetOptions: QuickOption[] = useMemo(
+    () => BUDGET_RANGES.map((x) => ({ id: x.id, label: tr.leadsBot.budgets[x.key] })),
+    [tr]
+  );
 
-    push("bot", "Nice — what type of business is this?");
+  const labelIntent = (id: LeadIntentId | "") =>
+    id ? tr.leadsBot.intents[LEAD_INTENTS.find((x) => x.id === id)!.key] : "";
+  const labelBusiness = (id: BusinessTypeId | "") =>
+    id ? tr.leadsBot.businessTypes[BUSINESS_TYPES.find((x) => x.id === id)!.key] : "";
+  const labelSize = (id: CompanySizeId | "") =>
+    id ? tr.leadsBot.companySizes[COMPANY_SIZES.find((x) => x.id === id)!.key] : "";
+  const labelTimeframe = (id: TimeframeId | "") =>
+    id ? tr.leadsBot.timeframes[TIMEFRAMES.find((x) => x.id === id)!.key] : "";
+  const labelBudget = (id: BudgetRangeId | "") =>
+    id ? tr.leadsBot.budgets[BUDGET_RANGES.find((x) => x.id === id)!.key] : "";
+
+  function pickIntent(id: string) {
+    const v = id as LeadIntentId;
+    setIntentId(v);
+    push("user", labelIntent(v));
+    push("bot", tr.leadsBot.askBusiness);
     setStep("business");
   }
 
-  function pickBusiness(v: string) {
-    setBusinessType(v);
-    push("user", v);
-
-    push("bot", "Got it. What’s your company size?");
+  function pickBusiness(id: string) {
+    const v = id as BusinessTypeId;
+    setBusinessId(v);
+    push("user", labelBusiness(v));
+    push("bot", tr.leadsBot.askSize);
     setStep("size");
   }
 
-  function pickSize(v: string) {
-    setCompanySize(v);
-    push("user", v);
-
-    push("bot", "When do you want to start?");
+  function pickSize(id: string) {
+    const v = id as CompanySizeId;
+    setSizeId(v);
+    push("user", labelSize(v));
+    push("bot", tr.leadsBot.askTimeframe);
     setStep("timeframe");
   }
 
-  function pickTimeframe(v: string) {
-    setTimeframe(v);
-    push("user", v);
-
-    push("bot", "What budget range are you thinking?");
+  function pickTimeframe(id: string) {
+    const v = id as TimeframeId;
+    setTimeframeId(v);
+    push("user", labelTimeframe(v));
+    push("bot", tr.leadsBot.askBudget);
     setStep("budget");
   }
 
-  function pickBudget(v: string) {
-    setBudget(v);
-    push("user", v);
-
-    push("bot", "Perfect. Where should we contact you? (enter your email)");
+  function pickBudget(id: string) {
+    const v = id as BudgetRangeId;
+    setBudgetId(v);
+    push("user", labelBudget(v));
+    push("bot", tr.leadsBot.askEmail);
     setStep("email");
   }
 
   function submitEmail(v: string) {
     const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
     if (!ok) {
-      push("bot", "That email doesn’t look right. Please enter a valid email.");
+      push("bot", tr.leadsBot.invalidEmail);
       return;
     }
 
     setEmail(v);
     push("user", v);
 
-    push("bot", "Optional: add a short message (or just type “skip”).");
+    push("bot", tr.leadsBot.askMessage);
     setStep("message");
   }
 
   function submitMessage(v: string) {
-    const cleaned = v.trim().toLowerCase() === "skip" ? "" : v.trim();
+    const cleaned = v.trim().toLowerCase() === tr.leadsBot.skipKeyword ? "" : v.trim();
     setMessage(cleaned);
 
-    push("user", cleaned || "skip");
-    push("bot", "Thanks! Here’s the summary of your lead.");
+    push("user", cleaned || tr.leadsBot.skipped);
+    push("bot", tr.leadsBot.done);
     setStep("done");
   }
 
   function openEmailDraft() {
     const to = "lukas.juodeikis.dev@gmail.com";
 
-    const subject = `[New Lead] ${intent} — ${businessType} — ${timeframe}`;
+    const subject = `${tr.leadsBot.emailSubjectPrefix} ${labelIntent(intentId as LeadIntentId)} — ${labelBusiness(
+      businessId as BusinessTypeId
+    )} — ${labelTimeframe(timeframeId as TimeframeId)}`;
 
     const body =
-      `New lead from Leads Bot demo\n\n` +
-      `Looking for: ${intent}\n` +
-      `Business type: ${businessType}\n` +
-      `Company size: ${companySize}\n` +
-      `Timeframe: ${timeframe}\n` +
-      `Budget: ${budget}\n` +
-      `Email: ${email}\n\n` +
-      `Optional message:\n${message || "—"}\n\n` +
-      `---\nSent from Leads Bot demo.`;
+      `${tr.leadsBot.emailBodyTitle}\n\n` +
+      `${tr.leadsBot.summary.lookingFor}: ${labelIntent(intentId as LeadIntentId)}\n` +
+      `${tr.leadsBot.summary.businessType}: ${labelBusiness(businessId as BusinessTypeId)}\n` +
+      `${tr.leadsBot.summary.companySize}: ${labelSize(sizeId as CompanySizeId)}\n` +
+      `${tr.leadsBot.summary.timeframe}: ${labelTimeframe(timeframeId as TimeframeId)}\n` +
+      `${tr.leadsBot.summary.budget}: ${labelBudget(budgetId as BudgetRangeId)}\n` +
+      `${tr.leadsBot.summary.email}: ${email}\n\n` +
+      `${tr.leadsBot.summary.optionalMessage}:\n${message || "—"}\n\n` +
+      `---\n${tr.leadsBot.sentFrom}`;
 
     const url =
       "https://mail.google.com/mail/?view=cm&fs=1" +
@@ -164,11 +214,11 @@ export default function LeadsBot({ mode = "page" }: { mode?: Mode }) {
 
   function reset() {
     setStep("intent");
-    setIntent("");
-    setBusinessType("");
-    setCompanySize("");
-    setTimeframe("");
-    setBudget("");
+    setIntentId("");
+    setBusinessId("");
+    setSizeId("");
+    setTimeframeId("");
+    setBudgetId("");
     setEmail("");
     setMessage("");
 
@@ -176,10 +226,16 @@ export default function LeadsBot({ mode = "page" }: { mode?: Mode }) {
       {
         id: "m1",
         role: "bot",
-        text: "Hi! I’m the Leads Bot demo. What are you looking for?",
+        text: mode === "embedded" ? tr.leadsBot.welcomeEmbedded : tr.leadsBot.welcome,
       },
     ]);
   }
+
+  const intent = labelIntent(intentId as LeadIntentId);
+  const businessType = labelBusiness(businessId as BusinessTypeId);
+  const companySize = labelSize(sizeId as CompanySizeId);
+  const timeframe = labelTimeframe(timeframeId as TimeframeId);
+  const budget = labelBudget(budgetId as BudgetRangeId);
 
   return (
     <div className={styles.botWrap} data-mode={mode}>
@@ -190,31 +246,31 @@ export default function LeadsBot({ mode = "page" }: { mode?: Mode }) {
 
         {step === "intent" && (
           <div className={styles.botTools}>
-            <QuickReplies options={intentOptions as unknown as string[]} onPick={pickIntent} />
+            <QuickReplies options={intentOptions} onPick={pickIntent} />
           </div>
         )}
 
         {step === "business" && (
           <div className={styles.botTools}>
-            <QuickReplies options={businessOptions as unknown as string[]} onPick={pickBusiness} />
+            <QuickReplies options={businessOptions} onPick={pickBusiness} />
           </div>
         )}
 
         {step === "size" && (
           <div className={styles.botTools}>
-            <QuickReplies options={sizeOptions as unknown as string[]} onPick={pickSize} />
+            <QuickReplies options={sizeOptions} onPick={pickSize} />
           </div>
         )}
 
         {step === "timeframe" && (
           <div className={styles.botTools}>
-            <QuickReplies options={timeframeOptions as unknown as string[]} onPick={pickTimeframe} />
+            <QuickReplies options={timeframeOptions} onPick={pickTimeframe} />
           </div>
         )}
 
         {step === "budget" && (
           <div className={styles.botTools}>
-            <QuickReplies options={budgetOptions as unknown as string[]} onPick={pickBudget} />
+            <QuickReplies options={budgetOptions} onPick={pickBudget} />
           </div>
         )}
 
@@ -231,19 +287,19 @@ export default function LeadsBot({ mode = "page" }: { mode?: Mode }) {
               onEmailDraft={openEmailDraft}
             />
 
-            <button className="btn btnGhost btnFull" type="button" onClick={reset}>
-              Restart demo
+            <button className="btn btnGhost btnBlock" type="button" onClick={reset}>
+              {tr.leadsBot.restart}
             </button>
           </div>
         )}
       </div>
 
       {step === "email" && (
-        <ChatInput placeholder="your@email.com" type="email" onSend={submitEmail} />
+        <ChatInput placeholder={tr.leadsBot.emailPlaceholder} type="email" onSend={submitEmail} />
       )}
 
       {step === "message" && (
-        <ChatInput placeholder='Type a short note (or "skip")' onSend={submitMessage} />
+        <ChatInput placeholder={tr.leadsBot.messagePlaceholder} onSend={submitMessage} />
       )}
     </div>
   );

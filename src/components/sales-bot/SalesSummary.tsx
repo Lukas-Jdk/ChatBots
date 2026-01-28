@@ -68,7 +68,7 @@ export default function SalesSummary({
         <div className={styles.summaryValue}>{email}</div>
       </div>
 
-      <button className="btn btnPrimary btnFull" type="button" onClick={onEmailDraft}>
+      <button className="btn btnPrimary btnBlock" type="button" onClick={onEmailDraft}>
         Send setup recommendation (opens email)
       </button>
 

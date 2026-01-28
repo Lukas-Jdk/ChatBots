@@ -22,14 +22,7 @@ export default function Page() {
             </h1>
             <p className={styles.sub}>{tr.home.sub}</p>
 
-            <div className={styles.heroCtas}>
-              {/* <a className={styles.primaryBtn} href="#bots">
-              
-              </a>
-              <a className={styles.secondaryBtn} href="#why">
-                {tr.home.ctaSecondary}
-              </a> */}
-            </div>
+            <div className={styles.heroCtas}></div>
           </div>
 
           <div className={styles.heroImageWrap} aria-hidden="true">
@@ -45,50 +38,72 @@ export default function Page() {
 
           <div id="bots" className={styles.botCards}>
             <Link className={styles.botCard} href="/demo/faq">
-              <div className={styles.botCardTitle}>{tr.home.cards.faq.title}</div>
+              <div className={styles.botCardTitle}>
+                {tr.home.cards.faq.title}
+              </div>
               <div className={styles.botCardType}>{tr.home.cards.faq.type}</div>
               <ul className={styles.botCardList}>
                 <li>{tr.home.cards.faq.b1}</li>
                 <li>{tr.home.cards.faq.b2}</li>
                 <li>{tr.home.cards.faq.b3}</li>
               </ul>
-              <div className={styles.botCardTagline}>{tr.home.cards.faq.tagline}</div>
+              <div className={styles.botCardTagline}>
+                {tr.home.cards.faq.tagline}
+              </div>
               <div className={styles.learnMore}>{tr.home.learnMore}</div>
             </Link>
 
             <Link className={styles.botCard} href="/demo/support">
-              <div className={styles.botCardTitle}>{tr.home.cards.support.title}</div>
-              <div className={styles.botCardType}>{tr.home.cards.support.type}</div>
+              <div className={styles.botCardTitle}>
+                {tr.home.cards.support.title}
+              </div>
+              <div className={styles.botCardType}>
+                {tr.home.cards.support.type}
+              </div>
               <ul className={styles.botCardList}>
                 <li>{tr.home.cards.support.b1}</li>
                 <li>{tr.home.cards.support.b2}</li>
                 <li>{tr.home.cards.support.b3}</li>
               </ul>
-              <div className={styles.botCardTagline}>{tr.home.cards.support.tagline}</div>
+              <div className={styles.botCardTagline}>
+                {tr.home.cards.support.tagline}
+              </div>
               <div className={styles.learnMore}>{tr.home.learnMore}</div>
             </Link>
 
             <Link className={styles.botCard} href="/demo/leads">
-              <div className={styles.botCardTitle}>{tr.home.cards.leads.title}</div>
-              <div className={styles.botCardType}>{tr.home.cards.leads.type}</div>
+              <div className={styles.botCardTitle}>
+                {tr.home.cards.leads.title}
+              </div>
+              <div className={styles.botCardType}>
+                {tr.home.cards.leads.type}
+              </div>
               <ul className={styles.botCardList}>
                 <li>{tr.home.cards.leads.b1}</li>
                 <li>{tr.home.cards.leads.b2}</li>
                 <li>{tr.home.cards.leads.b3}</li>
               </ul>
-              <div className={styles.botCardTagline}>{tr.home.cards.leads.tagline}</div>
+              <div className={styles.botCardTagline}>
+                {tr.home.cards.leads.tagline}
+              </div>
               <div className={styles.learnMore}>{tr.home.learnMore}</div>
             </Link>
 
             <Link className={styles.botCard} href="/demo/sales">
-              <div className={styles.botCardTitle}>{tr.home.cards.sales.title}</div>
-              <div className={styles.botCardType}>{tr.home.cards.sales.type}</div>
+              <div className={styles.botCardTitle}>
+                {tr.home.cards.sales.title}
+              </div>
+              <div className={styles.botCardType}>
+                {tr.home.cards.sales.type}
+              </div>
               <ul className={styles.botCardList}>
                 <li>{tr.home.cards.sales.b1}</li>
                 <li>{tr.home.cards.sales.b2}</li>
                 <li>{tr.home.cards.sales.b3}</li>
               </ul>
-              <div className={styles.botCardTagline}>{tr.home.cards.sales.tagline}</div>
+              <div className={styles.botCardTagline}>
+                {tr.home.cards.sales.tagline}
+              </div>
               <div className={styles.learnMore}>{tr.home.learnMore}</div>
             </Link>
           </div>
@@ -104,7 +119,13 @@ export default function Page() {
           <div className={styles.whyGrid}>
             <div className={styles.whyCard}>
               <div className={styles.whyIcon} aria-hidden="true">
-                <Image src="/icons/availability.webp" alt="" fill sizes="70px" className={styles.whyIconImg} />
+                <Image
+                  src="/icons/availability.webp"
+                  alt=""
+                  fill
+                  sizes="70px"
+                  className={styles.whyIconImg}
+                />
               </div>
               <div className={styles.whyTitle}>{tr.home.why1.title}</div>
               <div className={styles.whyText}>{tr.home.why1.text}</div>
@@ -112,7 +133,13 @@ export default function Page() {
 
             <div className={styles.whyCard}>
               <div className={styles.whyIcon} aria-hidden="true">
-                <Image src="/icons/efficiency.webp" alt="" fill sizes="70px" className={styles.whyIconImg} />
+                <Image
+                  src="/icons/efficiency.webp"
+                  alt=""
+                  fill
+                  sizes="70px"
+                  className={styles.whyIconImg}
+                />
               </div>
               <div className={styles.whyTitle}>{tr.home.why2.title}</div>
               <div className={styles.whyText}>{tr.home.why2.text}</div>
@@ -120,7 +147,13 @@ export default function Page() {
 
             <div className={styles.whyCard}>
               <div className={styles.whyIcon} aria-hidden="true">
-                <Image src="/icons/sales.webp" alt="" fill sizes="70px" className={styles.whyIconImg} />
+                <Image
+                  src="/icons/sales.webp"
+                  alt=""
+                  fill
+                  sizes="70px"
+                  className={styles.whyIconImg}
+                />
               </div>
               <div className={styles.whyTitle}>{tr.home.why3.title}</div>
               <div className={styles.whyText}>{tr.home.why3.text}</div>
@@ -136,19 +169,25 @@ export default function Page() {
             <p className={styles.contactText}>{tr.home.contactText}</p>
 
             <div className={styles.contactActions}>
-              <a className={styles.primaryBtn} href="mailto:lukas.juodeikis.dev@gmail.com?subject=Chatbot%20Inquiry">
+              <a
+                href="mailto:lukas.juodeikis.dev@gmail.com?subject=Chatbot%20Inquiry"
+                className="btn btnPrimary"
+              >
                 {tr.home.contactPrimary}
               </a>
 
-              <a className={styles.secondaryBtn} href="https://your-portfolio-link.com" target="_blank" rel="noreferrer">
+              <a
+                href=""
+                target="_blank"
+                rel="noreferrer"
+                className="btn btnSecondary"
+              >
                 {tr.home.contactSecondary}
               </a>
             </div>
           </div>
         </div>
       </section>
-
-    
     </main>
   );
 }

@@ -130,7 +130,6 @@ export const translations = {
         "Every business is different. The best chatbot depends on your goals, request load, and customer questions. Answer a few quick questions and I’ll recommend the best setup for you.",
       nextPrimary: "Get a chatbot recommendation",
       nextSecondary: "Try Support Assistant Demo",
-     
     },
 
     support: {
@@ -145,8 +144,6 @@ export const translations = {
       chatTitle: "Support Assistant",
       chatSub:
         "Try it: pick a topic → set urgency → enter email → describe the issue.",
-
-      
 
       whatTitle: "What it does",
       what: [
@@ -169,7 +166,6 @@ export const translations = {
       nextText:
         "Want this customized for your business? I can adapt questions, tone, and routing (email/helpdesk/CRM).",
       cta: "Discuss your chatbot",
-     
     },
 
     leads: {
@@ -181,8 +177,6 @@ export const translations = {
 
       chatTitle: "Customers Qualification Bot",
       chatSub: "Answer a few questions — see how a qualified lead is captured.",
-
-      
 
       right1Title: "What it does",
       right1List: [
@@ -200,7 +194,6 @@ export const translations = {
         "Want this adapted to your niche? We can add scoring, route to CRM, or book a call automatically.",
 
       cta: "Send qualified lead",
-    
     },
 
     sales: {
@@ -212,8 +205,6 @@ export const translations = {
 
       chatTitle: "Sales Assistant",
       chatSub: "I’ll help you figure out which chatbot setup makes sense.",
-
-      
 
       right1Title: "What it does",
       right1List: [
@@ -231,7 +222,245 @@ export const translations = {
         "Want this tailored to your business structure? We can adjust questions, add scoring, and integrate booking/CRM.",
 
       cta: "Discuss your sales assistant",
-    
+    },
+    supportBot: {
+      welcome:
+        "Welcome! I’m the Support Assistant demo. What can I help you with today?",
+      welcomeEmbedded:
+        "Hi! I’m the Support Assistant demo. What can I help you with today?",
+      askPricing: "Got it — what is your pricing question about?",
+      askTech: "Understood — what kind of technical issue is it?",
+      askUrgency: "Thanks. How urgent is this?",
+      askContact: "How would you like us to contact you?",
+      askEmail: "Where should we reply? Please enter your email.",
+      askPhone:
+        "Got it. Please enter your phone number (include country code if possible).",
+      askMessage: "Great. Please describe your issue in a few words.",
+      done: "All set — here’s the ticket summary.",
+
+      invalidEmail:
+        "That email doesn’t look right. Please enter a valid email.",
+      invalidPhone:
+        "That doesn’t look like a valid phone number. Please try again (e.g. +370 6xx xxxxx).",
+
+      emailPlaceholder: "your@email.com",
+      phonePlaceholder: "e.g. +370 6xx xxxxx",
+      messagePlaceholder: 'e.g. "I can’t log in to my account"',
+      restart: "Restart demo",
+
+      // Email draft strings
+      emailSubjectPrefix: "[Support Ticket]",
+      emailBodyTitle: "New support request",
+      topicLabel: "Topic",
+      detailsLabel: "Details",
+      urgencyLabel: "Urgency",
+      preferredContactLabel: "Preferred contact",
+      messageLabel: "Message",
+      emailLabel: "Email",
+      phoneLabel: "Phone",
+      notProvided: "(not provided)",
+      sentFrom: "Sent from Support Assistant Bot demo.",
+
+      topics: {
+        billing: "Billing / Pricing",
+        tech: "Technical problem",
+        booking: "Booking / Appointment",
+        general: "General question",
+        other: "Something else",
+      },
+      priorities: {
+        not_urgent: "Not urgent (just a question)",
+        soon: "Soon (affects my decision)",
+        urgent: "Urgent (blocking my work)",
+        critical: "Critical (service is down)",
+      },
+      pricingSubtopics: {
+        plan_change: "Changing my plan",
+        invoice: "Invoice / payment issue",
+        discounts: "Discounts or custom pricing",
+        info: "Just need information",
+        enterprise: "Enterprise / volume pricing",
+      },
+      techSubtopics: {
+        cant_login: "Can’t log in",
+        bug_error: "Website bug / error",
+        slow: "Performance is slow",
+        integration: "Integration/API issue",
+        other_tech: "Other technical issue",
+      },
+      contactMethods: {
+        email: "Email",
+        phone: "Phone call",
+      },
+    },
+
+    leadsBot: {
+      welcome: "Welcome! I’m the Leads Bot demo. What are you looking for?",
+      welcomeEmbedded: "Hi! I’m the Leads Bot demo. What are you looking for?",
+      askBusiness: "Nice — what type of business is this?",
+      askSize: "Got it. What’s your company size?",
+      askTimeframe: "When do you want to start?",
+      askBudget: "What budget range are you thinking?",
+      askEmail: "Perfect. Where should we contact you? (enter your email)",
+      askMessage: 'Optional: add a short message (or type "skip").',
+      done: "Thanks! Here’s the summary of your lead.",
+      invalidEmail:
+        "That email doesn’t look right. Please enter a valid email.",
+
+      emailPlaceholder: "your@email.com",
+      messagePlaceholder: 'Type a short note (or "skip")',
+      restart: "Restart demo",
+
+      // message parsing
+      skipKeyword: "skip",
+      skipped: "skip",
+
+      // Email draft
+      emailSubjectPrefix: "[New Lead]",
+      emailBodyTitle: "New lead from Leads Bot demo",
+      sentFrom: "Sent from Leads Bot demo.",
+
+      summary: {
+        lookingFor: "Looking for",
+        businessType: "Business type",
+        companySize: "Company size",
+        timeframe: "Timeframe",
+        budget: "Budget",
+        email: "Email",
+        optionalMessage: "Optional message",
+      },
+
+      intents: {
+        new_website: "New website",
+        chatbot: "Chatbot",
+        support_automation: "Support automation",
+        exploring: "Just exploring",
+      },
+      businessTypes: {
+        service: "Service business",
+        ecommerce: "E-commerce",
+        saas: "SaaS",
+        other: "Other",
+      },
+      companySizes: {
+        solo: "Solo",
+        "1_5": "1–5",
+        "6_20": "6–20",
+        "20_plus": "20+",
+      },
+      timeframes: {
+        researching: "Just researching",
+        this_month: "This month",
+        asap: "ASAP",
+      },
+      budgets: {
+        lt_500: "< €500",
+        "500_1k": "€500–1k",
+        "1k_3k": "€1k–3k",
+        not_sure: "Not sure",
+      },
+    },
+
+    salesBot: {
+      welcome: "Welcome! I’m the Sales Assistant demo. What’s your main goal?",
+      welcomeEmbedded:
+        "Hi! I’m the Sales Assistant demo. What’s your main goal?",
+      askTraffic: "Thanks. What’s your website traffic level?",
+      askChannel: "Where do your customers come from?",
+      askCrm: "How do you currently handle leads/support requests?",
+      askLanguages: "Do you need multiple languages?",
+      askHandoff: "What’s the preferred next step for the visitor?",
+      askEmail: "Great. Where should I send the recommendation? (enter email)",
+      done: "All set — here’s the recommended setup.",
+      invalidEmail:
+        "That email doesn’t look right. Please enter a valid email.",
+
+      emailPlaceholder: "your@email.com",
+      restart: "Restart demo",
+
+      emailSubjectPrefix: "[Recommendation]",
+      emailBodyTitle: "Sales Assistant demo recommendation",
+      sentFrom: "Sent from Sales Assistant demo.",
+
+      summary: {
+        goal: "Goal",
+        traffic: "Traffic",
+        channel: "Channel",
+        crm: "CRM",
+        languages: "Languages",
+        handoff: "Preferred next step",
+        recommendedSetup: "Recommended setup",
+        replyTo: "Reply-to email",
+      },
+
+      // these are used inside buildRecommendation
+      route: {
+        crm: "your CRM/helpdesk",
+        email: "email",
+      },
+      handoff: {
+        book: "instant booking links",
+        capture: "lead capture fallback",
+      },
+
+      recommendations: {
+        reduceSupport: ({
+          multiLang,
+          route,
+        }: {
+          multiLang: boolean;
+          route: string;
+        }) =>
+          `Support Assistant + FAQ bot. Add ${multiLang ? "multi-language routing" : "a knowledge base"} and send tickets to ${route}.`,
+        automateBookings: ({ handoff }: { handoff: string }) =>
+          `Booking Assistant with calendar integration + ${handoff}.`,
+        increaseConversions: ({ highTraffic }: { highTraffic: boolean }) =>
+          `Sales Assistant that qualifies visitors + recommends plans. ${highTraffic ? "Add A/B testing for scripts and questions." : "Start simple, then iterate."}`,
+        moreLeads: ({
+          route,
+          highTraffic,
+        }: {
+          route: string;
+          highTraffic: boolean;
+        }) =>
+          `Leads Bot that qualifies by intent, budget and timeframe, then routes to ${route}. ${highTraffic ? "Consider lead scoring + automation." : "Start with structured lead capture."}`,
+      },
+
+      goals: {
+        more_leads: "Get more leads",
+        reduce_support: "Reduce support workload",
+        increase_conversions: "Increase sales conversions",
+        automate_bookings: "Automate bookings",
+      },
+      traffic: {
+        low: "Low (0–500/month)",
+        medium: "Medium (500–5k/month)",
+        high: "High (5k+/month)",
+        not_sure: "Not sure",
+      },
+      channels: {
+        website_only: "Website only",
+        website_ads: "Website + ads",
+        website_social: "Website + social",
+        multiple: "Multiple channels",
+      },
+      crm: {
+        no_crm: "No CRM yet",
+        spreadsheet: "Using a spreadsheet",
+        have_crm: "Have a CRM (HubSpot, Pipedrive, etc.)",
+        not_sure: "Not sure",
+      },
+      languages: {
+        en_only: "English only",
+        en_plus_one: "English + one more",
+        multi: "Multiple languages",
+        not_sure: "Not sure",
+      },
+      handoffPref: {
+        book_call: "Book a call",
+        demo_trial: "Start with a demo/trial",
+        message_first: "Send a message first",
+      },
     },
   },
 
@@ -248,8 +477,7 @@ export const translations = {
       h1_a: "Sustiprink savo verslą su",
       h1_b: "išmaniais chatbotais!",
       sub: "Automatizuok pokalbius ir sumažink sprendimo laiką.",
-      
-     
+
       learnMore: "Sužinoti daugiau →",
 
       cards: {
@@ -370,9 +598,6 @@ export const translations = {
       h1_b: " pagalbos ",
       sub: "Ši demonstracija parodo pagalbos asistentą, kuris surenka problemos užklausa, skubumą ir kontaktus — ir sugeneruoja tvarkingą bilieto santrauką.",
       chatTitle: "Pagalbos asistentas",
-      
-
-      
 
       whatTitle: "Ką jis daro",
       what: [
@@ -397,8 +622,6 @@ export const translations = {
 
       cta: "Susisiekti",
       mini: "Tipinė schema: tema + prioritetas + kontaktas → bilieto santrauka. AI galima pridėti vėliau.",
-
-     
     },
 
     leads: {
@@ -425,7 +648,6 @@ export const translations = {
         "Galima pridėti scoring’ą, siuntimą į CRM ar automatinį skambučio booking’ą.",
 
       cta: "Siųsti kvalifikuotą lead’ą",
-    
     },
 
     sales: {
@@ -437,8 +659,6 @@ export const translations = {
 
       chatTitle: "Pardavimų asistentas",
       chatSub: "Padėsiu suprasti, koks setup’as tau labiausiai tinka.",
-
-    
 
       right1Title: "Ką jis daro",
       right1List: [
@@ -456,8 +676,223 @@ export const translations = {
         "Galim pritaikyti klausimus tavo nišai, pridėti scoring’ą ir integruoti booking/CRM.",
 
       cta: "Aptarti pardavimų asistentą",
-     
     },
+    supportBot: {
+  welcome: "Sveiki! Aš esu Pagalbos asistento demonstracija. Kuo galiu padėti?",
+  welcomeEmbedded: "Labas! Aš esu Pagalbos asistento demonstracija. Kuo galiu padėti?",
+  askPricing: "Supratau — dėl ko konkrečiai kainodara / sąskaitos?",
+  askTech: "Supratau — koks tai techninis nesklandumas?",
+  askUrgency: "Ačiū. Koks skubumas?",
+  askContact: "Kaip norite, kad susisiektume?",
+  askEmail: "Kur atsakyti? Įveskite el. paštą.",
+  askPhone: "Gerai. Įveskite telefono numerį (jei įmanoma su šalies kodu).",
+  askMessage: "Puiku. Trumpai aprašykite problemą.",
+  done: "Viskas — štai bilieto santrauka.",
+
+  invalidEmail: "Šis el. paštas atrodo neteisingas. Įveskite teisingą el. paštą.",
+  invalidPhone: "Šis numeris atrodo neteisingas. Bandykite dar kartą (pvz. +370 6xx xxxxx).",
+
+  emailPlaceholder: "jusu@email.com",
+  phonePlaceholder: "pvz. +370 6xx xxxxx",
+  messagePlaceholder: 'pvz. „Negaliu prisijungti prie paskyros“',
+  restart: "Pradėti iš naujo",
+
+  emailSubjectPrefix: "[Pagalbos užklausa]",
+  emailBodyTitle: "Nauja pagalbos užklausa",
+  topicLabel: "Tema",
+  detailsLabel: "Detalės",
+  urgencyLabel: "Skubumas",
+  preferredContactLabel: "Pageidaujamas kontaktas",
+  messageLabel: "Žinutė",
+  emailLabel: "El. paštas",
+  phoneLabel: "Telefonas",
+  notProvided: "(nenurodyta)",
+  sentFrom: "Išsiųsta iš Pagalbos asistento demonstracijos.",
+
+  topics: {
+    billing: "Sąskaitos / Kainodara",
+    tech: "Techninė problema",
+    booking: "Rezervacija / Vizitas",
+    general: "Bendras klausimas",
+    other: "Kita",
+  },
+  priorities: {
+    not_urgent: "Neskubu (tik klausimas)",
+    soon: "Greitai (turi įtakos sprendimui)",
+    urgent: "Skubu (trukdo darbui)",
+    critical: "Kritiška (paslauga neveikia)",
+  },
+  pricingSubtopics: {
+    plan_change: "Plano keitimas",
+    invoice: "Sąskaita / apmokėjimas",
+    discounts: "Nuolaidos arba individuali kaina",
+    info: "Reikia informacijos",
+    enterprise: "Enterprise / dideli kiekiai",
+  },
+  techSubtopics: {
+    cant_login: "Negaliu prisijungti",
+    bug_error: "Svetainės klaida / error",
+    slow: "Viskas veikia lėtai",
+    integration: "Integracija / API",
+    other_tech: "Kita techninė problema",
+  },
+  contactMethods: {
+    email: "El. paštu",
+    phone: "Telefono skambučiu",
+  },
+},
+
+leadsBot: {
+  welcome: "Sveiki! Aš esu Klientų kvalifikavimo boto demonstracija. Ko ieškote?",
+  welcomeEmbedded: "Labas! Aš esu Klientų kvalifikavimo boto demonstracija. Ko ieškote?",
+  askBusiness: "Puiku — koks tai verslo tipas?",
+  askSize: "Supratau. Koks jūsų įmonės dydis?",
+  askTimeframe: "Kada norite pradėti?",
+  askBudget: "Koks biudžeto rėžis būtų priimtinas?",
+  askEmail: "Puiku. Kur su jumis susisiekti? (įveskite el. paštą)",
+  askMessage: 'Nebūtina: pridėkite trumpą žinutę (arba įrašykite „skip“).',
+  done: "Ačiū! Štai potencialaus kliento santrauka.",
+  invalidEmail: "Šis el. paštas atrodo neteisingas. Įveskite teisingą el. paštą.",
+
+  emailPlaceholder: "jusu@email.com",
+  messagePlaceholder: 'Parašykite trumpai (arba „skip“)',
+  restart: "Pradėti iš naujo",
+
+  skipKeyword: "skip",
+  skipped: "skip",
+
+  emailSubjectPrefix: "[Naujas lead’as]",
+  emailBodyTitle: "Naujas lead’as iš Klientų kvalifikavimo boto demonstracijos",
+  sentFrom: "Išsiųsta iš Klientų kvalifikavimo boto demonstracijos.",
+
+  summary: {
+    lookingFor: "Ko ieško",
+    businessType: "Verslo tipas",
+    companySize: "Įmonės dydis",
+    timeframe: "Laikotarpis",
+    budget: "Biudžetas",
+    email: "El. paštas",
+    optionalMessage: "Papildoma žinutė",
+  },
+
+  intents: {
+    new_website: "Nauja svetainė",
+    chatbot: "Chatbotas",
+    support_automation: "Pagalbos automatizavimas",
+    exploring: "Tik domiuosi",
+  },
+  businessTypes: {
+    service: "Paslaugų verslas",
+    ecommerce: "El. parduotuvė",
+    saas: "SaaS",
+    other: "Kita",
+  },
+  companySizes: {
+    solo: "Vienas",
+    "1_5": "1–5",
+    "6_20": "6–20",
+    "20_plus": "20+",
+  },
+  timeframes: {
+    researching: "Tyrinėju",
+    this_month: "Šį mėnesį",
+    asap: "Kuo greičiau",
+  },
+  budgets: {
+    lt_500: "< €500",
+    "500_1k": "€500–1k",
+    "1k_3k": "€1k–3k",
+    not_sure: "Nežinau",
+  },
+},
+
+salesBot: {
+  welcome: "Sveiki! Aš esu Pardavimų asistento demonstracija. Koks jūsų pagrindinis tikslas?",
+  welcomeEmbedded: "Labas! Aš esu Pardavimų asistento demonstracija. Koks tikslas?",
+  askTraffic: "Ačiū. Koks jūsų svetainės lankomumas?",
+  askChannel: "Iš kur ateina klientai?",
+  askCrm: "Kaip dabar tvarkote užklausas / support’ą?",
+  askLanguages: "Ar reikia kelių kalbų?",
+  askHandoff: "Koks geriausias kitas žingsnis lankytojui?",
+  askEmail: "Puiku. Kur atsiųsti rekomendaciją? (įveskite el. paštą)",
+  done: "Viskas — štai rekomenduojamas setup’as.",
+  invalidEmail: "Šis el. paštas atrodo neteisingas. Įveskite teisingą el. paštą.",
+
+  emailPlaceholder: "jusu@email.com",
+  restart: "Pradėti iš naujo",
+
+  emailSubjectPrefix: "[Rekomendacija]",
+  emailBodyTitle: "Pardavimų asistento demonstracijos rekomendacija",
+  sentFrom: "Išsiųsta iš Pardavimų asistento demonstracijos.",
+
+  summary: {
+    goal: "Tikslas",
+    traffic: "Lankomumas",
+    channel: "Kanalai",
+    crm: "CRM",
+    languages: "Kalbos",
+    handoff: "Kitas žingsnis",
+    recommendedSetup: "Rekomenduojamas setup’as",
+    replyTo: "Atsakymo el. paštas",
+  },
+
+  route: {
+    crm: "CRM / helpdesk",
+    email: "el. paštą",
+  },
+  handoff: {
+    book: "momentinius booking link’us",
+    capture: "lead surinkimą kaip fallback",
+  },
+
+  recommendations: {
+    reduceSupport: ({ multiLang, route }: { multiLang: boolean; route: string }) =>
+      `Pagalbos asistentas + FAQ botas. Pridėkite ${multiLang ? "kelių kalbų nukreipimą" : "žinių bazę"} ir siųskite užklausas į ${route}.`,
+    automateBookings: ({ handoff }: { handoff: string }) =>
+      `Booking asistentas su kalendoriaus integracija + ${handoff}.`,
+    increaseConversions: ({ highTraffic }: { highTraffic: boolean }) =>
+      `Pardavimų asistentas, kuris kvalifikuoja lankytojus ir rekomenduoja. ${highTraffic ? "Pridėkite A/B testavimą klausimams ir skriptams." : "Pradėkite paprastai, tada iteruokite."}`,
+    moreLeads: ({ route, highTraffic }: { route: string; highTraffic: boolean }) =>
+      `Klientų kvalifikavimo botas, kuris surenka intent/biudžetą/laikotarpį ir nukreipia į ${route}. ${highTraffic ? "Apsvarstykite lead scoring + automatizaciją." : "Pradėkite nuo struktūruoto lead surinkimo."}`,
+  },
+
+  goals: {
+    more_leads: "Daugiau užklausų",
+    reduce_support: "Sumažinti support apkrovą",
+    increase_conversions: "Padidinti konversijas",
+    automate_bookings: "Automatizuoti rezervacijas",
+  },
+  traffic: {
+    low: "Mažas (0–500/mėn.)",
+    medium: "Vidutinis (500–5k/mėn.)",
+    high: "Didelis (5k+/mėn.)",
+    not_sure: "Nežinau",
+  },
+  channels: {
+    website_only: "Tik svetainė",
+    website_ads: "Svetainė + reklamos",
+    website_social: "Svetainė + social",
+    multiple: "Keli kanalai",
+  },
+  crm: {
+    no_crm: "Dar neturiu CRM",
+    spreadsheet: "Naudoju Excel / lentelę",
+    have_crm: "Turiu CRM (HubSpot, Pipedrive ir pan.)",
+    not_sure: "Nežinau",
+  },
+  languages: {
+    en_only: "Tik anglų",
+    en_plus_one: "Anglų + dar viena",
+    multi: "Kelios kalbos",
+    not_sure: "Nežinau",
+  },
+  handoffPref: {
+    book_call: "Rezervuoti skambutį",
+    demo_trial: "Pradėti nuo demo / trial",
+    message_first: "Pirma parašyti žinutę",
+  },
+},
+
   },
 } as const;
 

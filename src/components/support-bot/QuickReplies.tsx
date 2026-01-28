@@ -1,5 +1,9 @@
-// src/components/support-bot/QuickReplies.tsx
 import styles from "./supportBot.module.css";
+
+export type QuickOption = {
+  id: string;
+  label: string;
+};
 
 export default function QuickReplies({
   options,
@@ -7,8 +11,8 @@ export default function QuickReplies({
   disabled,
   variant = "default",
 }: {
-  options: string[];
-  onPick: (v: string) => void;
+  options: QuickOption[];
+  onPick: (id: string) => void;
   disabled?: boolean;
   variant?: "default" | "topic" | "priority" | "pricing" | "tech";
 }) {
@@ -16,14 +20,14 @@ export default function QuickReplies({
     <div className={styles.quickWrap} data-variant={variant} aria-label="Quick replies">
       {options.map((o) => (
         <button
-          key={o}
+          key={o.id}
           type="button"
           className={styles.quickBtn}
-          data-value={o}
-          onClick={() => onPick(o)}
+          data-value={o.id}
+          onClick={() => onPick(o.id)}
           disabled={disabled}
         >
-          {o}
+          {o.label}
         </button>
       ))}
     </div>

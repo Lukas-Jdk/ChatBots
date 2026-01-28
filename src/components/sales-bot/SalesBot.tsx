@@ -1,10 +1,9 @@
 "use client";
 
-// src/components/sales-bot/SalesBot.tsx
 import { useEffect, useMemo, useRef, useState } from "react";
 import ChatMessage, { type Message } from "@/components/support-bot/ChatMessage";
 import ChatInput from "@/components/support-bot/ChatInput";
-import QuickReplies from "@/components/support-bot/QuickReplies";
+import QuickReplies, { type QuickOption } from "@/components/support-bot/QuickReplies";
 import SalesSummary from "./SalesSummary";
 
 import {
@@ -14,7 +13,16 @@ import {
   CRM_STATUS,
   LANGUAGE_NEEDS,
   HANDOFF_PREF,
+  type CrmStatusId,
+  type HandoffPrefId,
+  type LanguageNeedsId,
+  type SalesChannelId,
+  type SalesGoalId,
+  type TrafficLevelId,
 } from "@/data/salesFlow";
+
+import { useLang } from "@/i18n/useLang";
+import { t } from "@/i18n/translations";
 
 import styles from "@/components/support-bot/supportBot.module.css";
 
@@ -31,55 +39,65 @@ type Step =
 type Mode = "embedded" | "page";
 
 function buildRecommendation({
-  goal,
-  traffic,
-  crm,
-  languages,
-  handoff,
+  goalId,
+  trafficId,
+  crmId,
+  languagesId,
+  handoffId,
+  tr,
 }: {
-  goal: string;
-  traffic: string;
-  crm: string;
-  languages: string;
-  handoff: string;
+  goalId: SalesGoalId;
+  trafficId: TrafficLevelId;
+  crmId: CrmStatusId;
+  languagesId: LanguageNeedsId;
+  handoffId: HandoffPrefId;
+  tr: ReturnType<typeof t>;
 }) {
-  const highTraffic = traffic.includes("High");
-  const multiLang = languages.includes("Multiple") || languages.includes("+");
+  const highTraffic = trafficId === "high";
+  const multiLang = languagesId === "multi";
+  const hasCrm = crmId === "have_crm";
 
-  // Simple but "smart-looking" recommendation
-  if (goal === "Reduce support workload") {
-    return `Support Assistant + FAQ bot. Add ${
-      multiLang ? "multi-language routing" : "a knowledge base"
-    } and send tickets to ${crm.includes("CRM") ? "your CRM/helpdesk" : "email"}.`;
+  if (goalId === "reduce_support") {
+    return tr.salesBot.recommendations.reduceSupport({
+      multiLang,
+      route: hasCrm ? tr.salesBot.route.crm : tr.salesBot.route.email,
+    });
   }
 
-  if (goal === "Automate bookings") {
-    return `Booking Assistant with calendar integration + ${
-      handoff.includes("Book") ? "instant booking links" : "lead capture fallback"
-    }.`;
+  if (goalId === "automate_bookings") {
+    return tr.salesBot.recommendations.automateBookings({
+      handoff:
+        handoffId === "book_call"
+          ? tr.salesBot.handoff.book
+          : tr.salesBot.handoff.capture,
+    });
   }
 
-  if (goal === "Increase sales conversions") {
-    return `Sales Assistant that qualifies visitors + recommends plans. ${
-      highTraffic ? "Add A/B testing for scripts and questions." : "Start simple, then iterate."
-    }`;
+  if (goalId === "increase_conversions") {
+    return tr.salesBot.recommendations.increaseConversions({
+      highTraffic,
+    });
   }
 
-  // Get more leads default
-  return `Leads Bot that qualifies by intent, budget and timeframe, then routes to ${
-    crm.includes("CRM") ? "CRM" : "email"
-  }. ${highTraffic ? "Consider lead scoring + automation." : "Start with structured lead capture."}`;
+  // default more leads
+  return tr.salesBot.recommendations.moreLeads({
+    route: hasCrm ? tr.salesBot.route.crm : tr.salesBot.route.email,
+    highTraffic,
+  });
 }
 
 export default function SalesBot({ mode = "page" }: { mode?: Mode }) {
+  const lang = useLang();
+  const tr = t(lang);
+
   const [step, setStep] = useState<Step>("goal");
 
-  const [goal, setGoal] = useState("");
-  const [traffic, setTraffic] = useState("");
-  const [channel, setChannel] = useState("");
-  const [crm, setCrm] = useState("");
-  const [languages, setLanguages] = useState("");
-  const [handoff, setHandoff] = useState("");
+  const [goalId, setGoalId] = useState<SalesGoalId | "">("");
+  const [trafficId, setTrafficId] = useState<TrafficLevelId | "">("");
+  const [channelId, setChannelId] = useState<SalesChannelId | "">("");
+  const [crmId, setCrmId] = useState<CrmStatusId | "">("");
+  const [languagesId, setLanguagesId] = useState<LanguageNeedsId | "">("");
+  const [handoffId, setHandoffId] = useState<HandoffPrefId | "">("");
   const [email, setEmail] = useState("");
 
   const [recommendation, setRecommendation] = useState("");
@@ -88,10 +106,7 @@ export default function SalesBot({ mode = "page" }: { mode?: Mode }) {
     {
       id: "m1",
       role: "bot",
-      text:
-        mode === "embedded"
-          ? "Hi! I’m the Sales Assistant demo. What’s your main goal?"
-          : "Welcome! I’m the Sales Assistant demo. What’s your main goal?",
+      text: mode === "embedded" ? tr.salesBot.welcomeEmbedded : tr.salesBot.welcome,
     },
   ]);
 
@@ -104,12 +119,20 @@ export default function SalesBot({ mode = "page" }: { mode?: Mode }) {
     });
   }, [messages, step]);
 
-  const goalOptions = useMemo(() => [...SALES_GOALS], []);
-  const trafficOptions = useMemo(() => [...TRAFFIC_LEVELS], []);
-  const channelOptions = useMemo(() => [...SALES_CHANNELS], []);
-  const crmOptions = useMemo(() => [...CRM_STATUS], []);
-  const languageOptions = useMemo(() => [...LANGUAGE_NEEDS], []);
-  const handoffOptions = useMemo(() => [...HANDOFF_PREF], []);
+  useEffect(() => {
+  if (step === "goal" && messages.length === 1) {
+    setMessages([
+      {
+        id: "m1",
+        role: "bot",
+        text: mode === "embedded" ? tr.salesBot.welcomeEmbedded : tr.salesBot.welcome,
+      },
+    ]);
+  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [lang]);
+
+  
 
   function push(role: "bot" | "user", text: string) {
     setMessages((prev) => [
@@ -118,87 +141,132 @@ export default function SalesBot({ mode = "page" }: { mode?: Mode }) {
     ]);
   }
 
-  function pickGoal(v: string) {
-    setGoal(v);
-    push("user", v);
-    push("bot", "Thanks. What’s your website traffic level?");
+  const goalOptions: QuickOption[] = useMemo(
+    () => SALES_GOALS.map((x) => ({ id: x.id, label: tr.salesBot.goals[x.key] })),
+    [tr]
+  );
+  const trafficOptions: QuickOption[] = useMemo(
+    () => TRAFFIC_LEVELS.map((x) => ({ id: x.id, label: tr.salesBot.traffic[x.key] })),
+    [tr]
+  );
+  const channelOptions: QuickOption[] = useMemo(
+    () => SALES_CHANNELS.map((x) => ({ id: x.id, label: tr.salesBot.channels[x.key] })),
+    [tr]
+  );
+  const crmOptions: QuickOption[] = useMemo(
+    () => CRM_STATUS.map((x) => ({ id: x.id, label: tr.salesBot.crm[x.key] })),
+    [tr]
+  );
+  const languageOptions: QuickOption[] = useMemo(
+    () => LANGUAGE_NEEDS.map((x) => ({ id: x.id, label: tr.salesBot.languages[x.key] })),
+    [tr]
+  );
+  const handoffOptions: QuickOption[] = useMemo(
+    () => HANDOFF_PREF.map((x) => ({ id: x.id, label: tr.salesBot.handoffPref[x.key] })),
+    [tr]
+  );
+
+  const labelFrom = <T extends { id: string; key: string }>(
+    list: readonly T[],
+    id: string,
+    map: Record<string, string>
+  ) => map[list.find((x) => x.id === id)!.key];
+
+  function pickGoal(id: string) {
+    const v = id as SalesGoalId;
+    setGoalId(v);
+    push("user", labelFrom(SALES_GOALS as any, v, tr.salesBot.goals));
+    push("bot", tr.salesBot.askTraffic);
     setStep("traffic");
   }
 
-  function pickTraffic(v: string) {
-    setTraffic(v);
-    push("user", v);
-    push("bot", "Where do your customers come from?");
+  function pickTraffic(id: string) {
+    const v = id as TrafficLevelId;
+    setTrafficId(v);
+    push("user", labelFrom(TRAFFIC_LEVELS as any, v, tr.salesBot.traffic));
+    push("bot", tr.salesBot.askChannel);
     setStep("channel");
   }
 
-  function pickChannel(v: string) {
-    setChannel(v);
-    push("user", v);
-    push("bot", "How do you currently handle leads/support requests?");
+  function pickChannel(id: string) {
+    const v = id as SalesChannelId;
+    setChannelId(v);
+    push("user", labelFrom(SALES_CHANNELS as any, v, tr.salesBot.channels));
+    push("bot", tr.salesBot.askCrm);
     setStep("crm");
   }
 
-  function pickCrm(v: string) {
-    setCrm(v);
-    push("user", v);
-    push("bot", "Do you need multiple languages?");
+  function pickCrm(id: string) {
+    const v = id as CrmStatusId;
+    setCrmId(v);
+    push("user", labelFrom(CRM_STATUS as any, v, tr.salesBot.crm));
+    push("bot", tr.salesBot.askLanguages);
     setStep("languages");
   }
 
-  function pickLanguages(v: string) {
-    setLanguages(v);
-    push("user", v);
-    push("bot", "What’s the preferred next step for the visitor?");
+  function pickLanguages(id: string) {
+    const v = id as LanguageNeedsId;
+    setLanguagesId(v);
+    push("user", labelFrom(LANGUAGE_NEEDS as any, v, tr.salesBot.languages));
+    push("bot", tr.salesBot.askHandoff);
     setStep("handoff");
   }
 
-  function pickHandoff(v: string) {
-    setHandoff(v);
-    push("user", v);
+  function pickHandoff(id: string) {
+    const v = id as HandoffPrefId;
+    setHandoffId(v);
+    push("user", labelFrom(HANDOFF_PREF as any, v, tr.salesBot.handoffPref));
 
     const rec = buildRecommendation({
-      goal,
-      traffic,
-      crm,
-      languages,
-      handoff: v,
+      goalId: goalId as SalesGoalId,
+      trafficId: trafficId as TrafficLevelId,
+      crmId: crmId as CrmStatusId,
+      languagesId: languagesId as LanguageNeedsId,
+      handoffId: v,
+      tr,
     });
     setRecommendation(rec);
 
-    push("bot", "Great. Where should I send the recommendation? (enter email)");
+    push("bot", tr.salesBot.askEmail);
     setStep("email");
   }
 
   function submitEmail(v: string) {
     const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
     if (!ok) {
-      push("bot", "That email doesn’t look right. Please enter a valid email.");
+      push("bot", tr.salesBot.invalidEmail);
       return;
     }
     setEmail(v);
     push("user", v);
 
-    push("bot", "All set — here’s the recommended setup.");
+    push("bot", tr.salesBot.done);
     setStep("done");
   }
 
   function openEmailDraft() {
     const to = "lukas.juodeikis.dev@gmail.com";
 
-    const subject = `[Recommendation] ${goal} — ${traffic}`;
+    const goalLabel = labelFrom(SALES_GOALS as any, goalId as string, tr.salesBot.goals);
+    const trafficLabel = labelFrom(TRAFFIC_LEVELS as any, trafficId as string, tr.salesBot.traffic);
+    const channelLabel = labelFrom(SALES_CHANNELS as any, channelId as string, tr.salesBot.channels);
+    const crmLabel = labelFrom(CRM_STATUS as any, crmId as string, tr.salesBot.crm);
+    const langLabel = labelFrom(LANGUAGE_NEEDS as any, languagesId as string, tr.salesBot.languages);
+    const handoffLabel = labelFrom(HANDOFF_PREF as any, handoffId as string, tr.salesBot.handoffPref);
+
+    const subject = `${tr.salesBot.emailSubjectPrefix} ${goalLabel} — ${trafficLabel}`;
 
     const body =
-      `Sales Assistant demo recommendation\n\n` +
-      `Goal: ${goal}\n` +
-      `Traffic: ${traffic}\n` +
-      `Channel: ${channel}\n` +
-      `CRM: ${crm}\n` +
-      `Languages: ${languages}\n` +
-      `Preferred next step: ${handoff}\n\n` +
-      `Recommended setup:\n${recommendation}\n\n` +
-      `Reply-to email: ${email}\n\n` +
-      `---\nSent from Sales Assistant demo.`;
+      `${tr.salesBot.emailBodyTitle}\n\n` +
+      `${tr.salesBot.summary.goal}: ${goalLabel}\n` +
+      `${tr.salesBot.summary.traffic}: ${trafficLabel}\n` +
+      `${tr.salesBot.summary.channel}: ${channelLabel}\n` +
+      `${tr.salesBot.summary.crm}: ${crmLabel}\n` +
+      `${tr.salesBot.summary.languages}: ${langLabel}\n` +
+      `${tr.salesBot.summary.handoff}: ${handoffLabel}\n\n` +
+      `${tr.salesBot.summary.recommendedSetup}:\n${recommendation}\n\n` +
+      `${tr.salesBot.summary.replyTo}: ${email}\n\n` +
+      `---\n${tr.salesBot.sentFrom}`;
 
     const url =
       "https://mail.google.com/mail/?view=cm&fs=1" +
@@ -211,12 +279,12 @@ export default function SalesBot({ mode = "page" }: { mode?: Mode }) {
 
   function reset() {
     setStep("goal");
-    setGoal("");
-    setTraffic("");
-    setChannel("");
-    setCrm("");
-    setLanguages("");
-    setHandoff("");
+    setGoalId("");
+    setTrafficId("");
+    setChannelId("");
+    setCrmId("");
+    setLanguagesId("");
+    setHandoffId("");
     setEmail("");
     setRecommendation("");
 
@@ -224,7 +292,7 @@ export default function SalesBot({ mode = "page" }: { mode?: Mode }) {
       {
         id: "m1",
         role: "bot",
-        text: "Hi! I’m the Sales Assistant demo. What’s your main goal?",
+        text: mode === "embedded" ? tr.salesBot.welcomeEmbedded : tr.salesBot.welcome,
       },
     ]);
   }
@@ -238,63 +306,63 @@ export default function SalesBot({ mode = "page" }: { mode?: Mode }) {
 
         {step === "goal" && (
           <div className={styles.botTools}>
-            <QuickReplies options={goalOptions as unknown as string[]} onPick={pickGoal} />
+            <QuickReplies options={goalOptions} onPick={pickGoal} />
           </div>
         )}
 
         {step === "traffic" && (
           <div className={styles.botTools}>
-            <QuickReplies options={trafficOptions as unknown as string[]} onPick={pickTraffic} />
+            <QuickReplies options={trafficOptions} onPick={pickTraffic} />
           </div>
         )}
 
         {step === "channel" && (
           <div className={styles.botTools}>
-            <QuickReplies options={channelOptions as unknown as string[]} onPick={pickChannel} />
+            <QuickReplies options={channelOptions} onPick={pickChannel} />
           </div>
         )}
 
         {step === "crm" && (
           <div className={styles.botTools}>
-            <QuickReplies options={crmOptions as unknown as string[]} onPick={pickCrm} />
+            <QuickReplies options={crmOptions} onPick={pickCrm} />
           </div>
         )}
 
         {step === "languages" && (
           <div className={styles.botTools}>
-            <QuickReplies options={languageOptions as unknown as string[]} onPick={pickLanguages} />
+            <QuickReplies options={languageOptions} onPick={pickLanguages} />
           </div>
         )}
 
         {step === "handoff" && (
           <div className={styles.botTools}>
-            <QuickReplies options={handoffOptions as unknown as string[]} onPick={pickHandoff} />
+            <QuickReplies options={handoffOptions} onPick={pickHandoff} />
           </div>
         )}
 
         {step === "done" && (
           <div className={styles.botTools}>
             <SalesSummary
-              goal={goal}
-              traffic={traffic}
-              channel={channel}
-              crm={crm}
-              languages={languages}
-              handoff={handoff}
+              goal={labelFrom(SALES_GOALS as any, goalId as string, tr.salesBot.goals)}
+              traffic={labelFrom(TRAFFIC_LEVELS as any, trafficId as string, tr.salesBot.traffic)}
+              channel={labelFrom(SALES_CHANNELS as any, channelId as string, tr.salesBot.channels)}
+              crm={labelFrom(CRM_STATUS as any, crmId as string, tr.salesBot.crm)}
+              languages={labelFrom(LANGUAGE_NEEDS as any, languagesId as string, tr.salesBot.languages)}
+              handoff={labelFrom(HANDOFF_PREF as any, handoffId as string, tr.salesBot.handoffPref)}
               recommendation={recommendation}
               email={email}
               onEmailDraft={openEmailDraft}
             />
 
-            <button className="btn btnGhost btnFull" type="button" onClick={reset}>
-              Restart demo
+            <button className="btn btnGhost btnBlock" type="button" onClick={reset}>
+              {tr.salesBot.restart}
             </button>
           </div>
         )}
       </div>
 
       {step === "email" && (
-        <ChatInput placeholder="your@email.com" type="email" onSend={submitEmail} />
+        <ChatInput placeholder={tr.salesBot.emailPlaceholder} type="email" onSend={submitEmail} />
       )}
     </div>
   );
