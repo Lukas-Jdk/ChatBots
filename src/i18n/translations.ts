@@ -119,6 +119,10 @@ export const translations = {
           a: "Fully. Every chatbot is tailored to your business goals, tone, and customer journey.",
         },
         {
+          q: "Is monthly billing available?",
+          a: "Yes. We offer monthly plans starting from €49/month, depending on the chatbot type and usage volume.",
+        },
+        {
           q: "How much does a chatbot cost?",
           a: "Pricing depends on complexity. Simple FAQ bots are affordable, while advanced solutions require more setup.",
         },
@@ -200,17 +204,17 @@ export const translations = {
       back: "",
       badge: "Sales Assistant Demo",
 
-      h1: "Identifies the right chatbot setup",
-      sub: "This demo helps visitors pick the best chatbot strategy based on goals, requests load, tools and language needs — then generates a recommendation summary.",
+      h1: "Helps to find the most suitable service for your client:",
+      sub: "This demo shows  a sales assistant bot that asks a few questions, understands your client’s needs, and helps you find the most suitable service for your client.",
 
       chatTitle: "Sales Assistant",
-      chatSub: "I’ll help you figure out which chatbot setup makes sense.",
+      chatSub: "Construction company business example.",
 
       right1Title: "What it does",
       right1List: [
-        "Asks goals + traffic + channels",
-        "Checks tools & languages",
-        "Recommends the best setup",
+        "asks precise questions",
+        "helps understand what the client really wants",
+        "saves time for both sides",
       ] as const,
 
       right2Title: "Why it’s useful",
@@ -219,9 +223,9 @@ export const translations = {
 
       nextTitle: "Next step",
       nextText:
-        "Want this tailored to your business structure? We can adjust questions, add scoring, and integrate booking/CRM.",
+        "You can add client scoring, CRM integration, and phone call requests.",
 
-      cta: "Discuss your sales assistant",
+      cta: "Contact",
     },
     supportBot: {
       welcome:
@@ -362,22 +366,26 @@ export const translations = {
     },
 
     salesBot: {
-      welcome: "Welcome! I’m the Sales Assistant demo. What’s your main goal?",
+      welcome: "What stage are you at with your home construction?",
       welcomeEmbedded:
-        "Hi! I’m the Sales Assistant demo. What’s your main goal?",
-      askTraffic: "Thanks. What’s your website traffic level?",
-      askChannel: "Where do your customers come from?",
-      askCrm: "How do you currently handle leads/support requests?",
-      askLanguages: "Do you need multiple languages?",
+        "Hi! I'm a sales assistant demo. What are you looking to achieve?",
+      askTraffic: "What kind of help would be most useful for you right now?",
+      askChannel: "Have you already set a budget range?",
+      askCrm: "When do you realistically plan to start construction?",
+      askLanguages: "What matters most to you when choosing a builder?",
+      // welcome: "Welcome! I’m the Sales Assistant demo. What’s your main goal?",
+      // welcomeEmbedded:"Hi! I’m the Sales Assistant demo. What’s your main goal?",
+      // askTraffic: "Thanks. What’s your website traffic level?",
+      // askChannel: "Where do your customers come from?",
+      // askCrm: "How do you currently handle leads/support requests?",
+      // askLanguages: "Do you need multiple languages?",
       askHandoff: "What’s the preferred next step for the visitor?",
       askEmail: "Great. Where should I send the recommendation? (enter email)",
       done: "All set — here’s the recommended setup.",
       invalidEmail:
         "That email doesn’t look right. Please enter a valid email.",
-
       emailPlaceholder: "your@email.com",
       restart: "Restart demo",
-
       emailSubjectPrefix: "[Recommendation]",
       emailBodyTitle: "Sales Assistant demo recommendation",
       sentFrom: "Sent from Sales Assistant demo.",
@@ -426,40 +434,80 @@ export const translations = {
           `Leads Bot that qualifies by intent, budget and timeframe, then routes to ${route}. ${highTraffic ? "Consider lead scoring + automation." : "Start with structured lead capture."}`,
       },
 
+      // goals: {
+      //   more_leads: "Get more leads",
+      //   reduce_support: "Reduce support workload",
+      //   increase_conversions: "Increase sales conversions",
+      //   automate_bookings: "Automate bookings",
+      // },
+
+      // traffic: {
+      //   low: "Low (0–500/month)",
+      //   medium: "Medium (500–5k/month)",
+      //   high: "High (5k+/month)",
+      //   not_sure: "Not sure",
+      // },
+
+      // channels: {
+      //   website_only: "Website only",
+      //   website_ads: "Website + ads",
+      //   website_social: "Website + social",
+      //   multiple: "Multiple channels",
+      // },
+
+      // crm: {
+      //   no_crm: "No CRM yet",
+      //   spreadsheet: "Using a spreadsheet",
+      //   have_crm: "Have a CRM (HubSpot, Pipedrive, etc.)",
+      //   not_sure: "Not sure",
+      // },
+
+      // languages: {
+      //   en_only: "English only",
+      //   en_plus_one: "English + one more",
+      //   multi: "Multiple languages",
+      //   not_sure: "Not sure",
+      // },
+
+      // handoffPref: {
+      //   book_call: "Book a call",
+      //   demo_trial: "Start with a demo/trial",
+      //   message_first: "Send a message first",
+      // },
       goals: {
-        more_leads: "Get more leads",
-        reduce_support: "Reduce support workload",
-        increase_conversions: "Increase sales conversions",
-        automate_bookings: "Automate bookings",
+        more_leads: "I'm just exploring and comparing options",
+        reduce_support: "I have a plot and I'm looking for solutions",
+        increase_conversions: "I already have a project",
+        automate_bookings: "I'm ready to start construction",
       },
       traffic: {
-        low: "Low (0–500/month)",
-        medium: "Medium (500–5k/month)",
-        high: "High (5k+/month)",
-        not_sure: "Not sure",
+        low: "Project and solution consultation",
+        medium: "Full home construction (turnkey)",
+        high: "Specific / partial construction work",
+        not_sure: "I just want to talk things through",
       },
       channels: {
-        website_only: "Website only",
-        website_ads: "Website + ads",
-        website_social: "Website + social",
-        multiple: "Multiple channels",
+        website_only: "Yes, I have a clear budget",
+        website_ads: "I have an approximate range",
+        website_social: "I'm still calculating",
+        multiple: "I'd rather not discuss it yet",
       },
       crm: {
-        no_crm: "No CRM yet",
-        spreadsheet: "Using a spreadsheet",
-        have_crm: "Have a CRM (HubSpot, Pipedrive, etc.)",
-        not_sure: "Not sure",
+        no_crm: "Within the next 1–3 months",
+        spreadsheet: "Later this year",
+        have_crm: "Next year",
+        not_sure: "I'm not sure yet",
       },
       languages: {
-        en_only: "English only",
-        en_plus_one: "English + one more",
-        multi: "Multiple languages",
-        not_sure: "Not sure",
+        en_only: "Reliability and experience",
+        en_plus_one: "Price",
+        multi: "Meeting deadlines",
+        not_sure: "A clear, stress-free process",
       },
       handoffPref: {
-        book_call: "Book a call",
-        demo_trial: "Start with a demo/trial",
-        message_first: "Send a message first",
+        book_call: "Schedule a call",
+        demo_trial: "Get an initial consultation",
+        message_first: "Calculate a preliminary price",
       },
     },
   },
@@ -490,7 +538,7 @@ export const translations = {
           tagline: "Momentiniai atsakymai į dažnus klausimus.",
         },
         support: {
-          title: "Pagalbos asistentas",
+          title: "Pagalbos Asistentas",
           type: "Po pardavimo / Helpdesk botas",
           b1: "identifikuoja problemą, skubumą ir susisiekimo informaciją",
           b2: "sugeneruoja užklausos santrauką",
@@ -498,7 +546,7 @@ export const translations = {
           tagline: "Paversk pokalbius į pagalbos užklausas.",
         },
         leads: {
-          title: "Užklausų asistentas",
+          title: "Užklausų Asistentas",
           type: "Klientų kvalifikavimas",
           b1: "užduoda aiškius klausimus",
           b2: "surenka susisiekimo informaciją automatiškai",
@@ -579,25 +627,34 @@ export const translations = {
           a: "Taip. Kiekvienas botas pritaikomas pagal jūsų verslo poreikius ir norimą aptarnavimo lygį.",
         },
         {
+          q: "Ar galima mokėti kas mėnesį?",
+          a: "Taip. Siūlome mėnesinius planus nuo 39 € / mėn, priklausomai nuo chatbot’o tipo ir naudojimo apimties.",
+        },
+        {
           q: "Kiek kainuoja chatbotas?",
           a: "Kaina priklauso nuo sudėtingumo. Paprasti botai pigesni, o AI sprendimai reikalauja daugiau paruošimo.",
         },
       ] as const,
 
-      nextKicker: "Kas toliau?",
-      nextTitle: "Rask tinkamiausią chatbotą savo verslui",
-      nextText:
-        "Kiekvienas verslas skirtingas. Geriausias chatbotas priklauso nuo tikslų, srauto ir klausimų. Atsakyk į kelis klausimus — rekomenduosiu setup’ą.",
-      nextPrimary: "Gauti rekomendaciją",
+      // nextKicker: "Kas toliau?",
+      // nextTitle: "Rask tinkamiausią chatbotą savo verslui",
+      // nextText:
+      //   "Kiekvienas verslas skirtingas. Geriausias chatbotas priklauso nuo tikslų, srauto ir klausimų. Atsakyk į kelis klausimus — rekomenduosiu setup’ą.",
+      // nextPrimary: "Gauti rekomendaciją",
+      // nextSecondary: "Gauti rekomendaciją",
+      nextKicker: "",
+      nextTitle: "Tai yra pavizdys kaip FAQ's gali veikti tavo svetainėje",
+      nextText: "Nori pritaikyti FAQ's savo verslui?",
+      nextPrimary: "Susisiek",
       nextSecondary: "Gauti rekomendaciją",
     },
 
     support: {
       back: "",
-      h1_a: "Paversk pokalbius į",
-      h1_b: " pagalbos ",
-      sub: "Ši demonstracija parodo pagalbos asistentą, kuris surenka problemos užklausa, skubumą ir kontaktus — ir sugeneruoja tvarkingą bilieto santrauką.",
-      chatTitle: "Pagalbos asistentas",
+      h1_a: "Pokalbis, kuris veda į",
+      h1_b: "  sprendimą:",
+      sub: "Ši demonstracija parodo pagalbos asistentą, kuris sugeneruoja problemos užklausa, skubumą ir kontaktus — ir pateikia tau tvarkingą užklausos santrauką.",
+      chatTitle: "Pagalbos Asistentas",
 
       whatTitle: "Ką jis daro",
       what: [
@@ -629,7 +686,7 @@ export const translations = {
       badge: "Leads demonstracija",
       h1: "Pagreitink potencialių klientų paiešką:",
       sub: "Šis botas generuoja potencialių klientų sąrašą, remdamasis jų atsakymais į jūsų klausimus. Klausimai sugeneruojami pagal jūsų verslo poreikius, įmonės dydį, biudžetą ir pardavimo tikslus.",
-      chatTitle: "Užklausų asistentas",
+      chatTitle: "Užklausų Asistentas",
       chatSub:
         "Atsakyk į kelis klausimus ir pamatyk kaip sugeneruojama potencialaus kliento informacija.",
       right1Title: "Ką jis daro",
@@ -641,258 +698,333 @@ export const translations = {
 
       right2Title: "Kodėl naudinga",
       right2Text:
-        "Mažiau neaiškių užklausų ir daugiau konteksto greitam follow-up’ui. Lankytojui tai atrodo kaip vedimas, o ne forma.",
+        "Surinkta aiški informacija leidžia greičiau susisiekti, o vartotojui tai labiau individualesnis pokalbis, o ne nuobodi forma.",
 
-      nextTitle: "Kitas žingsnis",
+      nextTitle: "Sekantis žingsnis",
       nextText:
-        "Galima pridėti scoring’ą, siuntimą į CRM ar automatinį skambučio booking’ą.",
+        "Galima pridėti klientų vertinimą (scoring), siuntimą į CRM sistemą, užklausą susisiekimui telefonu.",
 
-      cta: "Siųsti kvalifikuotą lead’ą",
+      cta: "Susisiekti",
     },
 
     sales: {
       back: "",
       badge: "Pardavimų asistento demonstracija",
 
-      h1: "Parink tinkamiausią chatbotų setup’ą",
-      sub: "Ši demonstracija padeda parinkti chatbotų strategiją pagal tikslus, srautą, įrankius ir kalbas — ir sugeneruoja rekomendacijos santrauką.",
+      h1: "Padeda rasti tinkamiausią paslaugą jūsų klientui:",
+      sub: "Ši demonstracija imituoja pardavimų asistentą, kuris užduoda kelis klausimus, supranta jūsų kliento poreikius ir padeda tau rasti tinkamiausią paslaugą tavo klientui.",
 
-      chatTitle: "Pardavimų asistentas",
-      chatSub: "Padėsiu suprasti, koks setup’as tau labiausiai tinka.",
+      chatTitle: "Pardavimų Asistentas",
+      chatSub: "Statybų įmones verslo pavizdys",
 
       right1Title: "Ką jis daro",
       right1List: [
-        "Klausia tikslų + srauto + kanalų",
-        "Patikrina įrankius ir kalbas",
-        "Pateikia rekomendaciją",
+        "užduoda tikslius klausimus",
+        "padeda suprasti, ko klientas iš tikrųjų nori",
+        "sutaupo laiką abiem pusėms",
       ] as const,
 
       right2Title: "Kodėl naudinga",
       right2Text:
-        "Lankytojai greitai gauna aiškumą — o tu gauni struktūruotą info, kad sales follow-up būtų lengvas.",
+        "Padeda iš karto suprasti kliento poreikius ir leidžia tęsti bendravimą be nereikalingų klausimų ir gaišaties.",
 
       nextTitle: "Kitas žingsnis",
       nextText:
-        "Galim pritaikyti klausimus tavo nišai, pridėti scoring’ą ir integruoti booking/CRM.",
+        "Galima pridėti klientų vertinimą (scoring), siuntimą į CRM sistemą, užklausą susisiekimui telefonu.",
 
-      cta: "Aptarti pardavimų asistentą",
+      cta: "Susisiekti",
     },
     supportBot: {
-  welcome: "Sveiki! Aš esu Pagalbos asistento demonstracija. Kuo galiu padėti?",
-  welcomeEmbedded: "Labas! Aš esu Pagalbos asistento demonstracija. Kuo galiu padėti?",
-  askPricing: "Supratau — dėl ko konkrečiai kainodara / sąskaitos?",
-  askTech: "Supratau — koks tai techninis nesklandumas?",
-  askUrgency: "Ačiū. Koks skubumas?",
-  askContact: "Kaip norite, kad susisiektume?",
-  askEmail: "Kur atsakyti? Įveskite el. paštą.",
-  askPhone: "Gerai. Įveskite telefono numerį (jei įmanoma su šalies kodu).",
-  askMessage: "Puiku. Trumpai aprašykite problemą.",
-  done: "Viskas — štai bilieto santrauka.",
+      welcome:
+        "Sveiki! Aš esu Pagalbos Asistento demonstracija. Kuo galiu padėti?",
+      welcomeEmbedded:
+        "Labas! Aš esu Pagalbos asistento demonstracija. Kuo galiu padėti?",
+      askPricing: "Supratau — dėl ko konkrečiai kainodara / sąskaitos?",
+      askTech: "Supratau — koks tai techninis nesklandumas?",
+      askUrgency: "Ačiū. Koks skubumas?",
+      askContact: "Kaip norite, kad susisiektume?",
+      askEmail: "Kur atsakyti? Įveskite el. paštą.",
+      askPhone: "Gerai. Įveskite telefono numerį (jei įmanoma su šalies kodu).",
+      askMessage: "Puiku. Trumpai aprašykite problemą.",
+      done: "Viskas — štai bilieto santrauka.",
 
-  invalidEmail: "Šis el. paštas atrodo neteisingas. Įveskite teisingą el. paštą.",
-  invalidPhone: "Šis numeris atrodo neteisingas. Bandykite dar kartą (pvz. +370 6xx xxxxx).",
+      invalidEmail:
+        "Šis el. paštas atrodo neteisingas. Įveskite teisingą el. paštą.",
+      invalidPhone:
+        "Šis numeris atrodo neteisingas. Bandykite dar kartą (pvz. +370 6xx xxxxx).",
 
-  emailPlaceholder: "jusu@email.com",
-  phonePlaceholder: "pvz. +370 6xx xxxxx",
-  messagePlaceholder: 'pvz. „Negaliu prisijungti prie paskyros“',
-  restart: "Pradėti iš naujo",
+      emailPlaceholder: "jusu@email.com",
+      phonePlaceholder: "pvz. +370 6xx xxxxx",
+      messagePlaceholder: "pvz. „Negaliu prisijungti prie paskyros“",
+      restart: "Pradėti iš naujo",
 
-  emailSubjectPrefix: "[Pagalbos užklausa]",
-  emailBodyTitle: "Nauja pagalbos užklausa",
-  topicLabel: "Tema",
-  detailsLabel: "Detalės",
-  urgencyLabel: "Skubumas",
-  preferredContactLabel: "Pageidaujamas kontaktas",
-  messageLabel: "Žinutė",
-  emailLabel: "El. paštas",
-  phoneLabel: "Telefonas",
-  notProvided: "(nenurodyta)",
-  sentFrom: "Išsiųsta iš Pagalbos asistento demonstracijos.",
+      emailSubjectPrefix: "[Pagalbos užklausa]",
+      emailBodyTitle: "Nauja pagalbos užklausa",
+      topicLabel: "Tema",
+      detailsLabel: "Detalės",
+      urgencyLabel: "Skubumas",
+      preferredContactLabel: "Pageidaujamas kontaktas",
+      messageLabel: "Žinutė",
+      emailLabel: "El. paštas",
+      phoneLabel: "Telefonas",
+      notProvided: "(nenurodyta)",
+      sentFrom: "Išsiųsta iš Pagalbos asistento demonstracijos.",
 
-  topics: {
-    billing: "Sąskaitos / Kainodara",
-    tech: "Techninė problema",
-    booking: "Rezervacija / Vizitas",
-    general: "Bendras klausimas",
-    other: "Kita",
-  },
-  priorities: {
-    not_urgent: "Neskubu (tik klausimas)",
-    soon: "Greitai (turi įtakos sprendimui)",
-    urgent: "Skubu (trukdo darbui)",
-    critical: "Kritiška (paslauga neveikia)",
-  },
-  pricingSubtopics: {
-    plan_change: "Plano keitimas",
-    invoice: "Sąskaita / apmokėjimas",
-    discounts: "Nuolaidos arba individuali kaina",
-    info: "Reikia informacijos",
-    enterprise: "Enterprise / dideli kiekiai",
-  },
-  techSubtopics: {
-    cant_login: "Negaliu prisijungti",
-    bug_error: "Svetainės klaida / error",
-    slow: "Viskas veikia lėtai",
-    integration: "Integracija / API",
-    other_tech: "Kita techninė problema",
-  },
-  contactMethods: {
-    email: "El. paštu",
-    phone: "Telefono skambučiu",
-  },
-},
+      topics: {
+        billing: "Sąskaitos / Kainodara",
+        tech: "Techninė problema",
+        booking: "Rezervacija / Vizitas",
+        general: "Bendras klausimas",
+        other: "Kita",
+      },
+      priorities: {
+        not_urgent: "Neskubu (tik klausimas)",
+        soon: "Greitai (turi įtakos sprendimui)",
+        urgent: "Skubu (trukdo darbui)",
+        critical: "Kritiška (paslauga neveikia)",
+      },
+      pricingSubtopics: {
+        plan_change: "Plano keitimas",
+        invoice: "Sąskaita / apmokėjimas",
+        discounts: "Nuolaidos arba individuali kaina",
+        info: "Reikia informacijos",
+        enterprise: "Enterprise / dideli kiekiai",
+      },
+      techSubtopics: {
+        cant_login: "Negaliu prisijungti",
+        bug_error: "Svetainės klaida / error",
+        slow: "Viskas veikia lėtai",
+        integration: "Integracija / API",
+        other_tech: "Kita techninė problema",
+      },
+      contactMethods: {
+        email: "El. paštu",
+        phone: "Telefono skambučiu",
+      },
+    },
 
-leadsBot: {
-  welcome: "Sveiki! Aš esu Klientų kvalifikavimo boto demonstracija. Ko ieškote?",
-  welcomeEmbedded: "Labas! Aš esu Klientų kvalifikavimo boto demonstracija. Ko ieškote?",
-  askBusiness: "Puiku — koks tai verslo tipas?",
-  askSize: "Supratau. Koks jūsų įmonės dydis?",
-  askTimeframe: "Kada norite pradėti?",
-  askBudget: "Koks biudžeto rėžis būtų priimtinas?",
-  askEmail: "Puiku. Kur su jumis susisiekti? (įveskite el. paštą)",
-  askMessage: 'Nebūtina: pridėkite trumpą žinutę (arba įrašykite „skip“).',
-  done: "Ačiū! Štai potencialaus kliento santrauka.",
-  invalidEmail: "Šis el. paštas atrodo neteisingas. Įveskite teisingą el. paštą.",
+    leadsBot: {
+      welcome:
+        "Sveiki! Aš esu Klientų Kvalifikavimo boto demonstracija. Ko ieškote?",
+      welcomeEmbedded:
+        "Labas! Aš esu Klientų kvalifikavimo boto demonstracija. Ko ieškote?",
+      askBusiness: "Puiku — koks tai verslo tipas?",
+      askSize: "Supratau. Koks jūsų įmonės dydis?",
+      askTimeframe: "Kada norite pradėti?",
+      askBudget: "Koks biudžeto rėžis būtų priimtinas?",
+      askEmail: "Puiku. Kur su jumis susisiekti? (įveskite el. paštą)",
+      askMessage: "Nebūtina: pridėkite trumpą žinutę (arba įrašykite „skip“).",
+      done: "Ačiū! Štai potencialaus kliento santrauka.",
+      invalidEmail:
+        "Šis el. paštas atrodo neteisingas. Įveskite teisingą el. paštą.",
 
-  emailPlaceholder: "jusu@email.com",
-  messagePlaceholder: 'Parašykite trumpai (arba „skip“)',
-  restart: "Pradėti iš naujo",
+      emailPlaceholder: "jusu@email.com",
+      messagePlaceholder: "Parašykite trumpai (arba „skip“)",
+      restart: "Pradėti iš naujo",
 
-  skipKeyword: "skip",
-  skipped: "skip",
+      skipKeyword: "skip",
+      skipped: "skip",
 
-  emailSubjectPrefix: "[Naujas lead’as]",
-  emailBodyTitle: "Naujas lead’as iš Klientų kvalifikavimo boto demonstracijos",
-  sentFrom: "Išsiųsta iš Klientų kvalifikavimo boto demonstracijos.",
+      emailSubjectPrefix: "[Naujas lead’as]",
+      emailBodyTitle:
+        "Naujas lead’as iš Klientų kvalifikavimo boto demonstracijos",
+      sentFrom: "Išsiųsta iš Klientų kvalifikavimo boto demonstracijos.",
 
-  summary: {
-    lookingFor: "Ko ieško",
-    businessType: "Verslo tipas",
-    companySize: "Įmonės dydis",
-    timeframe: "Laikotarpis",
-    budget: "Biudžetas",
-    email: "El. paštas",
-    optionalMessage: "Papildoma žinutė",
-  },
+      summary: {
+        lookingFor: "Ko ieško",
+        businessType: "Verslo tipas",
+        companySize: "Įmonės dydis",
+        timeframe: "Laikotarpis",
+        budget: "Biudžetas",
+        email: "El. paštas",
+        optionalMessage: "Papildoma žinutė",
+      },
 
-  intents: {
-    new_website: "Nauja svetainė",
-    chatbot: "Chatbotas",
-    support_automation: "Pagalbos automatizavimas",
-    exploring: "Tik domiuosi",
-  },
-  businessTypes: {
-    service: "Paslaugų verslas",
-    ecommerce: "El. parduotuvė",
-    saas: "SaaS",
-    other: "Kita",
-  },
-  companySizes: {
-    solo: "Vienas",
-    "1_5": "1–5",
-    "6_20": "6–20",
-    "20_plus": "20+",
-  },
-  timeframes: {
-    researching: "Tyrinėju",
-    this_month: "Šį mėnesį",
-    asap: "Kuo greičiau",
-  },
-  budgets: {
-    lt_500: "< €500",
-    "500_1k": "€500–1k",
-    "1k_3k": "€1k–3k",
-    not_sure: "Nežinau",
-  },
-},
+      intents: {
+        new_website: "Nauja svetainė",
+        chatbot: "Chatbotas",
+        support_automation: "Pagalbos automatizavimas",
+        exploring: "Tik domiuosi",
+      },
+      businessTypes: {
+        service: "Paslaugų verslas",
+        ecommerce: "El. parduotuvė",
+        saas: "SaaS",
+        other: "Kita",
+      },
+      companySizes: {
+        solo: "Vienas",
+        "1_5": "1–5",
+        "6_20": "6–20",
+        "20_plus": "20+",
+      },
+      timeframes: {
+        researching: "Tyrinėju",
+        this_month: "Šį mėnesį",
+        asap: "Kuo greičiau",
+      },
+      budgets: {
+        lt_500: "< €500",
+        "500_1k": "€500–1k",
+        "1k_3k": "€1k–3k",
+        not_sure: "Nežinau",
+      },
+    },
 
-salesBot: {
-  welcome: "Sveiki! Aš esu Pardavimų asistento demonstracija. Koks jūsų pagrindinis tikslas?",
-  welcomeEmbedded: "Labas! Aš esu Pardavimų asistento demonstracija. Koks tikslas?",
-  askTraffic: "Ačiū. Koks jūsų svetainės lankomumas?",
-  askChannel: "Iš kur ateina klientai?",
-  askCrm: "Kaip dabar tvarkote užklausas / support’ą?",
-  askLanguages: "Ar reikia kelių kalbų?",
-  askHandoff: "Koks geriausias kitas žingsnis lankytojui?",
-  askEmail: "Puiku. Kur atsiųsti rekomendaciją? (įveskite el. paštą)",
-  done: "Viskas — štai rekomenduojamas setup’as.",
-  invalidEmail: "Šis el. paštas atrodo neteisingas. Įveskite teisingą el. paštą.",
+    salesBot: {
+      welcome: "Kokiame etape dabar esate su namo statyba?",
 
-  emailPlaceholder: "jusu@email.com",
-  restart: "Pradėti iš naujo",
+      // welcome: "Sveiki! Aš esu Pardavimų asistento demonstracija. Ką šiuo metu norite pagerinti?",
 
-  emailSubjectPrefix: "[Rekomendacija]",
-  emailBodyTitle: "Pardavimų asistento demonstracijos rekomendacija",
-  sentFrom: "Išsiųsta iš Pardavimų asistento demonstracijos.",
+      welcomeEmbedded:
+        "Labas! Aš esu Pardavimų asistento demonstracija. Koks tikslas?",
 
-  summary: {
-    goal: "Tikslas",
-    traffic: "Lankomumas",
-    channel: "Kanalai",
-    crm: "CRM",
-    languages: "Kalbos",
-    handoff: "Kitas žingsnis",
-    recommendedSetup: "Rekomenduojamas setup’as",
-    replyTo: "Atsakymo el. paštas",
-  },
+      askTraffic: "Kokia pagalba šiuo metu būtų naudingiausia?",
+      // askTraffic: "Ačiū. Koks jūsų svetainės lankomumas?",
 
-  route: {
-    crm: "CRM / helpdesk",
-    email: "el. paštą",
-  },
-  handoff: {
-    book: "momentinius booking link’us",
-    capture: "lead surinkimą kaip fallback",
-  },
+      askChannel: "Ar jau esi nusimatęs biudžeto ribas?",
+      // askChannel: "Iš kur ateina klientai?",
 
-  recommendations: {
-    reduceSupport: ({ multiLang, route }: { multiLang: boolean; route: string }) =>
-      `Pagalbos asistentas + FAQ botas. Pridėkite ${multiLang ? "kelių kalbų nukreipimą" : "žinių bazę"} ir siųskite užklausas į ${route}.`,
-    automateBookings: ({ handoff }: { handoff: string }) =>
-      `Booking asistentas su kalendoriaus integracija + ${handoff}.`,
-    increaseConversions: ({ highTraffic }: { highTraffic: boolean }) =>
-      `Pardavimų asistentas, kuris kvalifikuoja lankytojus ir rekomenduoja. ${highTraffic ? "Pridėkite A/B testavimą klausimams ir skriptams." : "Pradėkite paprastai, tada iteruokite."}`,
-    moreLeads: ({ route, highTraffic }: { route: string; highTraffic: boolean }) =>
-      `Klientų kvalifikavimo botas, kuris surenka intent/biudžetą/laikotarpį ir nukreipia į ${route}. ${highTraffic ? "Apsvarstykite lead scoring + automatizaciją." : "Pradėkite nuo struktūruoto lead surinkimo."}`,
-  },
+      askCrm: "Kada realistiškai planuoji pradėti statybas?",
+      //  askCrm: "Kaip dabar tvarkote užklausas / support’ą?",
 
-  goals: {
-    more_leads: "Daugiau užklausų",
-    reduce_support: "Sumažinti support apkrovą",
-    increase_conversions: "Padidinti konversijas",
-    automate_bookings: "Automatizuoti rezervacijas",
-  },
-  traffic: {
-    low: "Mažas (0–500/mėn.)",
-    medium: "Vidutinis (500–5k/mėn.)",
-    high: "Didelis (5k+/mėn.)",
-    not_sure: "Nežinau",
-  },
-  channels: {
-    website_only: "Tik svetainė",
-    website_ads: "Svetainė + reklamos",
-    website_social: "Svetainė + social",
-    multiple: "Keli kanalai",
-  },
-  crm: {
-    no_crm: "Dar neturiu CRM",
-    spreadsheet: "Naudoju Excel / lentelę",
-    have_crm: "Turiu CRM (HubSpot, Pipedrive ir pan.)",
-    not_sure: "Nežinau",
-  },
-  languages: {
-    en_only: "Tik anglų",
-    en_plus_one: "Anglų + dar viena",
-    multi: "Kelios kalbos",
-    not_sure: "Nežinau",
-  },
-  handoffPref: {
-    book_call: "Rezervuoti skambutį",
-    demo_trial: "Pradėti nuo demo / trial",
-    message_first: "Pirma parašyti žinutę",
-  },
-},
+      askLanguages: "Kas tau svarbiausia renkantis statytoją?",
+      // askLanguages: "Ar reikia kelių kalbų?",
 
+      askHandoff: "Kaip norėtum tęsti?",
+      //   askHandoff: "Koks geriausias kitas žingsnis lankytojui?",
+
+      askEmail: "Puiku. Kur atsiųsti rekomendaciją? (įveskite el. paštą)",
+      //  askEmail: "Puiku. Kur atsiųsti rekomendaciją? (įveskite el. paštą)",
+
+      done: "Viskas — štai rekomenduojamas setup’as.",
+
+      invalidEmail:
+        "Šis el. paštas atrodo neteisingas. Įveskite teisingą el. paštą.",
+
+      emailPlaceholder: "jusu@email.com",
+      restart: "Pradėti iš naujo",
+
+      emailSubjectPrefix: "[Rekomendacija]",
+      emailBodyTitle: "Pardavimų asistento demonstracijos rekomendacija",
+      sentFrom: "Išsiųsta iš Pardavimų asistento demonstracijos.",
+
+      summary: {
+        goal: "Tikslas",
+        traffic: "Lankomumas",
+        channel: "Kanalai",
+        crm: "CRM",
+        languages: "Kalbos",
+        handoff: "Kitas žingsnis",
+        recommendedSetup: "Rekomenduojamas setup’as",
+        replyTo: "Atsakymo el. paštas",
+      },
+
+      route: {
+        crm: "CRM / helpdesk",
+        email: "el. paštą",
+      },
+      handoff: {
+        book: "momentinius booking link’us",
+        capture: "lead surinkimą kaip fallback",
+      },
+
+      recommendations: {
+        reduceSupport: ({
+          multiLang,
+          route,
+        }: {
+          multiLang: boolean;
+          route: string;
+        }) =>
+          `Pagalbos asistentas + FAQ botas. Pridėkite ${multiLang ? "kelių kalbų nukreipimą" : "žinių bazę"} ir siųskite užklausas į ${route}.`,
+        automateBookings: ({ handoff }: { handoff: string }) =>
+          `Booking asistentas su kalendoriaus integracija + ${handoff}.`,
+        increaseConversions: ({ highTraffic }: { highTraffic: boolean }) =>
+          `Pardavimų asistentas, kuris kvalifikuoja lankytojus ir rekomenduoja. ${highTraffic ? "Pridėkite A/B testavimą klausimams ir skriptams." : "Pradėkite paprastai, tada iteruokite."}`,
+        moreLeads: ({
+          route,
+          highTraffic,
+        }: {
+          route: string;
+          highTraffic: boolean;
+        }) =>
+          `Klientų kvalifikavimo botas, kuris surenka intent/biudžetą/laikotarpį ir nukreipia į ${route}. ${highTraffic ? "Apsvarstykite lead scoring + automatizaciją." : "Pradėkite nuo struktūruoto lead surinkimo."}`,
+      },
+
+      //   goals: {
+      //     more_leads: "Gauti daugiau užklausų",
+      //     reduce_support: "Sumažinti klientų aptarnavimo krūvį",
+      //     increase_conversions: "Padidinti pardavimus",
+      //     automate_bookings: "Automatizuoti registracijas",
+      //   },
+      //   traffic: {
+      //     low: "Mažas (0–500/mėn.)",
+      //     medium: "Vidutinis (500–5k/mėn.)",
+      //     high: "Didelis (5k+/mėn.)",
+      //     not_sure: "Nežinau",
+      //   },
+      //   channels: {
+      //     website_only: "Tik svetainė",
+      //     website_ads: "Svetainė + reklamos",
+      //     website_social: "Svetainė + social",
+      //     multiple: "Keli kanalai",
+      //   },
+      //   crm: {
+      //     no_crm: "Dar neturiu CRM",
+      //     spreadsheet: "Naudoju Excel / lentelę",
+      //     have_crm: "Turiu CRM (HubSpot, Pipedrive ir pan.)",
+      //     not_sure: "Nežinau",
+      //   },
+      //   languages: {
+      //     en_only: "Tik anglų",
+      //     en_plus_one: "Anglų + dar viena",
+      //     multi: "Kelios kalbos",
+      //     not_sure: "Nežinau",
+      //   },
+      //   handoffPref: {
+      //     book_call: "Rezervuoti skambutį",
+      //     demo_trial: "Pradėti nuo demo / trial",
+      //     message_first: "Pirma parašyti žinutę",
+      //   },
+      // },
+
+      goals: {
+        more_leads: "Tik renkuosi ir lyginu variantus",
+        reduce_support: "Turiu sklypą, ieškau sprendimų",
+        increase_conversions: "Jau turiu projektą",
+        automate_bookings: "Esu pasiruošęs pradėti statybas",
+      },
+      traffic: {
+        low: "Projekto ir sprendimų konsultacija",
+        medium: "Pilna namo statyba „iki raktų“",
+        high: "Tik daliniai darbai",
+        not_sure: "Dar tik noriu pasikalbėti",
+      },
+      channels: {
+        website_only: "Taip, turiu aiškų biudžetą",
+        website_ads: "Turiu apytikslį rėžį",
+        website_social: "Dar skaičiuoju",
+        multiple: "Kol kas nenoriu apie tai kalbėti",
+      },
+      crm: {
+        no_crm: "Per artimiausius 1–3 mėnesius",
+        spreadsheet: "Šiais metais",
+        have_crm: "Kitais metais",
+        not_sure: "Dar neaišku",
+      },
+      languages: {
+        en_only: "Patikimumas ir patirtis",
+        en_plus_one: "Kaina",
+        multi: "Terminų laikymasis",
+        not_sure: "Aiškus procesas be streso",
+      },
+      handoffPref: {
+        book_call: "Rezervuoti skambutį",
+        demo_trial: "Gauti pirminę konsultaciją",
+        message_first: "Paskaičiuoti preliminarią kainą",
+      },
+    },
   },
 } as const;
 
