@@ -916,7 +916,7 @@ export const translations = {
         crm: "CRM",
         languages: "Kalbos",
         handoff: "Kitas žingsnis",
-        recommendedSetup: "Rekomenduojamas setup’as",
+        recommendedSetup: "Rekomenduojamas sprendimas",
         replyTo: "Atsakymo el. paštas",
       },
 

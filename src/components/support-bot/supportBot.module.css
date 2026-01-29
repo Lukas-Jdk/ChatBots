@@ -245,13 +245,14 @@
 }
 
 .summaryLabel {
-  font-size: 11px;
+  font-size: 13px;
   color: var(--color-text-muted);
+  font-weight: 800;
 }
 
 .summaryValue {
   font-size: 13px;
-  color: var(--color-text-main);
+  color: rgb(73, 73, 73);
 }
 
 .summaryNote {
