@@ -1,7 +1,8 @@
 // src/i18n/lt/bots.sales.ts
 export const salesBot = {
   welcome: "Kokiame etape dabar esate su namo statyba?",
-  welcomeEmbedded: "Labas! Aš esu Pardavimų asistento demonstracija. Koks tikslas?",
+  welcomeEmbedded:
+    "Labas! Aš esu Pardavimų asistento demonstracija. Koks tikslas?",
   askTraffic: "Kokia pagalba šiuo metu būtų naudingiausia?",
   askChannel: "Ar jau esi nusimatęs biudžeto ribas?",
   askCrm: "Kada realistiškai planuoji pradėti statybas?",
@@ -9,7 +10,8 @@ export const salesBot = {
   askHandoff: "Kaip norėtum tęsti?",
   askEmail: "Puiku. Kur atsiųsti rekomendaciją? (įveskite el. paštą)",
   done: "Viskas — štai rekomenduojamas setup’as.",
-  invalidEmail: "Šis el. paštas atrodo neteisingas. Įveskite teisingą el. paštą.",
+  invalidEmail:
+    "Šis el. paštas atrodo neteisingas. Įveskite teisingą el. paštą.",
   emailPlaceholder: "jusu@email.com",
   restart: "Pradėti iš naujo",
 
@@ -38,7 +40,13 @@ export const salesBot = {
   },
 
   recommendations: {
-    reduceSupport: ({ multiLang, route }: { multiLang: boolean; route: string }) =>
+    reduceSupport: ({
+      multiLang,
+      route,
+    }: {
+      multiLang: boolean;
+      route: string;
+    }) =>
       `Pagalbos asistentas + FAQ botas. Pridėkite ${
         multiLang ? "kelių kalbų nukreipimą" : "žinių bazę"
       } ir siųskite užklausas į ${route}.`,
@@ -46,11 +54,21 @@ export const salesBot = {
       `Booking asistentas su kalendoriaus integracija + ${handoff}.`,
     increaseConversions: ({ highTraffic }: { highTraffic: boolean }) =>
       `Pardavimų asistentas, kuris kvalifikuoja lankytojus ir rekomenduoja. ${
-        highTraffic ? "Pridėkite A/B testavimą klausimams ir skriptams." : "Pradėkite paprastai, tada iteruokite."
+        highTraffic
+          ? "Pridėkite A/B testavimą klausimams ir skriptams."
+          : "Pradėkite paprastai, tada iteruokite."
       }`,
-    moreLeads: ({ route, highTraffic }: { route: string; highTraffic: boolean }) =>
-      `Klientų kvalifikavimo botas, kuris surenka intent/biudžetą/laikotarpį ir nukreipia į ${route}. ${
-        highTraffic ? "Apsvarstykite lead scoring + automatizaciją." : "Pradėkite nuo struktūruoto lead surinkimo."
+    moreLeads: ({
+      route,
+      highTraffic,
+    }: {
+      route: string;
+      highTraffic: boolean;
+    }) =>
+      `Klientų kvalifikavimo botas, kuris surenka kliento poreikius, biudžetą ir planuojamą laikotarpį bei nukreipia į ${route}. ${
+        highTraffic
+          ? "Apsvarstykite užklausų vertinimą ir automatizaciją."
+          : "Pradėkite nuo struktūruoto užklausų surinkimo."
       }`,
   },
 

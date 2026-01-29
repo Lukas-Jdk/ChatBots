@@ -19,7 +19,7 @@ export default function Nav() {
     { label: tr.nav.support, href: "/demo/support" },
     { label: tr.nav.leads, href: "/demo/leads" },
     { label: tr.nav.sales, href: "/demo/sales" },
-     { label: tr.nav.sales, href: "/demo/test" },
+    { label: tr.nav.test, href: "/demo/test" },
   ] as const;
 
   return (

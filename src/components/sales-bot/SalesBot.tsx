@@ -1,3 +1,4 @@
+// src/components/sales-bot/SalesBot.tsx
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";

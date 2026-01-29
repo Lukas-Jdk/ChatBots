@@ -1,6 +1,8 @@
+// src/i18n/en/bots.sales.ts
+
 export const salesBot = {
   welcome: "What stage are you at with your home construction?",
-  welcomeEmbedded: "Hi! I'm a sales assistant demo. What are you looking to achieve?",
+  welcomeEmbedded: "Hi! I’m a Sales Assistant demo. What’s your goal?",
   askTraffic: "What kind of help would be most useful for you right now?",
   askChannel: "Have you already set a budget range?",
   askCrm: "When do you realistically plan to start construction?",
@@ -18,11 +20,11 @@ export const salesBot = {
 
   summary: {
     goal: "Goal",
-    traffic: "Traffic",
-    channel: "Channel",
-    crm: "CRM",
-    languages: "Languages",
-    handoff: "Preferred next step",
+    traffic: "Service",
+    channel: "Budget",
+    crm: "Timeframe",
+    languages: "Most important",
+    handoff: "Next step",
     recommendedSetup: "Recommended setup",
     replyTo: "Reply-to email",
   },
@@ -40,40 +42,40 @@ export const salesBot = {
     reduceSupport: ({ multiLang, route }: { multiLang: boolean; route: string }) =>
       `Support Assistant + FAQ bot. Add ${multiLang ? "multi-language routing" : "a knowledge base"} and send tickets to ${route}.`,
     automateBookings: ({ handoff }: { handoff: string }) =>
-      `Booking Assistant with calendar integration + ${handoff}.`,
+      `Booking assistant with calendar integration + ${handoff}.`,
     increaseConversions: ({ highTraffic }: { highTraffic: boolean }) =>
-      `Sales Assistant that qualifies visitors + recommends plans. ${
-        highTraffic ? "Add A/B testing for scripts and questions." : "Start simple, then iterate."
+      `Sales assistant that qualifies visitors and recommends the right option. ${
+        highTraffic ? "Add A/B testing for questions and scripts." : "Start simple, then iterate."
       }`,
     moreLeads: ({ route, highTraffic }: { route: string; highTraffic: boolean }) =>
-      `Leads Bot that qualifies by intent, budget and timeframe, then routes to ${route}. ${
+      `Lead qualification bot that captures intent/budget/timeframe and routes to ${route}. ${
         highTraffic ? "Consider lead scoring + automation." : "Start with structured lead capture."
       }`,
   },
 
   goals: {
-    more_leads: "I'm just exploring and comparing options",
-    reduce_support: "I have a plot and I'm looking for solutions",
+    more_leads: "I’m comparing options",
+    reduce_support: "I have a plot and I’m looking for solutions",
     increase_conversions: "I already have a project",
-    automate_bookings: "I'm ready to start construction",
+    automate_bookings: "I’m ready to start construction",
   },
   traffic: {
     low: "Project and solution consultation",
     medium: "Full home construction (turnkey)",
     high: "Specific / partial construction work",
-    not_sure: "I just want to talk things through",
+    not_sure: "I just want to talk it through",
   },
   channels: {
     website_only: "Yes, I have a clear budget",
     website_ads: "I have an approximate range",
-    website_social: "I'm still calculating",
-    multiple: "I'd rather not discuss it yet",
+    website_social: "I’m still calculating",
+    multiple: "I’d rather not discuss it yet",
   },
   crm: {
     no_crm: "Within the next 1–3 months",
     spreadsheet: "Later this year",
     have_crm: "Next year",
-    not_sure: "I'm not sure yet",
+    not_sure: "I’m not sure yet",
   },
   languages: {
     en_only: "Reliability and experience",

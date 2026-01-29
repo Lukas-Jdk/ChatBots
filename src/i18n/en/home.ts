@@ -1,3 +1,4 @@
+// src/i18n/en/home.ts
 export const home = {
   h1_a: "Power Up Your Business with",
   h1_b: "Smart Chatbots!",

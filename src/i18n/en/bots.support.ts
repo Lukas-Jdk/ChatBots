@@ -1,3 +1,4 @@
+// src/i18n/en/bots.support.ts
 export const supportBot = {
   welcome: "Welcome! I’m the Support Assistant demo. What can I help you with today?",
   welcomeEmbedded: "Hi! I’m the Support Assistant demo. What can I help you with today?",

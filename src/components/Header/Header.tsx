@@ -8,18 +8,16 @@ import Nav from "./Nav";
 import LanguageSwitch from "./LanguageSwitch";
 import styles from "./header.module.css";
 
-const mobileItems = [
-  { label: "Home", href: "/" },
-  { label: "FAQ", href: "/demo/faq" },
-  { label: "Support", href: "/demo/support" },
-  { label: "Leads", href: "/demo/leads" },
-  { label: "Sales", href: "/demo/sales" },
-] as const;
+import { useLang } from "@/i18n/useLang";
+import { t } from "@/i18n";
 
 export default function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+
+  const lang = useLang();
+  const tr = t(lang);
 
   useEffect(() => {
     function onClick(e: MouseEvent) {
@@ -29,10 +27,18 @@ export default function Header() {
     return () => document.removeEventListener("mousedown", onClick);
   }, []);
 
-  // jei pasikeičia route (pvz paspaudus linką) – uždarom
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
+
+  const mobileItems = [
+    { label: tr.nav.home, href: "/" },
+    { label: tr.nav.faq, href: "/demo/faq" },
+    { label: tr.nav.support, href: "/demo/support" },
+    { label: tr.nav.leads, href: "/demo/leads" },
+    { label: tr.nav.sales, href: "/demo/sales" },
+    { label: tr.nav.test, href: "/demo/test" },
+  ] as const;
 
   return (
     <header className={styles.header}>
@@ -46,7 +52,6 @@ export default function Header() {
 
           <div className={styles.right}>
             <div className={styles.rightCluster} ref={ref}>
-              {/* ✅ Mobile burger */}
               <button
                 type="button"
                 className={styles.menuBtn}
@@ -58,14 +63,20 @@ export default function Header() {
               </button>
 
               {open && (
-                <div className={styles.mobileMenu} role="menu" aria-label="Mobile navigation">
+                <div
+                  className={styles.mobileMenu}
+                  role="menu"
+                  aria-label="Mobile navigation"
+                >
                   {mobileItems.map((it) => {
                     const active = pathname === it.href;
                     return (
                       <Link
                         key={it.href}
                         href={it.href}
-                        className={`${styles.mobileLink} ${active ? styles.mobileLinkActive : ""}`}
+                        className={`${styles.mobileLink} ${
+                          active ? styles.mobileLinkActive : ""
+                        }`}
                       >
                         {it.label}
                       </Link>
@@ -74,7 +85,6 @@ export default function Header() {
                 </div>
               )}
 
-              {/* Language pill */}
               <LanguageSwitch />
             </div>
           </div>

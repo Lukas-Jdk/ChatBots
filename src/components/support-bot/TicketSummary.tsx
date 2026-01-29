@@ -1,69 +1,71 @@
 // src/components/support-bot/TicketSummary.tsx
 import styles from "./supportBot.module.css";
 
-export default function TicketSummary({
-  topic,
-  subtopic,
-  priority,
-  contactMethod,
-  email,
-  phone,
-  message,
-  onEmailDraft,
-}: {
+export default function TicketSummary(props: {
+  title: string;
+  labels: {
+    topic: string;
+    details: string;
+    urgency: string;
+    contact: string;
+    message: string;
+  };
+  cta: string;
+  note: string;
+
   topic: string;
   subtopic?: string;
   priority: string;
-  contactMethod: "Email" | "Phone call";
-  email: string;
-  phone: string;
+
+  contactMethodLabel: string;
+  contactValue: string;
+
   message: string;
   onEmailDraft: () => void;
 }) {
-  const contactValue = contactMethod === "Phone call" ? phone : email;
+  const { title, labels, cta, note } = props;
 
   return (
-    <div className={styles.summaryCard} role="region" aria-label="Ticket summary">
-      <div className={styles.summaryTitle}>Ticket Summary</div>
+    <div className={styles.summaryCard} role="region" aria-label={title}>
+      <div className={styles.summaryTitle}>{title}</div>
 
       <div className={styles.summaryGrid}>
         <div className={styles.summaryItem}>
-          <div className={styles.summaryLabel}>Topic</div>
-          <div className={styles.summaryValue}>{topic}</div>
+          <div className={styles.summaryLabel}>{labels.topic}</div>
+          <div className={styles.summaryValue}>{props.topic}</div>
         </div>
 
-        {subtopic ? (
+        {props.subtopic ? (
           <div className={styles.summaryItem}>
-            <div className={styles.summaryLabel}>Details</div>
-            <div className={styles.summaryValue}>{subtopic}</div>
+            <div className={styles.summaryLabel}>{labels.details}</div>
+            <div className={styles.summaryValue}>{props.subtopic}</div>
           </div>
         ) : null}
 
         <div className={styles.summaryItem}>
-          <div className={styles.summaryLabel}>Urgency</div>
-          <div className={styles.summaryValue}>{priority}</div>
+          <div className={styles.summaryLabel}>{labels.urgency}</div>
+          <div className={styles.summaryValue}>{props.priority}</div>
         </div>
 
         <div className={styles.summaryItem}>
-          <div className={styles.summaryLabel}>Contact</div>
+          <div className={styles.summaryLabel}>{labels.contact}</div>
           <div className={styles.summaryValue}>
-            {contactMethod} {contactValue ? `— ${contactValue}` : ""}
+            {props.contactMethodLabel}
+            {props.contactValue ? ` — ${props.contactValue}` : ""}
           </div>
         </div>
       </div>
 
       <div className={styles.summaryItem}>
-        <div className={styles.summaryLabel}>Message</div>
-        <div className={styles.summaryValue}>{message}</div>
+        <div className={styles.summaryLabel}>{labels.message}</div>
+        <div className={styles.summaryValue}>{props.message}</div>
       </div>
 
-      <button className={styles.primaryBtn} type="button" onClick={onEmailDraft}>
-        Send to support (opens email)
+      <button className="btn btnPrimary btnBlock" type="button" onClick={props.onEmailDraft}>
+        {cta}
       </button>
 
-      <div className={styles.summaryNote}>
-        Demo: this opens a pre-filled email draft. In production you’d route this to inbox/helpdesk and call if needed.
-      </div>
+      <div className={styles.summaryNote}>{note}</div>
     </div>
   );
 }

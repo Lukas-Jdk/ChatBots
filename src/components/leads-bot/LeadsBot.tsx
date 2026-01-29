@@ -70,18 +70,17 @@ export default function LeadsBot({ mode = "page" }: { mode?: Mode }) {
   }, [messages, step]);
 
   useEffect(() => {
-  if (step === "intent" && messages.length === 1) {
-    setMessages([
-      {
-        id: "m1",
-        role: "bot",
-        text: mode === "embedded" ? tr.leadsBot.welcomeEmbedded : tr.leadsBot.welcome,
-      },
-    ]);
-  }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [lang]);
-
+    if (step === "intent" && messages.length === 1) {
+      setMessages([
+        {
+          id: "m1",
+          role: "bot",
+          text: mode === "embedded" ? tr.leadsBot.welcomeEmbedded : tr.leadsBot.welcome,
+        },
+      ]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lang]);
 
   function push(role: "bot" | "user", text: string) {
     setMessages((prev) => [
@@ -176,11 +175,12 @@ export default function LeadsBot({ mode = "page" }: { mode?: Mode }) {
     setStep("message");
   }
 
+  // ✅ "skip" logikos NEBĖRA: žinutė visada saugoma kaip įvesta (arba tuščia, jei user tuščią neįmanoma išsiųsti)
   function submitMessage(v: string) {
-    const cleaned = v.trim().toLowerCase() === tr.leadsBot.skipKeyword ? "" : v.trim();
+    const cleaned = v.trim();
     setMessage(cleaned);
 
-    push("user", cleaned || tr.leadsBot.skipped);
+    push("user", cleaned);
     push("bot", tr.leadsBot.done);
     setStep("done");
   }
@@ -237,6 +237,8 @@ export default function LeadsBot({ mode = "page" }: { mode?: Mode }) {
   const timeframe = labelTimeframe(timeframeId as TimeframeId);
   const budget = labelBudget(budgetId as BudgetRangeId);
 
+  const sum = tr.summaries.leadSummary;
+
   return (
     <div className={styles.botWrap} data-mode={mode}>
       <div className={styles.chatList} ref={listRef}>
@@ -277,6 +279,10 @@ export default function LeadsBot({ mode = "page" }: { mode?: Mode }) {
         {step === "done" && (
           <div className={styles.botTools}>
             <LeadSummary
+              title={sum.title}
+              labels={sum.labels}
+              cta={sum.cta}
+              note={sum.note}
               intent={intent}
               businessType={businessType}
               companySize={companySize}

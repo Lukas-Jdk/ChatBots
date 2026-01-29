@@ -1,3 +1,5 @@
+// src/i18n/en/bots.leads.ts
+
 export const leadsBot = {
   welcome: "Welcome! I’m the Leads Bot demo. What are you looking for?",
   welcomeEmbedded: "Hi! I’m the Leads Bot demo. What are you looking for?",
@@ -6,16 +8,13 @@ export const leadsBot = {
   askTimeframe: "When do you want to start?",
   askBudget: "What budget range are you thinking?",
   askEmail: "Perfect. Where should we contact you? (enter your email)",
-  askMessage: 'Optional: add a short message (or type "skip").',
+  askMessage: "Optional: add a short message.",
   done: "Thanks! Here’s the summary of your lead.",
   invalidEmail: "That email doesn’t look right. Please enter a valid email.",
 
   emailPlaceholder: "your@email.com",
-  messagePlaceholder: 'Type a short note (or "skip")',
+  messagePlaceholder: "Type a short note",
   restart: "Restart demo",
-
-  skipKeyword: "skip",
-  skipped: "skip",
 
   emailSubjectPrefix: "[New Lead]",
   emailBodyTitle: "New lead from Leads Bot demo",

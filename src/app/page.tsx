@@ -182,7 +182,7 @@ export default function Page() {
                 rel="noreferrer"
                 className="btn btnSecondary"
               >
-                {tr.home.contactSecondary}
+               
               </a>
             </div>
           </div>

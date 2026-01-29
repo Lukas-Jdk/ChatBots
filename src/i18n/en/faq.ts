@@ -1,3 +1,4 @@
+// src/i18n/en/faq.ts
 export const faq = {
   h1: "FAQ – Chatbots Explained",
   sub: "Common questions about chatbots, answered simply.",

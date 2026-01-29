@@ -2,7 +2,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { Lang } from "./translations";
+import type { Lang } from "@/i18n";
 
 const STORAGE_KEY = "ljd_lang";
 
