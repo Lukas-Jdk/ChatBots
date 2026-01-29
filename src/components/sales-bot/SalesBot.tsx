@@ -22,9 +22,12 @@ import {
 } from "@/data/salesFlow";
 
 import { useLang } from "@/i18n/useLang";
-import { t } from "@/i18n/translations";
+import { t } from "@/i18n";
 
 import styles from "@/components/support-bot/supportBot.module.css";
+
+type Variant = "sales" | "test";
+type Mode = "embedded" | "page";
 
 type Step =
   | "goal"
@@ -36,59 +39,57 @@ type Step =
   | "email"
   | "done";
 
-type Mode = "embedded" | "page";
+type BotTr = ReturnType<typeof t>["salesBot"];
 
-function buildRecommendation({
-  goalId,
-  trafficId,
-  crmId,
-  languagesId,
-  handoffId,
-  tr,
-}: {
+function buildRecommendation(args: {
   goalId: SalesGoalId;
   trafficId: TrafficLevelId;
   crmId: CrmStatusId;
   languagesId: LanguageNeedsId;
   handoffId: HandoffPrefId;
-  tr: ReturnType<typeof t>;
+  bot: BotTr;
 }) {
+  const { goalId, trafficId, crmId, languagesId, handoffId, bot } = args;
+
   const highTraffic = trafficId === "high";
   const multiLang = languagesId === "multi";
   const hasCrm = crmId === "have_crm";
 
   if (goalId === "reduce_support") {
-    return tr.salesBot.recommendations.reduceSupport({
+    return bot.recommendations.reduceSupport({
       multiLang,
-      route: hasCrm ? tr.salesBot.route.crm : tr.salesBot.route.email,
+      route: hasCrm ? bot.route.crm : bot.route.email,
     });
   }
 
   if (goalId === "automate_bookings") {
-    return tr.salesBot.recommendations.automateBookings({
-      handoff:
-        handoffId === "book_call"
-          ? tr.salesBot.handoff.book
-          : tr.salesBot.handoff.capture,
+    return bot.recommendations.automateBookings({
+      handoff: handoffId === "book_call" ? bot.handoff.book : bot.handoff.capture,
     });
   }
 
   if (goalId === "increase_conversions") {
-    return tr.salesBot.recommendations.increaseConversions({
-      highTraffic,
-    });
+    return bot.recommendations.increaseConversions({ highTraffic });
   }
 
-  // default more leads
-  return tr.salesBot.recommendations.moreLeads({
-    route: hasCrm ? tr.salesBot.route.crm : tr.salesBot.route.email,
+  return bot.recommendations.moreLeads({
+    route: hasCrm ? bot.route.crm : bot.route.email,
     highTraffic,
   });
 }
 
-export default function SalesBot({ mode = "page" }: { mode?: Mode }) {
+export default function SalesBot({
+  mode = "page",
+  variant = "sales",
+}: {
+  mode?: Mode;
+  variant?: Variant;
+}) {
   const lang = useLang();
   const tr = t(lang);
+
+  // ✅ svarbiausia: bot tekstai
+  const bot = (variant === "test" ? tr.testBot : tr.salesBot) as BotTr;
 
   const [step, setStep] = useState<Step>("goal");
 
@@ -99,14 +100,13 @@ export default function SalesBot({ mode = "page" }: { mode?: Mode }) {
   const [languagesId, setLanguagesId] = useState<LanguageNeedsId | "">("");
   const [handoffId, setHandoffId] = useState<HandoffPrefId | "">("");
   const [email, setEmail] = useState("");
-
   const [recommendation, setRecommendation] = useState("");
 
   const [messages, setMessages] = useState<Message[]>(() => [
     {
       id: "m1",
       role: "bot",
-      text: mode === "embedded" ? tr.salesBot.welcomeEmbedded : tr.salesBot.welcome,
+      text: mode === "embedded" ? bot.welcomeEmbedded : bot.welcome,
     },
   ]);
 
@@ -119,20 +119,26 @@ export default function SalesBot({ mode = "page" }: { mode?: Mode }) {
     });
   }, [messages, step]);
 
+  // kai pakeiti kalbą – perstatom pirmą žinutę
   useEffect(() => {
-  if (step === "goal" && messages.length === 1) {
     setMessages([
       {
         id: "m1",
         role: "bot",
-        text: mode === "embedded" ? tr.salesBot.welcomeEmbedded : tr.salesBot.welcome,
+        text: mode === "embedded" ? bot.welcomeEmbedded : bot.welcome,
       },
     ]);
-  }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [lang]);
-
-  
+    setStep("goal");
+    setGoalId("");
+    setTrafficId("");
+    setChannelId("");
+    setCrmId("");
+    setLanguagesId("");
+    setHandoffId("");
+    setEmail("");
+    setRecommendation("");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lang, variant]);
 
   function push(role: "bot" | "user", text: string) {
     setMessages((prev) => [
@@ -142,28 +148,28 @@ export default function SalesBot({ mode = "page" }: { mode?: Mode }) {
   }
 
   const goalOptions: QuickOption[] = useMemo(
-    () => SALES_GOALS.map((x) => ({ id: x.id, label: tr.salesBot.goals[x.key] })),
-    [tr]
+    () => SALES_GOALS.map((x) => ({ id: x.id, label: bot.goals[x.key] })),
+    [bot]
   );
   const trafficOptions: QuickOption[] = useMemo(
-    () => TRAFFIC_LEVELS.map((x) => ({ id: x.id, label: tr.salesBot.traffic[x.key] })),
-    [tr]
+    () => TRAFFIC_LEVELS.map((x) => ({ id: x.id, label: bot.traffic[x.key] })),
+    [bot]
   );
   const channelOptions: QuickOption[] = useMemo(
-    () => SALES_CHANNELS.map((x) => ({ id: x.id, label: tr.salesBot.channels[x.key] })),
-    [tr]
+    () => SALES_CHANNELS.map((x) => ({ id: x.id, label: bot.channels[x.key] })),
+    [bot]
   );
   const crmOptions: QuickOption[] = useMemo(
-    () => CRM_STATUS.map((x) => ({ id: x.id, label: tr.salesBot.crm[x.key] })),
-    [tr]
+    () => CRM_STATUS.map((x) => ({ id: x.id, label: bot.crm[x.key] })),
+    [bot]
   );
   const languageOptions: QuickOption[] = useMemo(
-    () => LANGUAGE_NEEDS.map((x) => ({ id: x.id, label: tr.salesBot.languages[x.key] })),
-    [tr]
+    () => LANGUAGE_NEEDS.map((x) => ({ id: x.id, label: bot.languages[x.key] })),
+    [bot]
   );
   const handoffOptions: QuickOption[] = useMemo(
-    () => HANDOFF_PREF.map((x) => ({ id: x.id, label: tr.salesBot.handoffPref[x.key] })),
-    [tr]
+    () => HANDOFF_PREF.map((x) => ({ id: x.id, label: bot.handoffPref[x.key] })),
+    [bot]
   );
 
   const labelFrom = <T extends { id: string; key: string }>(
@@ -175,47 +181,47 @@ export default function SalesBot({ mode = "page" }: { mode?: Mode }) {
   function pickGoal(id: string) {
     const v = id as SalesGoalId;
     setGoalId(v);
-    push("user", labelFrom(SALES_GOALS as any, v, tr.salesBot.goals));
-    push("bot", tr.salesBot.askTraffic);
+    push("user", labelFrom(SALES_GOALS as any, v, bot.goals));
+    push("bot", bot.askTraffic);
     setStep("traffic");
   }
 
   function pickTraffic(id: string) {
     const v = id as TrafficLevelId;
     setTrafficId(v);
-    push("user", labelFrom(TRAFFIC_LEVELS as any, v, tr.salesBot.traffic));
-    push("bot", tr.salesBot.askChannel);
+    push("user", labelFrom(TRAFFIC_LEVELS as any, v, bot.traffic));
+    push("bot", bot.askChannel);
     setStep("channel");
   }
 
   function pickChannel(id: string) {
     const v = id as SalesChannelId;
     setChannelId(v);
-    push("user", labelFrom(SALES_CHANNELS as any, v, tr.salesBot.channels));
-    push("bot", tr.salesBot.askCrm);
+    push("user", labelFrom(SALES_CHANNELS as any, v, bot.channels));
+    push("bot", bot.askCrm);
     setStep("crm");
   }
 
   function pickCrm(id: string) {
     const v = id as CrmStatusId;
     setCrmId(v);
-    push("user", labelFrom(CRM_STATUS as any, v, tr.salesBot.crm));
-    push("bot", tr.salesBot.askLanguages);
+    push("user", labelFrom(CRM_STATUS as any, v, bot.crm));
+    push("bot", bot.askLanguages);
     setStep("languages");
   }
 
   function pickLanguages(id: string) {
     const v = id as LanguageNeedsId;
     setLanguagesId(v);
-    push("user", labelFrom(LANGUAGE_NEEDS as any, v, tr.salesBot.languages));
-    push("bot", tr.salesBot.askHandoff);
+    push("user", labelFrom(LANGUAGE_NEEDS as any, v, bot.languages));
+    push("bot", bot.askHandoff);
     setStep("handoff");
   }
 
   function pickHandoff(id: string) {
     const v = id as HandoffPrefId;
     setHandoffId(v);
-    push("user", labelFrom(HANDOFF_PREF as any, v, tr.salesBot.handoffPref));
+    push("user", labelFrom(HANDOFF_PREF as any, v, bot.handoffPref));
 
     const rec = buildRecommendation({
       goalId: goalId as SalesGoalId,
@@ -223,50 +229,49 @@ export default function SalesBot({ mode = "page" }: { mode?: Mode }) {
       crmId: crmId as CrmStatusId,
       languagesId: languagesId as LanguageNeedsId,
       handoffId: v,
-      tr,
+      bot,
     });
     setRecommendation(rec);
 
-    push("bot", tr.salesBot.askEmail);
+    push("bot", bot.askEmail);
     setStep("email");
   }
 
   function submitEmail(v: string) {
     const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
     if (!ok) {
-      push("bot", tr.salesBot.invalidEmail);
+      push("bot", bot.invalidEmail);
       return;
     }
     setEmail(v);
     push("user", v);
-
-    push("bot", tr.salesBot.done);
+    push("bot", bot.done);
     setStep("done");
   }
 
   function openEmailDraft() {
     const to = "lukas.juodeikis.dev@gmail.com";
 
-    const goalLabel = labelFrom(SALES_GOALS as any, goalId as string, tr.salesBot.goals);
-    const trafficLabel = labelFrom(TRAFFIC_LEVELS as any, trafficId as string, tr.salesBot.traffic);
-    const channelLabel = labelFrom(SALES_CHANNELS as any, channelId as string, tr.salesBot.channels);
-    const crmLabel = labelFrom(CRM_STATUS as any, crmId as string, tr.salesBot.crm);
-    const langLabel = labelFrom(LANGUAGE_NEEDS as any, languagesId as string, tr.salesBot.languages);
-    const handoffLabel = labelFrom(HANDOFF_PREF as any, handoffId as string, tr.salesBot.handoffPref);
+    const goalLabel = labelFrom(SALES_GOALS as any, goalId as string, bot.goals);
+    const trafficLabel = labelFrom(TRAFFIC_LEVELS as any, trafficId as string, bot.traffic);
+    const channelLabel = labelFrom(SALES_CHANNELS as any, channelId as string, bot.channels);
+    const crmLabel = labelFrom(CRM_STATUS as any, crmId as string, bot.crm);
+    const langLabel = labelFrom(LANGUAGE_NEEDS as any, languagesId as string, bot.languages);
+    const handoffLabel = labelFrom(HANDOFF_PREF as any, handoffId as string, bot.handoffPref);
 
-    const subject = `${tr.salesBot.emailSubjectPrefix} ${goalLabel} — ${trafficLabel}`;
+    const subject = `${bot.emailSubjectPrefix} ${goalLabel} — ${trafficLabel}`;
 
     const body =
-      `${tr.salesBot.emailBodyTitle}\n\n` +
-      `${tr.salesBot.summary.goal}: ${goalLabel}\n` +
-      `${tr.salesBot.summary.traffic}: ${trafficLabel}\n` +
-      `${tr.salesBot.summary.channel}: ${channelLabel}\n` +
-      `${tr.salesBot.summary.crm}: ${crmLabel}\n` +
-      `${tr.salesBot.summary.languages}: ${langLabel}\n` +
-      `${tr.salesBot.summary.handoff}: ${handoffLabel}\n\n` +
-      `${tr.salesBot.summary.recommendedSetup}:\n${recommendation}\n\n` +
-      `${tr.salesBot.summary.replyTo}: ${email}\n\n` +
-      `---\n${tr.salesBot.sentFrom}`;
+      `${bot.emailBodyTitle}\n\n` +
+      `${bot.summary.goal}: ${goalLabel}\n` +
+      `${bot.summary.traffic}: ${trafficLabel}\n` +
+      `${bot.summary.channel}: ${channelLabel}\n` +
+      `${bot.summary.crm}: ${crmLabel}\n` +
+      `${bot.summary.languages}: ${langLabel}\n` +
+      `${bot.summary.handoff}: ${handoffLabel}\n\n` +
+      `${bot.summary.recommendedSetup}:\n${recommendation}\n\n` +
+      `${bot.summary.replyTo}: ${email}\n\n` +
+      `---\n${bot.sentFrom}`;
 
     const url =
       "https://mail.google.com/mail/?view=cm&fs=1" +
@@ -287,15 +292,12 @@ export default function SalesBot({ mode = "page" }: { mode?: Mode }) {
     setHandoffId("");
     setEmail("");
     setRecommendation("");
-
     setMessages([
-      {
-        id: "m1",
-        role: "bot",
-        text: mode === "embedded" ? tr.salesBot.welcomeEmbedded : tr.salesBot.welcome,
-      },
+      { id: "m1", role: "bot", text: mode === "embedded" ? bot.welcomeEmbedded : bot.welcome },
     ]);
   }
+
+  const sum = tr.summaries.salesSummary;
 
   return (
     <div className={styles.botWrap} data-mode={mode}>
@@ -343,26 +345,30 @@ export default function SalesBot({ mode = "page" }: { mode?: Mode }) {
         {step === "done" && (
           <div className={styles.botTools}>
             <SalesSummary
-              goal={labelFrom(SALES_GOALS as any, goalId as string, tr.salesBot.goals)}
-              traffic={labelFrom(TRAFFIC_LEVELS as any, trafficId as string, tr.salesBot.traffic)}
-              channel={labelFrom(SALES_CHANNELS as any, channelId as string, tr.salesBot.channels)}
-              crm={labelFrom(CRM_STATUS as any, crmId as string, tr.salesBot.crm)}
-              languages={labelFrom(LANGUAGE_NEEDS as any, languagesId as string, tr.salesBot.languages)}
-              handoff={labelFrom(HANDOFF_PREF as any, handoffId as string, tr.salesBot.handoffPref)}
+              title={sum.title}
+              labels={sum.labels}
+              cta={sum.cta}
+              note={sum.note}
+              goal={labelFrom(SALES_GOALS as any, goalId as string, bot.goals)}
+              traffic={labelFrom(TRAFFIC_LEVELS as any, trafficId as string, bot.traffic)}
+              channel={labelFrom(SALES_CHANNELS as any, channelId as string, bot.channels)}
+              crm={labelFrom(CRM_STATUS as any, crmId as string, bot.crm)}
+              languages={labelFrom(LANGUAGE_NEEDS as any, languagesId as string, bot.languages)}
+              handoff={labelFrom(HANDOFF_PREF as any, handoffId as string, bot.handoffPref)}
               recommendation={recommendation}
               email={email}
               onEmailDraft={openEmailDraft}
             />
 
             <button className="btn btnGhost btnBlock" type="button" onClick={reset}>
-              {tr.salesBot.restart}
+              {bot.restart}
             </button>
           </div>
         )}
       </div>
 
       {step === "email" && (
-        <ChatInput placeholder={tr.salesBot.emailPlaceholder} type="email" onSend={submitEmail} />
+        <ChatInput placeholder={bot.emailPlaceholder} type="email" onSend={submitEmail} />
       )}
     </div>
   );

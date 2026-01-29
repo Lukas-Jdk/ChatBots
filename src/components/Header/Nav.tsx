@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import styles from "./header.module.css";
 
 import { useLang } from "@/i18n/useLang";
-import { t } from "@/i18n/translations";
+import { t } from "@/i18n";
 
 export default function Nav() {
   const pathname = usePathname();
@@ -19,6 +19,7 @@ export default function Nav() {
     { label: tr.nav.support, href: "/demo/support" },
     { label: tr.nav.leads, href: "/demo/leads" },
     { label: tr.nav.sales, href: "/demo/sales" },
+     { label: tr.nav.sales, href: "/demo/test" },
   ] as const;
 
   return (

@@ -9,7 +9,7 @@ import LeadsBot from "@/components/leads-bot/LeadsBot";
 import styles from "./leadsDemo.module.css";
 
 import { useLang } from "@/i18n/useLang";
-import { t } from "@/i18n/translations";
+import { t } from "@/i18n";
 
 export default function LeadsDemoPage() {
   const lang = useLang();

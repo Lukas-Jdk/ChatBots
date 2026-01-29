@@ -1,0 +1,73 @@
+/* src/components/sales-bot/SalesSummary.module.css */
+.wrap {
+  border: 1px solid var(--color-border-soft);
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: var(--shadow-card);
+}
+
+.head {
+  padding: 14px 14px;
+  background: var(--card-info-head);
+}
+
+.title {
+  font-weight: 900;
+  font-size: 14px;
+  color: var(--color-text-main);
+}
+
+.body {
+  padding: 12px 14px;
+  max-height: 260px;
+  overflow: auto;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--color-border-soft);
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.key {
+  font-weight: 800;
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.val {
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--color-text-main);
+  line-height: 1.35;
+  white-space: pre-wrap;
+}
+
+.cta {
+  width: calc(100% - 28px);
+  margin: 0 14px 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+
+  font-weight: 900;
+  font-size: 13px;
+
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  box-shadow: var(--shadow-card);
+}
+
+.note {
+  padding: 0 14px 14px;
+  font-size: 12px;
+  color: var(--color-text-muted);
+}

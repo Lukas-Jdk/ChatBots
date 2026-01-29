@@ -21,7 +21,7 @@ import {
 } from "@/data/leadsFlow";
 
 import { useLang } from "@/i18n/useLang";
-import { t } from "@/i18n/translations";
+import { t } from "@/i18n";
 
 import styles from "@/components/support-bot/supportBot.module.css";
 

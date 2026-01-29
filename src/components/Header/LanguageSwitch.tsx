@@ -4,7 +4,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import styles from "./header.module.css";
-import type { Lang } from "@/i18n/translations";
+import type { Lang } from "@/i18n";
 
 const STORAGE_KEY = "ljd_lang";
 

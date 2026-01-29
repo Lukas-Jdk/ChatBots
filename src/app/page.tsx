@@ -6,7 +6,7 @@ import Image from "next/image";
 import styles from "./page.module.css";
 
 import { useLang } from "@/i18n/useLang";
-import { t } from "@/i18n/translations";
+import { t } from "@/i18n/";
 
 export default function Page() {
   const lang = useLang();

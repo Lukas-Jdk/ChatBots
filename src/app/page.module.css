@@ -126,12 +126,13 @@
 
 .botCardList li {
   margin: 6px 0;
+  font-size: 14px;
 }
 
 .botCardTagline {
   margin-top: 8px;
   color: var(--color-text-main);
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.55;
   font-weight: 700;
   min-height: 40px;

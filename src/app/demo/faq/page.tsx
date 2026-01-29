@@ -6,7 +6,7 @@ import FaqAccordion from "@/components/faq/FaqAccordion";
 import styles from "./faqDemo.module.css";
 
 import { useLang } from "@/i18n/useLang";
-import { t } from "@/i18n/translations";
+import { t } from "@/i18n";
 
 export default function FaqDemoPage() {
   const lang = useLang();

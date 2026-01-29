@@ -9,7 +9,7 @@ import SupportBot from "@/components/support-bot/SupportBot";
 import styles from "./supportDemo.module.css";
 
 import { useLang } from "@/i18n/useLang";
-import { t } from "@/i18n/translations";
+import { t } from "@/i18n";
 
 export default function SupportDemoPage() {
   const lang = useLang();

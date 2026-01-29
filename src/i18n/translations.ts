@@ -526,7 +526,7 @@ export const translations = {
       h1_b: "išmaniais chatbotais!",
       sub: "Automatizuok pokalbius ir sumažink sprendimo laiką.",
 
-      learnMore: "Sužinoti daugiau →",
+   
 
       cards: {
         faq: {

@@ -3,6 +3,8 @@
 
 import { useState } from "react";
 import styles from "./supportBot.module.css";
+import { useLang } from "@/i18n/useLang";
+import { t } from "@/i18n";
 
 export default function ChatInput({
   placeholder,
@@ -16,6 +18,8 @@ export default function ChatInput({
   type?: "text" | "email";
 }) {
   const [value, setValue] = useState("");
+  const lang = useLang();
+  const tr = t(lang);
 
   function submit() {
     const v = value.trim();
@@ -38,8 +42,8 @@ export default function ChatInput({
         }}
       />
       <button className="btn btnPrimary" type="button" onClick={submit} disabled={disabled}>
-  Send
-</button>
+        {tr.common.send}
+      </button>
     </div>
   );
 }

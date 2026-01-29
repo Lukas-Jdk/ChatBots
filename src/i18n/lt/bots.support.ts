@@ -1,0 +1,65 @@
+// src/i18n/lt/bots.support.ts
+export const supportBot = {
+  welcome: "Sveiki! Aš esu Pagalbos Asistento demonstracija. Kuo galiu padėti?",
+  welcomeEmbedded: "Labas! Aš esu Pagalbos asistento demonstracija. Kuo galiu padėti?",
+  askPricing: "Supratau — dėl ko konkrečiai kainodara / sąskaitos?",
+  askTech: "Supratau — koks tai techninis nesklandumas?",
+  askUrgency: "Ačiū. Koks skubumas?",
+  askContact: "Kaip norite, kad susisiektume?",
+  askEmail: "Kur atsakyti? Įveskite el. paštą.",
+  askPhone: "Gerai. Įveskite telefono numerį (jei įmanoma su šalies kodu).",
+  askMessage: "Puiku. Trumpai aprašykite problemą.",
+  done: "Viskas — štai bilieto santrauka.",
+
+  invalidEmail: "Šis el. paštas atrodo neteisingas. Įveskite teisingą el. paštą.",
+  invalidPhone: "Šis numeris atrodo neteisingas. Bandykite dar kartą (pvz. +370 6xx xxxxx).",
+
+  emailPlaceholder: "jusu@email.com",
+  phonePlaceholder: "pvz. +370 6xx xxxxx",
+  messagePlaceholder: "pvz. „Negaliu prisijungti prie paskyros“",
+  restart: "Pradėti iš naujo",
+
+  emailSubjectPrefix: "[Pagalbos užklausa]",
+  emailBodyTitle: "Nauja pagalbos užklausa",
+  topicLabel: "Tema",
+  detailsLabel: "Detalės",
+  urgencyLabel: "Skubumas",
+  preferredContactLabel: "Pageidaujamas kontaktas",
+  messageLabel: "Žinutė",
+  emailLabel: "El. paštas",
+  phoneLabel: "Telefonas",
+  notProvided: "(nenurodyta)",
+  sentFrom: "Išsiųsta iš Pagalbos asistento demonstracijos.",
+
+  topics: {
+    billing: "Sąskaitos / Kainodara",
+    tech: "Techninė problema",
+    booking: "Rezervacija / Vizitas",
+    general: "Bendras klausimas",
+    other: "Kita",
+  },
+  priorities: {
+    not_urgent: "Neskubu (tik klausimas)",
+    soon: "Greitai (turi įtakos sprendimui)",
+    urgent: "Skubu (trukdo darbui)",
+    critical: "Kritiška (paslauga neveikia)",
+  },
+  pricingSubtopics: {
+    plan_change: "Plano keitimas",
+    invoice: "Sąskaita / apmokėjimas",
+    discounts: "Nuolaidos arba individuali kaina",
+    info: "Reikia informacijos",
+    enterprise: "Enterprise / dideli kiekiai",
+  },
+  techSubtopics: {
+    cant_login: "Negaliu prisijungti",
+    bug_error: "Svetainės klaida / error",
+    slow: "Viskas veikia lėtai",
+    integration: "Integracija / API",
+    other_tech: "Kita techninė problema",
+  },
+  contactMethods: {
+    email: "El. paštu",
+    phone: "Telefono skambučiu",
+  },
+} as const;

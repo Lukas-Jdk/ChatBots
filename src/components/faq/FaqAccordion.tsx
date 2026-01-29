@@ -5,7 +5,7 @@ import { useState } from "react";
 import styles from "./faq.module.css";
 
 import { useLang } from "@/i18n/useLang";
-import { t } from "@/i18n/translations";
+import { t } from "@/i18n";
 
 export default function FaqAccordion() {
   const [open, setOpen] = useState<number | null>(null);
