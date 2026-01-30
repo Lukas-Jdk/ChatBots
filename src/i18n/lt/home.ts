@@ -45,10 +45,10 @@ export const home = {
   why2: { title: "Didesnis efektyvumas", text: "Mažiau rankinio darbo, greitesni atsakymai." },
   why3: { title: "Daugiau pardavimų", text: "Greičiau ir lengviau pasiek savo potiancialius klientus." },
 
-  contactTitle: "Nori chatboto savo verslui?",
+  contactTitle: "Nori chatboto savo verslui, bet nesi tikras, kurį pasirinkti?",
   contactText:
-    "Kiekvienas verslas skirtingas. Geriausias chatbotas priklauso nuo tikslų, srauto ir klausimų. Botas užduos kelis klausimus — tau reikės tik pasirinkti.",
-  contactPrimary: "Atsakyk į kelis klausimus",
+    "Kiekvienas verslas skirtingas. Geriausias chatbotas priklauso nuo tikslų, srauto ir klausimų. Vos keli klausimai – ir parinksime tinkamiausią chatbotą tavo verslui.",
+  contactPrimary: "Pradėk testą",
   
   footer: "Chatbot demonstracijos.",
 } as const;

@@ -1,4 +1,3 @@
-// src/components/leads-bot/LeadsBot.tsx
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -37,6 +36,8 @@ type Step =
 
 type Mode = "embedded" | "page";
 
+type InterestLevel = "high" | "medium" | "low";
+
 export default function LeadsBot({ mode = "page" }: { mode?: Mode }) {
   const lang = useLang();
   const tr = t(lang);
@@ -51,6 +52,10 @@ export default function LeadsBot({ mode = "page" }: { mode?: Mode }) {
 
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+
+  const [interestLevel, setInterestLevel] = useState<InterestLevel>("medium");
+  const [score, setScore] = useState(70);
+  const [reasons, setReasons] = useState<string[]>([]);
 
   const [messages, setMessages] = useState<Message[]>(() => [
     {
@@ -175,13 +180,52 @@ export default function LeadsBot({ mode = "page" }: { mode?: Mode }) {
     setStep("message");
   }
 
-  // ✅ "skip" logikos NEBĖRA: žinutė visada saugoma kaip įvesta (arba tuščia, jei user tuščią neįmanoma išsiųsti)
+  function computeInterestAndScore(args: {
+    timeframeId: TimeframeId | "";
+    budgetId: BudgetRangeId | "";
+    intentId: LeadIntentId | "";
+  }) {
+    const why: string[] = [];
+    let s = 60;
+
+    if (args.timeframeId === "asap" || args.timeframeId === "this_month") {
+      s += 20;
+      why.push("Trumpas starto laikotarpis");
+    }
+
+    if (args.budgetId && args.budgetId !== "not_sure") {
+      s += 15;
+      why.push("Aiškesnis biudžeto rėžis");
+    }
+
+    if (args.intentId && args.intentId !== "exploring") {
+      s += 10;
+      why.push("Aiškus poreikis");
+    }
+
+    if (!why.length) why.push("Pateikta bazinė informacija");
+
+    const level: InterestLevel = s >= 85 ? "high" : s >= 70 ? "medium" : "low";
+    return { s: Math.min(100, s), level, why };
+  }
+
   function submitMessage(v: string) {
     const cleaned = v.trim();
     setMessage(cleaned);
 
     push("user", cleaned);
     push("bot", tr.leadsBot.done);
+
+    const computed = computeInterestAndScore({
+      timeframeId: timeframeId as any,
+      budgetId: budgetId as any,
+      intentId: intentId as any,
+    });
+
+    setScore(computed.s);
+    setInterestLevel(computed.level);
+    setReasons(computed.why);
+
     setStep("done");
   }
 
@@ -221,6 +265,9 @@ export default function LeadsBot({ mode = "page" }: { mode?: Mode }) {
     setBudgetId("");
     setEmail("");
     setMessage("");
+    setInterestLevel("medium");
+    setScore(70);
+    setReasons([]);
 
     setMessages([
       {
@@ -231,13 +278,15 @@ export default function LeadsBot({ mode = "page" }: { mode?: Mode }) {
     ]);
   }
 
-  const intent = labelIntent(intentId as LeadIntentId);
-  const businessType = labelBusiness(businessId as BusinessTypeId);
-  const companySize = labelSize(sizeId as CompanySizeId);
-  const timeframe = labelTimeframe(timeframeId as TimeframeId);
-  const budget = labelBudget(budgetId as BudgetRangeId);
-
-  const sum = tr.summaries.leadSummary;
+  const summary = {
+    lookingFor: labelIntent(intentId as LeadIntentId),
+    businessType: labelBusiness(businessId as BusinessTypeId),
+    companySize: labelSize(sizeId as CompanySizeId),
+    timeframe: labelTimeframe(timeframeId as TimeframeId),
+    budget: labelBudget(budgetId as BudgetRangeId),
+    email,
+    message,
+  };
 
   return (
     <div className={styles.botWrap} data-mode={mode}>
@@ -279,17 +328,10 @@ export default function LeadsBot({ mode = "page" }: { mode?: Mode }) {
         {step === "done" && (
           <div className={styles.botTools}>
             <LeadSummary
-              title={sum.title}
-              labels={sum.labels}
-              cta={sum.cta}
-              note={sum.note}
-              intent={intent}
-              businessType={businessType}
-              companySize={companySize}
-              timeframe={timeframe}
-              budget={budget}
-              email={email}
-              message={message}
+              interestLevel={interestLevel}
+              score={score}
+              reasons={reasons}
+              summary={summary}
               onEmailDraft={openEmailDraft}
             />
 

@@ -45,10 +45,14 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
   const [step, setStep] = useState<Step>("topic");
 
   const [topicId, setTopicId] = useState<SupportTopicId | "">("");
-  const [subtopicId, setSubtopicId] = useState<PricingSubtopicId | TechSubtopicId | "">("");
+  const [subtopicId, setSubtopicId] = useState<
+    PricingSubtopicId | TechSubtopicId | ""
+  >("");
   const [priorityId, setPriorityId] = useState<SupportPriorityId | "">("");
 
-  const [contactMethodId, setContactMethodId] = useState<ContactMethodId | "">("");
+  const [contactMethodId, setContactMethodId] = useState<ContactMethodId | "">(
+    "",
+  );
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
 
@@ -58,7 +62,10 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
     {
       id: "m1",
       role: "bot",
-      text: mode === "embedded" ? tr.supportBot.welcomeEmbedded : tr.supportBot.welcome,
+      text:
+        mode === "embedded"
+          ? tr.supportBot.welcomeEmbedded
+          : tr.supportBot.welcome,
     },
   ]);
 
@@ -77,7 +84,10 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
         {
           id: "m1",
           role: "bot",
-          text: mode === "embedded" ? tr.supportBot.welcomeEmbedded : tr.supportBot.welcome,
+          text:
+            mode === "embedded"
+              ? tr.supportBot.welcomeEmbedded
+              : tr.supportBot.welcome,
         },
       ]);
     }
@@ -91,13 +101,14 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
     ]);
   }
 
+  // Options (id + label)
   const topicOptions: QuickOption[] = useMemo(
     () =>
       SUPPORT_TOPICS.map((x) => ({
         id: x.id,
         label: tr.supportBot.topics[x.key],
       })),
-    [tr]
+    [tr],
   );
 
   const priorityOptions: QuickOption[] = useMemo(
@@ -106,7 +117,7 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
         id: x.id,
         label: tr.supportBot.priorities[x.key],
       })),
-    [tr]
+    [tr],
   );
 
   const pricingOptions: QuickOption[] = useMemo(
@@ -115,7 +126,7 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
         id: x.id,
         label: tr.supportBot.pricingSubtopics[x.key],
       })),
-    [tr]
+    [tr],
   );
 
   const techOptions: QuickOption[] = useMemo(
@@ -124,7 +135,7 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
         id: x.id,
         label: tr.supportBot.techSubtopics[x.key],
       })),
-    [tr]
+    [tr],
   );
 
   const contactOptions: QuickOption[] = useMemo(
@@ -133,14 +144,21 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
         id: x.id,
         label: tr.supportBot.contactMethods[x.key],
       })),
-    [tr]
+    [tr],
   );
 
+  // Helpers: get label by id for summary + email
   const getTopicLabel = (id: SupportTopicId | "") =>
-    id ? tr.supportBot.topics[SUPPORT_TOPICS.find((x) => x.id === id)!.key] : "";
+    id
+      ? tr.supportBot.topics[SUPPORT_TOPICS.find((x) => x.id === id)!.key]
+      : "";
 
   const getPriorityLabel = (id: SupportPriorityId | "") =>
-    id ? tr.supportBot.priorities[SUPPORT_PRIORITIES.find((x) => x.id === id)!.key] : "";
+    id
+      ? tr.supportBot.priorities[
+          SUPPORT_PRIORITIES.find((x) => x.id === id)!.key
+        ]
+      : "";
 
   const getSubtopicLabel = (id: string) => {
     const p = PRICING_SUBTOPICS.find((x) => x.id === (id as any));
@@ -151,8 +169,13 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
   };
 
   const getContactMethodLabel = (id: ContactMethodId | "") =>
-    id ? tr.supportBot.contactMethods[CONTACT_METHODS.find((x) => x.id === id)!.key] : "";
+    id
+      ? tr.supportBot.contactMethods[
+          CONTACT_METHODS.find((x) => x.id === id)!.key
+        ]
+      : "";
 
+  // 1) topic
   function pickTopic(id: string) {
     const topic = id as SupportTopicId;
     setTopicId(topic);
@@ -175,6 +198,7 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
     setStep("priority");
   }
 
+  // 2a) pricing subtopic
   function pickPricingSubtopic(id: string) {
     const sub = id as PricingSubtopicId;
     setSubtopicId(sub);
@@ -183,6 +207,7 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
     setStep("priority");
   }
 
+  // 2b) tech subtopic
   function pickTechSubtopic(id: string) {
     const sub = id as TechSubtopicId;
     setSubtopicId(sub);
@@ -191,6 +216,7 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
     setStep("priority");
   }
 
+  // 3) urgency
   function pickPriority(id: string) {
     const p = id as SupportPriorityId;
     setPriorityId(p);
@@ -199,6 +225,7 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
     setStep("contact_method");
   }
 
+  // 4) contact method
   function pickContactMethod(id: string) {
     const cm = id as ContactMethodId;
     setContactMethodId(cm);
@@ -214,6 +241,7 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
     setStep("email");
   }
 
+  // 5a) email
   function submitEmail(v: string) {
     const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
     if (!ok) {
@@ -226,6 +254,7 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
     setStep("message");
   }
 
+  // 5b) phone
   function submitPhone(v: string) {
     const cleaned = v.trim();
     const ok = /^[+\d][\d\s()-]{6,}$/.test(cleaned);
@@ -239,6 +268,7 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
     setStep("message");
   }
 
+  // 6) message
   function submitMessage(v: string) {
     setMessage(v);
     push("user", v);
@@ -252,7 +282,9 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
     const topicLabel = getTopicLabel(topicId as SupportTopicId);
     const subLabel = subtopicId ? getSubtopicLabel(subtopicId) : "";
     const prLabel = getPriorityLabel(priorityId as SupportPriorityId);
-    const contactLabel = getContactMethodLabel(contactMethodId as ContactMethodId);
+    const contactLabel = getContactMethodLabel(
+      contactMethodId as ContactMethodId,
+    );
 
     const subjectParts = [
       tr.supportBot.emailSubjectPrefix,
@@ -301,18 +333,22 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
       {
         id: "m1",
         role: "bot",
-        text: mode === "embedded" ? tr.supportBot.welcomeEmbedded : tr.supportBot.welcome,
+        text:
+          mode === "embedded"
+            ? tr.supportBot.welcomeEmbedded
+            : tr.supportBot.welcome,
       },
     ]);
   }
 
   const topicLabel = topicId ? getTopicLabel(topicId as SupportTopicId) : "";
   const subLabel = subtopicId ? getSubtopicLabel(subtopicId) : "";
-  const prLabel = priorityId ? getPriorityLabel(priorityId as SupportPriorityId) : "";
-  const contactMethodLabel = contactMethodId
+  const prLabel = priorityId
+    ? getPriorityLabel(priorityId as SupportPriorityId)
+    : "";
+  const contactLabel = contactMethodId
     ? getContactMethodLabel(contactMethodId as ContactMethodId)
     : "";
-  const contactValue = contactMethodId === "phone" ? phone : email;
 
   const sum = tr.summaries.ticketSummary;
 
@@ -331,7 +367,10 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
 
         {step === "pricing_subtopic" && (
           <div className={styles.botTools}>
-            <QuickReplies options={pricingOptions} onPick={pickPricingSubtopic} />
+            <QuickReplies
+              options={pricingOptions}
+              onPick={pickPricingSubtopic}
+            />
           </div>
         )}
 
@@ -363,8 +402,10 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
               topic={topicLabel}
               subtopic={subLabel || undefined}
               priority={prLabel}
-              contactMethodLabel={contactMethodLabel}
-              contactValue={contactValue}
+              contactMethodLabel={contactLabel}
+              contactMethodId={(contactMethodId || "email") as any}
+              email={email}
+              phone={phone}
               message={message}
               onEmailDraft={openEmailDraft}
             />
@@ -377,15 +418,25 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
       </div>
 
       {step === "email" && (
-        <ChatInput placeholder={tr.supportBot.emailPlaceholder} type="email" onSend={submitEmail} />
+        <ChatInput
+          placeholder={tr.supportBot.emailPlaceholder}
+          type="email"
+          onSend={submitEmail}
+        />
       )}
 
       {step === "phone" && (
-        <ChatInput placeholder={tr.supportBot.phonePlaceholder} onSend={submitPhone} />
+        <ChatInput
+          placeholder={tr.supportBot.phonePlaceholder}
+          onSend={submitPhone}
+        />
       )}
 
       {step === "message" && (
-        <ChatInput placeholder={tr.supportBot.messagePlaceholder} onSend={submitMessage} />
+        <ChatInput
+          placeholder={tr.supportBot.messagePlaceholder}
+          onSend={submitMessage}
+        />
       )}
     </div>
   );

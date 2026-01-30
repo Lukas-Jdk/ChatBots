@@ -1,7 +1,6 @@
 // src/app/demo/faq/page.tsx
 "use client";
 
-import Link from "next/link";
 import FaqAccordion from "@/components/faq/FaqAccordion";
 import styles from "./faqDemo.module.css";
 
@@ -30,10 +29,27 @@ export default function FaqDemoPage() {
               </div>
 
               <div className={styles.nextRight}>
-                <Link href="/demo/sales" className="btn btnPrimary">
-                  {tr.faq.nextPrimary}
-                </Link>
+                <button
+                  className={`btn ${styles.ctaFaq}`} type="button"
+                  onClick={() => {
+                    const to = "lukas.juodeikis.dev@gmail.com";
+                    const subject = "Chatbot inquiry";
+                    const body =
+                      "Sveiki,\n\nDomina chatbot sprendimas mano verslui.";
+
+                    const url =
+                      "https://mail.google.com/mail/?view=cm&fs=1" +
+                      `&to=${encodeURIComponent(to)}` +
+                      `&su=${encodeURIComponent(subject)}` +
+                      `&body=${encodeURIComponent(body)}`;
+
+                    window.open(url, "_blank", "noopener,noreferrer");
+                  }}
+                >
+                   {tr.faq.nextPrimary}
+                </button>
               </div>
+             
             </div>
           </div>
         </div>

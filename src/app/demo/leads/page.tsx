@@ -61,12 +61,25 @@ export default function LeadsDemoPage() {
                 <p className={styles.cardText}>{tr.leads.nextText}</p>
 
                 <div className={styles.actions}>
-                  <a
-                    className={styles.themePrimaryBtn}
-                    href="mailto:lukas.juodeikis.dev@gmail.com?subject=Qualified%20Lead"
-                  >
-                    {tr.leads.cta}
-                  </a>
+                  <button
+                  className={`btn ${styles.ctaLeads }`} type="button"
+                  onClick={() => {
+                    const to = "lukas.juodeikis.dev@gmail.com";
+                    const subject = "Chatbot inquiry";
+                    const body =
+                      "Sveiki,\n\nDomina chatbot sprendimas mano verslui.";
+
+                    const url =
+                      "https://mail.google.com/mail/?view=cm&fs=1" +
+                      `&to=${encodeURIComponent(to)}` +
+                      `&su=${encodeURIComponent(subject)}` +
+                      `&body=${encodeURIComponent(body)}`;
+
+                    window.open(url, "_blank", "noopener,noreferrer");
+                  }}
+                >
+                   {tr.faq.nextPrimary}
+                </button>
                 </div>
               </div>
             </div>

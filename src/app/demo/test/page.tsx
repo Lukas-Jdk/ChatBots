@@ -1,12 +1,7 @@
-// src/app/demo/test/page.tsx
 "use client";
 
-export const dynamic = "force-dynamic";
-
-import Link from "next/link";
-import ChatShell from "@/components/support-bot/ChatShell";
-import SalesBot from "@/components/sales-bot/SalesBot";
-import styles from "./testDemo.module.css";
+import styles from "./page.module.css";
+import FloatingTestBot from "@/components/test-bot/FloatingTestBot";
 
 import { useLang } from "@/i18n/useLang";
 import { t } from "@/i18n";
@@ -19,56 +14,34 @@ export default function TestDemoPage() {
     <main className={styles.page}>
       <section className={styles.hero}>
         <div className="container">
-          <div className={styles.topRow}>
-            <Link className={styles.back} href="/">
-              ← {tr.test.back}
-            </Link>
-          </div>
+          <div className={styles.center}>
+            <h1 className={styles.h1}>{tr.test.h1}</h1>
+            <p className={styles.sub}>{tr.test.sub}</p>
 
-          <h1 className={styles.h1}>{tr.test.h1}</h1>
-          <p className={styles.sub}>{tr.test.sub}</p>
-
-          <div className={styles.grid}>
-            <div className={styles.demo}>
-              <ChatShell title={tr.test.chatTitle} subtitle={tr.test.chatSub} theme="sales">
-                <SalesBot mode="page" variant="test" />
-              </ChatShell>
-            </div>
-
-            <div className={styles.side}>
-              <div className={styles.card}>
-                <div className={styles.cardTitle}>{tr.test.right1Title}</div>
-                <ul className={styles.list}>
-                  {tr.test.right1List.map((x: string) => (
-                    <li key={x}>{x}</li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className={styles.card}>
-                <div className={styles.cardTitle}>{tr.test.right2Title}</div>
-                <p className={styles.cardText}>{tr.test.right2Text}</p>
-              </div>
-
-              <div className={`${styles.card} ${styles.nextCard}`}>
-                <div className={styles.cardTitle}>{tr.test.nextTitle}</div>
-                <p className={styles.cardText}>{tr.test.nextText}</p>
-
-                <div className={styles.actions}>
-                  <a
-                    className={styles.themePrimaryBtn}
-                    href={`mailto:lukas.juodeikis.dev@gmail.com?subject=${encodeURIComponent(
-                      tr.test.mailSubject
-                    )}`}
-                  >
-                    {tr.test.cta}
-                  </a>
+            {/* vietoj lentelių – tvarkingi bullet’ai per vidurį */}
+            <div className={styles.bullets} aria-label={tr.test.right1Title}>
+              {tr.test.right1List.map((x, i) => (
+                <div key={i} className={styles.bullet}>
+                  <span className={styles.dot} aria-hidden="true" />
+                  <span className={styles.bulletText}>{x}</span>
                 </div>
-              </div>
+              ))}
+            </div>
+
+            <div className={styles.note} aria-label={tr.test.right2Title}>
+              <div className={styles.noteTitle}>{tr.test.right2Title}</div>
+              <div className={styles.noteText}>{tr.test.right2Text}</div>
+            </div>
+
+            <div className={styles.micro}>
+              <span className={styles.microPill}>Demo</span>
+              <span className={styles.microText}>{tr.test.chatSub}</span>
             </div>
           </div>
-
         </div>
+
+        {/* burbulas + auto-open */}
+        <FloatingTestBot />
       </section>
     </main>
   );

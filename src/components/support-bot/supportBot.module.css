@@ -31,7 +31,7 @@
 
 .shellTitle {
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 900;
   color: #ffffff;
 }
 
@@ -45,15 +45,16 @@
   color: #fff;
 }
 
+/* ✅ subtitle kitokia spalva + kitoks “svoris” */
 .shellSub {
   margin-top: 6px;
-  font-size: 14px;
-  color: rgba(0, 0, 0, 0.85);
+  font-size: 13px;
+  color: rgba(255,255,255,0.86);
+  font-weight: 700;
 }
 
 .shellBody {
   padding: 14px;
-  
 }
 
 /* =========================
@@ -108,6 +109,7 @@
   color: var(--color-text-main);
   border: 1px solid var(--color-border-soft);
   border-top-left-radius: 8px;
+  font-size: 14px;
 }
 
 .bubbleUser {
@@ -147,7 +149,7 @@
   padding: 9px 12px;
   border-radius: var(--radius-pill);
 
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: -0.005em;
 
@@ -171,26 +173,11 @@
 }
 
 /* === 5 UNIVERSAL SPALVOS (AUTOMATINĖS) === */
-
-.quickBtn:nth-child(5n + 1) {
-  background: linear-gradient(135deg, #4f8cff, #6b6dff);
-}
-
-.quickBtn:nth-child(5n + 2) {
-  background: linear-gradient(135deg, #22c55e, #34d399);
-}
-
-.quickBtn:nth-child(5n + 3) {
-  background: linear-gradient(135deg, #f59e0b, #fbbf24);
-}
-
-.quickBtn:nth-child(5n + 4) {
-  background: linear-gradient(135deg, #ec4899, #c026d3);
-}
-
-.quickBtn:nth-child(5n + 5) {
-  background: linear-gradient(135deg, #64748b, #60a5fa);
-}
+.quickBtn:nth-child(5n + 1) { background: linear-gradient(135deg, #053388, #2b2c91); }
+.quickBtn:nth-child(5n + 2) { background: linear-gradient(135deg, #1c8f46, #2c8363); }
+.quickBtn:nth-child(5n + 3) { background: linear-gradient(135deg, #c48211, #a77d14); }
+.quickBtn:nth-child(5n + 4) { background: linear-gradient(135deg, #b63173, #9d20ad); }
+.quickBtn:nth-child(5n + 5) { background: linear-gradient(135deg, #64748b, #60a5fa); }
 
 /* =========================
    INPUT
@@ -231,8 +218,10 @@
   font-weight: 900;
   margin-bottom: 10px;
   color: var(--color-text-main);
+  font-size: 14px;
 }
 
+/* ✅ 2 stulpeliai “trumpiems” laukams */
 .summaryGrid {
   display: grid;
   gap: 10px;
@@ -240,25 +229,33 @@
 
 @media (min-width: 700px) {
   .summaryGrid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
+/* ✅ vienas pilnas stulpelis (žinutė) */
+.summaryItemWide {
+  grid-column: 1 / -1;
+}
+
 .summaryLabel {
-  font-size: 13px;
-  color: var(--color-text-muted);
-  font-weight: 800;
+  font-size: 12px;
+  color: rgba(31,41,55,0.55); /* muted */
+  font-weight: 900;
+  letter-spacing: 0.01em;
 }
 
 .summaryValue {
   font-size: 13px;
-  color: rgb(73, 73, 73);
+  color: rgba(31,41,55,0.92); /* main */
+  font-weight: 800;
+  line-height: 1.35;
 }
 
 .summaryNote {
   margin-top: 10px;
   font-size: 11px;
-  color: var(--color-text-muted);
+  color: rgba(31,41,55,0.60);
 }
 
 /* =========================

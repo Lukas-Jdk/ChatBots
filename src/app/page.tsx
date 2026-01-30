@@ -38,72 +38,50 @@ export default function Page() {
 
           <div id="bots" className={styles.botCards}>
             <Link className={styles.botCard} href="/demo/faq">
-              <div className={styles.botCardTitle}>
-                {tr.home.cards.faq.title}
-              </div>
+              <div className={styles.botCardTitle}>{tr.home.cards.faq.title}</div>
               <div className={styles.botCardType}>{tr.home.cards.faq.type}</div>
               <ul className={styles.botCardList}>
                 <li>{tr.home.cards.faq.b1}</li>
                 <li>{tr.home.cards.faq.b2}</li>
                 <li>{tr.home.cards.faq.b3}</li>
               </ul>
-              <div className={styles.botCardTagline}>
-                {tr.home.cards.faq.tagline}
-              </div>
+              <div className={styles.botCardTagline}>{tr.home.cards.faq.tagline}</div>
               <div className={styles.learnMore}>{tr.home.learnMore}</div>
             </Link>
 
             <Link className={styles.botCard} href="/demo/support">
-              <div className={styles.botCardTitle}>
-                {tr.home.cards.support.title}
-              </div>
-              <div className={styles.botCardType}>
-                {tr.home.cards.support.type}
-              </div>
+              <div className={styles.botCardTitle}>{tr.home.cards.support.title}</div>
+              <div className={styles.botCardType}>{tr.home.cards.support.type}</div>
               <ul className={styles.botCardList}>
                 <li>{tr.home.cards.support.b1}</li>
                 <li>{tr.home.cards.support.b2}</li>
                 <li>{tr.home.cards.support.b3}</li>
               </ul>
-              <div className={styles.botCardTagline}>
-                {tr.home.cards.support.tagline}
-              </div>
+              <div className={styles.botCardTagline}>{tr.home.cards.support.tagline}</div>
               <div className={styles.learnMore}>{tr.home.learnMore}</div>
             </Link>
 
             <Link className={styles.botCard} href="/demo/leads">
-              <div className={styles.botCardTitle}>
-                {tr.home.cards.leads.title}
-              </div>
-              <div className={styles.botCardType}>
-                {tr.home.cards.leads.type}
-              </div>
+              <div className={styles.botCardTitle}>{tr.home.cards.leads.title}</div>
+              <div className={styles.botCardType}>{tr.home.cards.leads.type}</div>
               <ul className={styles.botCardList}>
                 <li>{tr.home.cards.leads.b1}</li>
                 <li>{tr.home.cards.leads.b2}</li>
                 <li>{tr.home.cards.leads.b3}</li>
               </ul>
-              <div className={styles.botCardTagline}>
-                {tr.home.cards.leads.tagline}
-              </div>
+              <div className={styles.botCardTagline}>{tr.home.cards.leads.tagline}</div>
               <div className={styles.learnMore}>{tr.home.learnMore}</div>
             </Link>
 
             <Link className={styles.botCard} href="/demo/sales">
-              <div className={styles.botCardTitle}>
-                {tr.home.cards.sales.title}
-              </div>
-              <div className={styles.botCardType}>
-                {tr.home.cards.sales.type}
-              </div>
+              <div className={styles.botCardTitle}>{tr.home.cards.sales.title}</div>
+              <div className={styles.botCardType}>{tr.home.cards.sales.type}</div>
               <ul className={styles.botCardList}>
                 <li>{tr.home.cards.sales.b1}</li>
                 <li>{tr.home.cards.sales.b2}</li>
                 <li>{tr.home.cards.sales.b3}</li>
               </ul>
-              <div className={styles.botCardTagline}>
-                {tr.home.cards.sales.tagline}
-              </div>
+              <div className={styles.botCardTagline}>{tr.home.cards.sales.tagline}</div>
               <div className={styles.learnMore}>{tr.home.learnMore}</div>
             </Link>
           </div>
@@ -169,21 +147,10 @@ export default function Page() {
             <p className={styles.contactText}>{tr.home.contactText}</p>
 
             <div className={styles.contactActions}>
-              <a
-                href="mailto:lukas.juodeikis.dev@gmail.com?subject=Chatbot%20Inquiry"
-                className="btn btnPrimary"
-              >
+           
+              <Link href="/demo/test" className="btn btnPrimary">
                 {tr.home.contactPrimary}
-              </a>
-
-              <a
-                href=""
-                target="_blank"
-                rel="noreferrer"
-                className="btn btnSecondary"
-              >
-               
-              </a>
+              </Link>
             </div>
           </div>
         </div>

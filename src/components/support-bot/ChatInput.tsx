@@ -11,11 +11,13 @@ export default function ChatInput({
   onSend,
   disabled,
   type = "text",
+  allowEmpty = false,
 }: {
   placeholder: string;
   onSend: (text: string) => void;
   disabled?: boolean;
   type?: "text" | "email";
+  allowEmpty?: boolean;
 }) {
   const [value, setValue] = useState("");
   const lang = useLang();
@@ -23,7 +25,9 @@ export default function ChatInput({
 
   function submit() {
     const v = value.trim();
-    if (!v) return;
+
+    if (!v && !allowEmpty) return;
+
     onSend(v);
     setValue("");
   }

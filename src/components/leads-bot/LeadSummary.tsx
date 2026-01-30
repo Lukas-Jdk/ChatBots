@@ -1,77 +1,92 @@
-// src/components/leads-bot/LeadSummary.tsx
-import styles from "@/components/support-bot/supportBot.module.css";
+import styles from "./LeadSummary.module.css";
 
-export default function LeadSummary(props: {
-  title: string;
-  labels: {
+type InterestLevel = "high" | "medium" | "low";
+
+export default function LeadSummary({
+  interestLevel,
+  score,
+  reasons = [],
+  summary,
+  onEmailDraft,
+}: {
+  interestLevel: InterestLevel;
+  score: number;
+  reasons?: string[]; // ✅ optional
+  summary: {
     lookingFor: string;
     businessType: string;
     companySize: string;
     timeframe: string;
     budget: string;
     email: string;
-    optionalMessage: string;
+    message?: string;
   };
-  cta: string;
-  note: string;
-
-  intent: string;
-  businessType: string;
-  companySize: string;
-  timeframe: string;
-  budget: string;
-  email: string;
-  message: string;
   onEmailDraft: () => void;
 }) {
-  const { title, labels, cta, note } = props;
+  const interestLabel =
+    interestLevel === "high"
+      ? "Didelis"
+      : interestLevel === "medium"
+      ? "Vidutinis"
+      : "Mažas";
 
   return (
-    <div className={styles.summaryCard} role="region" aria-label={title}>
-      <div className={styles.summaryTitle}>{title}</div>
-
-      <div className={styles.summaryGrid}>
-        <div className={styles.summaryItem}>
-          <div className={styles.summaryLabel}>{labels.lookingFor}</div>
-          <div className={styles.summaryValue}>{props.intent}</div>
+    <section className={styles.card} aria-label="Lead summary">
+      <div className={styles.topGrid}>
+        <div className={styles.metric}>
+          <div className={styles.label}>Susidomėjimas</div>
+          <div className={styles.badge}>{interestLabel}</div>
         </div>
 
-        <div className={styles.summaryItem}>
-          <div className={styles.summaryLabel}>{labels.businessType}</div>
-          <div className={styles.summaryValue}>{props.businessType}</div>
-        </div>
-
-        <div className={styles.summaryItem}>
-          <div className={styles.summaryLabel}>{labels.companySize}</div>
-          <div className={styles.summaryValue}>{props.companySize}</div>
-        </div>
-
-        <div className={styles.summaryItem}>
-          <div className={styles.summaryLabel}>{labels.timeframe}</div>
-          <div className={styles.summaryValue}>{props.timeframe}</div>
-        </div>
-
-        <div className={styles.summaryItem}>
-          <div className={styles.summaryLabel}>{labels.budget}</div>
-          <div className={styles.summaryValue}>{props.budget}</div>
-        </div>
-
-        <div className={styles.summaryItem}>
-          <div className={styles.summaryLabel}>{labels.email}</div>
-          <div className={styles.summaryValue}>{props.email}</div>
+        <div className={styles.metric}>
+          <div className={styles.label}>Bendras įvertinimas</div>
+          <div className={styles.score}>{score} / 100</div>
         </div>
       </div>
 
-      <div className={styles.summaryItem}>
-        <div className={styles.summaryLabel}>{labels.optionalMessage}</div>
-        <div className={styles.summaryValue}>{props.message || "—"}</div>
+      <div className={styles.why}>
+        <div className={styles.whyTitle}>Kodėl</div>
+
+        {/* ✅ jei nėra priežasčių – nerodom sąrašo */}
+        {reasons.length ? (
+          <ul>
+            {reasons.map((r, i) => (
+              <li key={i}>{r}</li>
+            ))}
+          </ul>
+        ) : (
+          <div className={styles.whyEmpty}>—</div>
+        )}
       </div>
 
-      <button className="btn btnPrimary btnBlock" type="button" onClick={props.onEmailDraft}>
-        {cta}
+      <div className={styles.grid}>
+        <Item label="Ko ieško" value={summary.lookingFor} />
+        <Item label="Verslo tipas" value={summary.businessType} />
+        <Item label="Įmonės dydis" value={summary.companySize} />
+        <Item label="Laikotarpis" value={summary.timeframe} />
+        <Item label="Biudžetas" value={summary.budget} />
+        <Item label="El. paštas" value={summary.email} />
+      </div>
+
+      {summary.message ? (
+        <div className={styles.message}>
+          <div className={styles.label}>Papildoma žinutė</div>
+          <div className={styles.value}>{summary.message}</div>
+        </div>
+      ) : null}
+
+      <button className={styles.cta} onClick={onEmailDraft}>
+        Siųsti užklausą
       </button>
+    </section>
+  );
+}
 
-      <div className={styles.summaryNote}>{note}</div>
+function Item({ label, value }: { label: string; value: string }) {
+  return (
+    <div className={styles.item}>
+      <div className={styles.label}>{label}</div>
+      <div className={styles.value}>{value}</div>
     </div>
   );
 }
