@@ -19,7 +19,7 @@ export const salesBot = {
   sentFrom: "Sent from Sales Assistant demo.",
 
   summary: {
-    goal: "Goal",
+    goal: "Stage",
     traffic: "Service",
     channel: "Budget",
     crm: "Timeframe",

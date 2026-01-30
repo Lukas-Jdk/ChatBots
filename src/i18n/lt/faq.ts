@@ -22,8 +22,8 @@ export const faq = {
     { q: "Ar chatbotą galima integruoti į mano svetainę?", a: "Taip. Botai įdedami į daugumą svetainių ir gali integruotis su el. paštu, CRM ar helpdesk įrankiais." },
     { q: "Kas jei chatbotas negali atsakyti?", a: "Jei chatbotas negali atsakyti, jis gali nukreipti į žmogų arba pateikti alternatyvų." },
     { q: "Ar galima pritaikyti klausimus ir pokalbio eigą?", a: "Taip. Kiekvienas botas pritaikomas pagal jūsų verslo poreikius ir norimą aptarnavimo lygį." },
-    { q: "Ar galima mokėti kas mėnesį?", a: "Taip. Siūlome mėnesinius planus nuo 39 € / mėn, priklausomai nuo chatbot’o tipo ir naudojimo apimties." },
-    { q: "Kiek kainuoja chatbotas?", a: "Kaina priklauso nuo sudėtingumo. Paprasti botai pigesni, o AI sprendimai reikalauja daugiau paruošimo." },
+    { q: "Kiek kainuoja chatbotai?", a: "Siūlome mėnesinius planus nuo 199 NOK / mėn, priklausomai nuo chatbot’o tipo ir naudojimo apimties." },
+    { q: "Kiek kainuoja chatbotas be mėnesinio mokesčio?", a: "FAQ's chatbotų kainos prasideda nuo 800 NOK ir priklauso nuo klausimų skaičiaus. Kiti, pažangesni chatbotai kainuoja nuo 4000 NOK, priklausomai nuo funkcionalumo." },
   ] as const,
 
   nextKicker: "",

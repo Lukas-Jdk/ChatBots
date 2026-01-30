@@ -1,53 +1,89 @@
+// src/components/leads-bot/LeadSummary.tsx
 import styles from "./LeadSummary.module.css";
 
-type InterestLevel = "high" | "medium" | "low";
+type FitLevel = "hot" | "warm" | "cool";
 
-export default function LeadSummary({
-  interestLevel,
-  score,
-  reasons = [],
-  summary,
-  onEmailDraft,
-}: {
-  interestLevel: InterestLevel;
-  score: number;
-  reasons?: string[]; // ✅ optional
-  summary: {
-    lookingFor: string;
-    businessType: string;
-    companySize: string;
-    timeframe: string;
-    budget: string;
-    email: string;
-    message?: string;
-  };
+type LeadSummaryLabels = {
+  fitLevel: string;
+  fitScore: string;
+  reasons: string;
+  lookingFor: string;
+  businessType: string;
+  companySize: string;
+  timeframe: string;
+  budget: string;
+  email: string;
+  optionalMessage: string;
+  optionalMessageEmpty: string;
+};
+
+export default function LeadSummary(props: {
+  title: string;
+  labels: LeadSummaryLabels;
+
+  // fit tekstai iš i18n: { hot, warm, cool }
+  fitText: { hot: string; warm: string; cool: string };
+
+  fitLevel: FitLevel;
+  fitScore: number;
+  reasons: string[];
+
+  lookingFor: string;
+  businessType: string;
+  companySize: string;
+  timeframe: string;
+  budget: string;
+  email: string;
+
+  optionalMessage?: string;
+  optionalMessageEmpty: string;
+
+  cta: string;
+  note: string;
+
   onEmailDraft: () => void;
 }) {
-  const interestLabel =
-    interestLevel === "high"
-      ? "Didelis"
-      : interestLevel === "medium"
-      ? "Vidutinis"
-      : "Mažas";
+  const {
+    title,
+    labels,
+    fitText,
+    fitLevel,
+    fitScore,
+    reasons,
+    lookingFor,
+    businessType,
+    companySize,
+    timeframe,
+    budget,
+    email,
+    optionalMessage,
+    optionalMessageEmpty,
+    cta,
+    note,
+    onEmailDraft,
+  } = props;
+
+  const fitLabel = fitLevel === "hot" ? fitText.hot : fitLevel === "warm" ? fitText.warm : fitText.cool;
+
+  const msg = (optionalMessage || "").trim();
 
   return (
-    <section className={styles.card} aria-label="Lead summary">
+    <section className={styles.card} aria-label={title}>
       <div className={styles.topGrid}>
         <div className={styles.metric}>
-          <div className={styles.label}>Susidomėjimas</div>
-          <div className={styles.badge}>{interestLabel}</div>
+          <div className={styles.label}>{labels.fitLevel}</div>
+          <div className={styles.badge}>{fitLabel}</div>
         </div>
 
         <div className={styles.metric}>
-          <div className={styles.label}>Bendras įvertinimas</div>
-          <div className={styles.score}>{score} / 100</div>
+          <div className={styles.label}>{labels.fitScore}</div>
+          <div className={styles.score}>{fitScore} / 100</div>
         </div>
       </div>
 
       <div className={styles.why}>
-        <div className={styles.whyTitle}>Kodėl</div>
+        <div className={styles.whyTitle}>{labels.reasons}</div>
 
-        {/* ✅ jei nėra priežasčių – nerodom sąrašo */}
         {reasons.length ? (
           <ul>
             {reasons.map((r, i) => (
@@ -55,29 +91,29 @@ export default function LeadSummary({
             ))}
           </ul>
         ) : (
-          <div className={styles.whyEmpty}>—</div>
+          <div className={styles.whyEmpty}>{optionalMessageEmpty}</div>
         )}
       </div>
 
       <div className={styles.grid}>
-        <Item label="Ko ieško" value={summary.lookingFor} />
-        <Item label="Verslo tipas" value={summary.businessType} />
-        <Item label="Įmonės dydis" value={summary.companySize} />
-        <Item label="Laikotarpis" value={summary.timeframe} />
-        <Item label="Biudžetas" value={summary.budget} />
-        <Item label="El. paštas" value={summary.email} />
+        <Item label={labels.lookingFor} value={lookingFor} />
+        <Item label={labels.businessType} value={businessType} />
+        <Item label={labels.companySize} value={companySize} />
+        <Item label={labels.timeframe} value={timeframe} />
+        <Item label={labels.budget} value={budget} />
+        <Item label={labels.email} value={email} />
       </div>
 
-      {summary.message ? (
-        <div className={styles.message}>
-          <div className={styles.label}>Papildoma žinutė</div>
-          <div className={styles.value}>{summary.message}</div>
-        </div>
-      ) : null}
+      <div className={styles.message}>
+        <div className={styles.label}>{labels.optionalMessage}</div>
+        <div className={styles.value}>{msg ? msg : optionalMessageEmpty}</div>
+      </div>
 
-      <button className={styles.cta} onClick={onEmailDraft}>
-        Siųsti užklausą
+      <button className={styles.cta} type="button" onClick={onEmailDraft}>
+        {cta}
       </button>
+
+      <div className={styles.note}>{note}</div>
     </section>
   );
 }

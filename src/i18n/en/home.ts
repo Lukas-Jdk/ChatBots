@@ -47,8 +47,8 @@ export const home = {
 
   contactTitle: "Want a chatbot like this for your business?",
   contactText:
-    "I design and build custom chatbots for real business' needs — from FAQ and support to potential customers qualification.",
-  contactPrimary: "Contact Me",
+    "Every business is different. The best chatbot depends on your goals, traffic, and the types of questions you receive. Just answer a few questions—and we’ll help you choose the most suitable chatbot for your business.",
+  contactPrimary: "Start Test",
   contactSecondary: "View My Portfolio",
   footer: "Chatbot demos.",
 } as const;

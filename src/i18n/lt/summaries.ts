@@ -50,9 +50,9 @@ export const summaries = {
       optionalMessageEmpty: "—",
     },
     fit: {
-      hot: "Karšta",
-      warm: "Šilta",
-      cool: "Šalta",
+      hot: "Aukštas",
+      warm: "Vidutinis",
+      cool: "Mažas",
     },
     reasons: {
       fast: "Trumpas starto laikotarpis",

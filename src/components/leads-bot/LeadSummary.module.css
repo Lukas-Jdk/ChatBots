@@ -108,3 +108,10 @@
   color: #fff;
   cursor: pointer;
 }
+.note {
+  margin-top: 10px;
+  font-size: 11px;
+  line-height: 1.5;
+  color: rgba(31, 41, 55, 0.60);
+  font-weight: 700;
+}

@@ -6,7 +6,7 @@ export const Footer = () => {
     <footer className={styles.footer}>
         <div className="container">
           <div className={styles.footerInner}>
-            © {new Date().getFullYear()} <span className={styles.footerName}>LjD.</span> Chatbot demos.
+            © {new Date().getFullYear()} <span className={styles.footerName}>LjD.</span> DemoBots.
           </div>
         </div>
       </footer>

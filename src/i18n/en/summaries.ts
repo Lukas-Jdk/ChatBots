@@ -50,9 +50,9 @@ export const summaries = {
       optionalMessageEmpty: "—",
     },
     fit: {
-      hot: "Hot",
-      warm: "Warm",
-      cool: "Cool",
+      hot: "High",
+      warm: "Medium",
+      cool: "Low",
     },
     reasons: {
       fast: "Short start timeframe",
