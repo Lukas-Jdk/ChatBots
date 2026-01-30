@@ -46,6 +46,9 @@
 --sales-from: #f59e0b;
 --sales-to: #ea580c;
 
+/* TEST */
+--test-from: #5b7cff;
+--test-to: #a78bfa;
 
   /* =========================
      TOPIC TAGAI (pill buttons) — GRADIENTAI
@@ -122,6 +125,20 @@
   --subprice-4-from: #22c55e;
   --subprice-4-to: #34d399;
 
+/* =========================
+   TEST BOT / FLOATING HEADER
+========================= */
+
+--bot-header-from: #5b7cff;
+--bot-header-mid: #8b7cff;
+--bot-header-to: #b8c7ff;
+
+--bot-header-gradient: linear-gradient(
+  135deg,
+  var(--bot-header-from) 0%,
+  var(--bot-header-mid) 45%,
+  var(--bot-header-to) 100%
+);
 
   /* =========================
      DEŠINĖS KORTELĖS

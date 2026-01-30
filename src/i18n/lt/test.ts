@@ -1,21 +1,33 @@
-// src/i18n/en/test.ts
+// src/i18n/lt/test.ts
 export const test = {
-  back: "Back",
-  h1: "Quick Bot Finder (Demo)",
-  sub: "Answer a few questions and see which chatbot setup fits your business best.",
+  back: "Atgal",
+  badge: "Testo demonstracija",
+  h1: "Greitas botų pasirinkimas (demo):",
+  sub: "Atsakyk į kelis klausimus ir pamatyk, koks chatbot setup’as geriausiai tinka tavo verslui.",
 
-  chatTitle: "Test Bot",
-  chatSub: "Demo only: pick options → see summary → opens a pre-filled email draft.",
 
-  right1Title: "What it does",
-  right1List: ["Asks a few short questions", "Suggests a chatbot setup", "Shows a clean summary"] as const,
+  centerTitle: "Atsakyk į šiuos klausimus — padėsim išsirinkti tinkamą botą tavo verslui.",
+  centerSub:
+    "Tai demo: pabaigoje matysi santrauką ir atsidarys paruoštas el. laiškas (niekas automatiškai neužsakoma).",
 
-  right2Title: "Important",
+  chatTitle: "TestBot",
+  chatSub:
+    "",
+
+  right1Title: "Ką jis daro",
+  right1List: [
+    "Užduoda kelis trumpus klausimus",
+    "Pasiūlo tinkamiausią chatbot setup’ą",
+    "Parodo aiškią santrauką pabaigoje",
+  ] as const,
+
+  right2Title: "Svarbu",
   right2Text:
-    "This is a demo. Buttons like “Book a call” don’t actually book anything — they only show how the flow would work.",
+    "Tai demonstracija. Mygtukai (pvz. „rezervuoti skambutį“) nieko realiai neužsako — jie tik parodo, kaip atrodytų procesas.",
 
-  nextTitle: "Want this for your business?",
-  nextText: "I can customize the questions and connect it to email/CRM/booking so it works for real visitors.",
-  cta: "Contact me",
-  mailSubject: "Test Bot demo — interested",
+  nextTitle: "Nori tokio savo verslui?",
+  nextText:
+    "Galiu pritaikyti klausimus ir logiką tavo nišai bei prijungti prie el. pašto / CRM / rezervavimo, kad veiktų realiai.",
+  cta: "Susisiekti",
+  mailSubject: "Testo demo — domina",
 } as const;

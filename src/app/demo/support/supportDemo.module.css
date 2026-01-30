@@ -80,7 +80,7 @@
   display: grid;
   gap: 18px;
 
-  /* ✅ paliekam 2 stulpelius kuo ilgiau */
+
   grid-template-columns: minmax(360px, 1fr) minmax(320px, 1.05fr);
   align-items: start;
 }
@@ -135,7 +135,7 @@
   background: var(--card-info-bg);
 }
 
-/* Next step – siauresnė per plotį */
+
 .nextCard {
   max-width: calc(100% - 100px);
   justify-self: center;
@@ -197,7 +197,7 @@
   white-space: nowrap;
 }
 
-/* 5 tag spalvos */
+/* 5 tag */
 .pill:nth-child(1) { background: var(--tag-service-bg); }
 .pill:nth-child(2) { background: var(--tag-agency-bg); }
 .pill:nth-child(3) { background: var(--tag-booking-bg); }
@@ -263,11 +263,7 @@
   color: var(--color-text-main);
 }
 
-/* =========================================
-   ✅ BREAKPOINT 1 (<= 1100px):
-   - grid lieka 2 stulpeliai (chat + right)
-   - bet right kortelės tampa 1 kolona
-========================================= */
+
 @media (max-width: 1100px) {
   .side {
     grid-template-columns: 1fr;
@@ -289,10 +285,7 @@
   }
 }
 
-/* =========================================
-   ✅ BREAKPOINT 2 (<= 650px):
-   - tik čia viskas tampa 1fr (chat viršuj)
-========================================= */
+
 @media (max-width: 720px) {
   .grid {
     grid-template-columns: 1fr;

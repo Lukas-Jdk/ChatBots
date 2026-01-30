@@ -1,6 +1,4 @@
 /* src/components/Header/header.module.css */
-
-
 .header {
   position: sticky;
   top: 0;
@@ -14,9 +12,6 @@
     #e1efff 100%
   );
   border-bottom: 1px solid rgba(0, 0, 0, 0.03);
-
-  /* ✅ SVARBIAUSIA: jei header elementas kažkodėl persidengia su content'u,
-     jis nebesuvalgys paspaudimų. Click'ai veiks puslapyje. */
   pointer-events: none;
 }
 
@@ -30,7 +25,7 @@
   padding: 10px 16px;
   border-radius: 18px;
 
-  /* RYŠKESNIS NEI PAGE, BET ŠVELNUS */
+ 
   background: linear-gradient(
     90deg,
     #d7dff8 0%,
@@ -43,8 +38,6 @@
   box-shadow:
     0 14px 32px rgba(0, 25, 80, 0.12),
     0 1px 0 rgba(255, 255, 255, 0.9) inset;
-
-  /* ✅ tik bar'as clickable */
   pointer-events: auto;
 }
 
@@ -92,7 +85,6 @@
   justify-content: flex-end;
 }
 
-/* ✅ Burger + language vienoje eilėje */
 .rightCluster {
   position: relative;
   display: flex;
@@ -100,9 +92,9 @@
   gap: 10px;
 }
 
-/* ✅ burger button */
+
 .menuBtn {
-  display: none; /* desktop hidden */
+  display: none; 
 
   appearance: none;
   cursor: pointer;
@@ -127,7 +119,7 @@
   filter: brightness(1.03);
 }
 
-/* ✅ mobile dropdown */
+/*  mobile dropdown */
 .mobileMenu {
   position: absolute;
   right: 0;
@@ -146,7 +138,7 @@
 
   z-index: 200;
 
-  /* ✅ visada clickable */
+  /* visada clickable */
   pointer-events: auto;
 }
 

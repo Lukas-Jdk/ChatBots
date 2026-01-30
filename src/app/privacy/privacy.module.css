@@ -1,0 +1,58 @@
+/* src/app/privacy/privacy.module.css */
+
+.page {
+  padding: 64px 0;
+  min-height: calc(100vh - 120px);
+}
+
+.head {
+  margin-bottom: 16px;
+}
+
+.h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 950;
+  letter-spacing: -0.02em;
+  color: var(--color-text-main);
+}
+
+.sub {
+  margin: 10px 0 0;
+  color: rgba(31, 41, 55, 0.70);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.6;
+  max-width: 720px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  padding: 18px;
+  max-width: 860px;
+}
+
+.h2 {
+  margin: 16px 0 8px;
+  font-size: 14px;
+  font-weight: 950;
+  color: var(--color-text-main);
+}
+
+.p {
+  margin: 0 0 12px;
+  font-size: 13px;
+  font-weight: 750;
+  line-height: 1.7;
+  color: rgba(31, 41, 55, 0.82);
+}
+
+.note {
+  margin-top: 18px;
+  font-size: 12px;
+  font-weight: 800;
+  color: rgba(31, 41, 55, 0.55);
+}

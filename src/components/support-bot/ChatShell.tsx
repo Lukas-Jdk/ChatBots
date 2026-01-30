@@ -1,7 +1,7 @@
 // src/components/support-bot/ChatShell.tsx
 import styles from "./supportBot.module.css";
 
-type Theme = "support" | "leads" | "sales";
+type Theme = "support" | "leads" | "sales" | "test";
 
 export default function ChatShell({
   title,

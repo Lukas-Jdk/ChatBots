@@ -4,6 +4,6 @@ export const nav = {
   faq: "FAQ's",
   support: "Pagalbos Botas",
   leads: "Klientų Kvalifikavimas",
-  sales: "Pardavimai",
+  sales: "Pardavimų Botas",
   test: "Testas",
 } as const;

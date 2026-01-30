@@ -3,10 +3,11 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./floatingTestBot.module.css";
-import SalesBot from "@/components/sales-bot/SalesBot";
 
 import { useLang } from "@/i18n/useLang";
 import { t } from "@/i18n";
+
+import DemoBotsPanel from "./DemoBotsPanel";
 
 const AUTOSTART_KEY = "testbot_autostart_done";
 const OPEN_KEY = "testbot_open_state";
@@ -21,24 +22,24 @@ export default function FloatingTestBot() {
 
   const labels = useMemo(() => {
     return {
-      open: lang === "lt" ? "Atidaryti botą" : "Open bot",
+      open: lang === "lt" ? "Atidaryti" : "Open",
       close: lang === "lt" ? "Uždaryti" : "Close",
-      title: tr.test.chatTitle,
+      title: "DemoBots",
     };
-  }, [lang, tr]);
+  }, [lang]);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // restore open state (nice UX if user refreshes)
+  // restore open state
   useEffect(() => {
     if (!mounted) return;
     const saved = localStorage.getItem(OPEN_KEY);
     if (saved === "1") setOpen(true);
   }, [mounted]);
 
-  // autostart once per user (or per browser)
+  // autostart once
   useEffect(() => {
     if (!mounted) return;
     if (didAutostart.current) return;
@@ -57,11 +58,27 @@ export default function FloatingTestBot() {
     return () => window.clearTimeout(tmr);
   }, [mounted]);
 
+  // ✅ ATIDARYTI PANELĘ IŠ KITUR (pvz. kai Test botas baigia)
+  useEffect(() => {
+    if (!mounted) return;
+
+    const onOpen = () => {
+      setOpen(true);
+      localStorage.setItem(OPEN_KEY, "1");
+      localStorage.setItem(AUTOSTART_KEY, "1");
+    };
+
+    window.addEventListener("demobots:open-feedback", onOpen);
+
+    return () => {
+      window.removeEventListener("demobots:open-feedback", onOpen);
+    };
+  }, [mounted]);
+
   function toggle(next?: boolean) {
     const v = typeof next === "boolean" ? next : !open;
     setOpen(v);
     localStorage.setItem(OPEN_KEY, v ? "1" : "0");
-    // If user closes it, we still keep AUTOSTART done to avoid annoying re-open.
     localStorage.setItem(AUTOSTART_KEY, "1");
   }
 
@@ -71,19 +88,27 @@ export default function FloatingTestBot() {
       <button
         type="button"
         className={styles.bubble}
-        onClick={() => toggle(true)}
-        aria-label={labels.open}
+        onClick={() => toggle()} // ✅ dabar veikia ir atidaryti, ir uždaryti
+        aria-label={open ? labels.close : labels.open}
+        title={open ? labels.close : labels.open}
       >
-        <span className={styles.bubbleIcon} aria-hidden="true">
-          💬
-        </span>
-        <span className={styles.bubblePing} aria-hidden="true" />
+        <img
+          className={styles.bubbleImg}
+          src="/chatas.webp"
+          alt=""
+          aria-hidden="true"
+        />
       </button>
 
       {/* Panel */}
       <div className={`${styles.panel} ${open ? styles.panelOpen : ""}`}>
         <div className={styles.panelHead}>
-          <div className={styles.panelTitle}>{labels.title}</div>
+          <div className={styles.panelTitleRow}>
+            <div className={styles.avatar} aria-hidden="true">
+              <img src="/aaa.webp" alt="" />
+            </div>
+            <div className={styles.panelTitle}>{labels.title}</div>
+          </div>
 
           <button
             type="button"
@@ -97,8 +122,7 @@ export default function FloatingTestBot() {
         </div>
 
         <div className={styles.panelBody}>
-          {/* We re-use SalesBot variant="test" as the "bot finder" */}
-          <SalesBot mode="embedded" variant="test" />
+          <DemoBotsPanel />
         </div>
       </div>
     </div>

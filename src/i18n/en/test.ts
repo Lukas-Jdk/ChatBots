@@ -3,9 +3,12 @@ export const test = {
   back: "Back",
   h1: "Quick Bot Finder (Demo)",
   sub: "Answer a few questions and see which chatbot setup fits your business best.",
+  
+  centerTitle: "Answer a few questions — we’ll suggest the best bot for your business.",
+  centerSub: "This is a demo: you’ll see a summary at the end and an email draft will open (nothing is booked automatically).",
 
   chatTitle: "Test Bot",
-  chatSub: "Demo only: pick options → see a summary → open a pre-filled email draft.",
+  chatSub: "",
 
   right1Title: "What it does",
   right1List: [

@@ -41,8 +41,8 @@ export const testBot = {
         highTraffic ? "Pridėkite A/B testavimą klausimams ir skriptams." : "Pradėkite paprastai, tada iteruokite."
       }`,
     moreLeads: ({ route, highTraffic }: { route: string; highTraffic: boolean }) =>
-      `Klientų kvalifikavimo botas, kuris surenka intent/biudžetą/laikotarpį ir nukreipia į ${route}. ${
-        highTraffic ? "Apsvarstykite lead scoring + automatizaciją." : "Pradėkite nuo struktūruoto lead surinkimo."
+      `Klientų kvalifikavimo botas, kuris surenka kliento poreikius, biudžetą ir planuojamą laikotarpį ir nukreipia į ${route}. ${
+        highTraffic ? "Apsvarstykite užklausų vertinimą ir automatizaciją." : "Pradėkite nuo struktūruoto užklausų surinkimo.."
       }`,
   },
 

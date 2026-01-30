@@ -279,6 +279,25 @@
   background: linear-gradient(135deg, var(--leads-from), var(--leads-to));
 }
 
-.theme_sales .bubbleUser {
-  background: linear-gradient(135deg, var(--sales-from), var(--sales-to));
+.theme_test .shellHeader {
+  background: linear-gradient(135deg, var(--test-from), var(--test-to));
+}
+
+.theme_test .bubbleUser {
+  background: linear-gradient(135deg, var(--test-from), var(--test-to));
+}
+
+/* Bot avatar (optional) */
+.msgRowBot {
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.botAvatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  object-fit: cover;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.10);
 }

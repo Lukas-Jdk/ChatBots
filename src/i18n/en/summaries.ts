@@ -65,4 +65,5 @@ export const summaries = {
     cta: "Send qualified lead (opens email)",
     note: "Demo: opens a pre-filled email draft. In production you’d send this to your CRM/inbox automatically.",
   },
+  
 } as const;

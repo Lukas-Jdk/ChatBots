@@ -248,6 +248,13 @@ export default function SalesBot({
     push("user", v);
     push("bot", bot.done);
     setStep("done");
+
+    // ✅ SVARBIAUSIA: kai TEST botas baigia → atidarom floating panelę
+    if (variant === "test") {
+      window.setTimeout(() => {
+        window.dispatchEvent(new CustomEvent("demobots:open-feedback"));
+      }, 600);
+    }
   }
 
   function openEmailDraft() {

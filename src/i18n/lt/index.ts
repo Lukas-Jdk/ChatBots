@@ -2,7 +2,8 @@
 import { nav } from "./nav";
 import { home } from "./home";
 import { faq } from "./faq";
-import { support, leads, sales, test } from "./demos";
+import { support, leads, sales } from "./demos";
+import { test } from "./test"; // ✅ SVARBIAUSIA: test imame iš ./test
 import { summaries } from "./summaries";
 import { common } from "./common";
 import { supportBot } from "./bots.support";
@@ -18,7 +19,7 @@ export const lt = {
   support,
   leads,
   sales,
-  test,
+  test, // ✅ dabar bus lt/test.ts
   summaries,
   supportBot,
   leadsBot,
