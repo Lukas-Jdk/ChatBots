@@ -1,3 +1,4 @@
+// src/data/salesFlow.ts
 export const SALES_GOALS = [
   { id: "more_leads", key: "more_leads" },
   { id: "reduce_support", key: "reduce_support" },

@@ -58,7 +58,7 @@ export default function FloatingTestBot() {
     return () => window.clearTimeout(tmr);
   }, [mounted]);
 
-  // ✅ ATIDARYTI PANELĘ IŠ KITUR (pvz. kai Test botas baigia)
+  
   useEffect(() => {
     if (!mounted) return;
 
@@ -88,7 +88,7 @@ export default function FloatingTestBot() {
       <button
         type="button"
         className={styles.bubble}
-        onClick={() => toggle()} // ✅ dabar veikia ir atidaryti, ir uždaryti
+        onClick={() => toggle()}
         aria-label={open ? labels.close : labels.open}
         title={open ? labels.close : labels.open}
       >

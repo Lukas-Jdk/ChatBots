@@ -16,7 +16,7 @@ export default function DemoBotsPanel() {
   const lang = useLang();
   const tr = t(lang);
 
-  const BOT_AVATAR = "/aaa.webp"; // <- įdėk į public/
+  const BOT_AVATAR = "/aaa.webp"; 
 
   const [step, setStep] = useState<Step>("clarity_choice");
   const [clarityChoice, setClarityChoice] = useState<ClarityChoiceId | "">("");

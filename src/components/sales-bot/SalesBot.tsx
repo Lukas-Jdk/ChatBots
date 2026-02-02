@@ -89,7 +89,7 @@ export default function SalesBot({
   const lang = useLang();
   const tr = t(lang);
 
-  // ✅ svarbiausia: bot tekstai
+  //  bot tekstai
   const bot = (variant === "test" ? tr.testBot : tr.salesBot) as BotTr;
 
   const [step, setStep] = useState<Step>("goal");
@@ -120,7 +120,7 @@ export default function SalesBot({
     });
   }, [messages, step]);
 
-  // kai pakeiti kalbą – perstatom pirmą žinutę
+ 
   useEffect(() => {
     setMessages([
       {
@@ -249,7 +249,7 @@ export default function SalesBot({
     push("bot", bot.done);
     setStep("done");
 
-    // ✅ SVARBIAUSIA: kai TEST botas baigia → atidarom floating panelę
+    //  atidaro floating panelę
     if (variant === "test") {
       window.setTimeout(() => {
         window.dispatchEvent(new CustomEvent("demobots:open-feedback"));

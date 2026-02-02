@@ -1,4 +1,5 @@
 /* src/components/support-bot/supportBot.module.css */
+
 /* =========================
    CHAT SHELL
 ========================= */
@@ -45,7 +46,7 @@
   color: #fff;
 }
 
-/* ✅ subtitle kitokia spalva + kitoks “svoris” */
+
 .shellSub {
   margin-top: 6px;
   font-size: 13px;
@@ -172,7 +173,7 @@
   cursor: not-allowed;
 }
 
-/* === 5 UNIVERSAL SPALVOS (AUTOMATINĖS) === */
+/* === 5 UNIVERSAL SPALVOS === */
 .quickBtn:nth-child(5n + 1) { background: linear-gradient(135deg, #053388, #2b2c91); }
 .quickBtn:nth-child(5n + 2) { background: linear-gradient(135deg, #1c8f46, #2c8363); }
 .quickBtn:nth-child(5n + 3) { background: linear-gradient(135deg, #c48211, #a77d14); }
@@ -221,7 +222,7 @@
   font-size: 14px;
 }
 
-/* ✅ 2 stulpeliai “trumpiems” laukams */
+
 .summaryGrid {
   display: grid;
   gap: 10px;
@@ -233,7 +234,7 @@
   }
 }
 
-/* ✅ vienas pilnas stulpelis (žinutė) */
+
 .summaryItemWide {
   grid-column: 1 / -1;
 }
@@ -287,7 +288,7 @@
   background: linear-gradient(135deg, var(--test-from), var(--test-to));
 }
 
-/* Bot avatar (optional) */
+/* Bot avatar */
 .msgRowBot {
   align-items: flex-end;
   gap: 10px;

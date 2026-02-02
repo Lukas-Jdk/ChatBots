@@ -1,3 +1,4 @@
+// src/components/support-bot/QuickReplies.tsx
 import styles from "./supportBot.module.css";
 
 export type QuickOption = {

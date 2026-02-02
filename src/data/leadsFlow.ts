@@ -1,3 +1,4 @@
+// src/data/leadsFlow.ts
 export const LEAD_INTENTS = [
   { id: "new_website", key: "new_website" },
   { id: "chatbot", key: "chatbot" },

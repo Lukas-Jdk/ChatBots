@@ -54,5 +54,3 @@ export const home = {
 } as const;
 
 
-// Nori tokio chatboto savo verslui?
-// Kuriu ir pritaikau chatbotus skirtingiems verslo poreikiams — nuo FAQ's ir pagalbos iki potencialių klientų.

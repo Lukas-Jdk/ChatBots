@@ -27,7 +27,6 @@ export default function SalesSummary(props: {
   recommendation: string;
   email: string;
 
-  // ✅ optional (kad nelūžtų jei neperduodi)
   benefits?: string[];
 
   onEmailDraft: () => void;
@@ -48,7 +47,6 @@ export default function SalesSummary(props: {
     onEmailDraft,
   } = props;
 
-  // ✅ čia ir yra fix: visada masyvas
   const benefits = Array.isArray(props.benefits) ? props.benefits : [];
 
   return (
@@ -99,7 +97,6 @@ export default function SalesSummary(props: {
 
           {benefits.length > 0 ? (
             <div className={`${styles.item} ${styles.full}`}>
-              <div className={styles.label}>{/* label ateis iš i18n jei reikės */}</div>
               <ul className={styles.list}>
                 {benefits.map((b, i) => (
                   <li key={i}>{b}</li>

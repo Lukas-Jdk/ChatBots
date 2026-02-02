@@ -21,7 +21,7 @@ export default function LeadSummary(props: {
   title: string;
   labels: LeadSummaryLabels;
 
-  // fit tekstai iš i18n: { hot, warm, cool }
+ 
   fitText: { hot: string; warm: string; cool: string };
 
   fitLevel: FitLevel;

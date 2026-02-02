@@ -1,5 +1,4 @@
 // src/i18n/lt/demos.ts
-
 export const support = {
   back: "",
   badge: "Pagalbos asistento demonstracija",

@@ -1,3 +1,4 @@
+// src/components/leads-bot/LeadsBot.tsx
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -36,7 +37,6 @@ type Step =
 
 type Mode = "embedded" | "page";
 
-// ✅ dabar fitLevel bus toks kaip i18n summaries: hot/warm/cool
 type FitLevel = "hot" | "warm" | "cool";
 
 function computeInterestAndScore(args: {

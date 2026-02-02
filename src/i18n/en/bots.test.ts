@@ -34,7 +34,6 @@ export const testBot = {
   route: { crm: "your CRM/helpdesk", email: "email" },
   handoff: { book: "instant booking links", capture: "lead capture fallback" },
 
-  // Pas tave naudojami tie patys keys iš salesFlow:
   goals: {
     more_leads: "Get more leads",
     reduce_support: "Reduce support workload",

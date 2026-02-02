@@ -3,7 +3,7 @@ import { nav } from "./nav";
 import { home } from "./home";
 import { faq } from "./faq";
 import { support, leads, sales } from "./demos";
-import { test } from "./test"; // ✅ SVARBIAUSIA: test imame iš ./test
+import { test } from "./test"; 
 import { summaries } from "./summaries";
 import { common } from "./common";
 import { supportBot } from "./bots.support";
@@ -19,7 +19,7 @@ export const lt = {
   support,
   leads,
   sales,
-  test, // ✅ dabar bus lt/test.ts
+  test, 
   summaries,
   supportBot,
   leadsBot,

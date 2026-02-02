@@ -91,7 +91,7 @@ export default function SupportBot({ mode = "page" }: { mode?: Mode }) {
         },
       ]);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [lang]);
 
   function push(role: "bot" | "user", text: string) {

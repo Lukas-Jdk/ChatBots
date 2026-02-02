@@ -2,14 +2,14 @@
 import styles from "./supportBot.module.css";
 
 function generateTicketId() {
-  // trumpas, aiškus demo ID
+
   const a = Math.random().toString(36).slice(2, 6).toUpperCase();
   const b = Math.random().toString(36).slice(2, 6).toUpperCase();
   return `SUP-${a}-${b}`;
 }
 
 function responseTimeFromPriority(priorityLabel: string) {
-  // Demo logika (nepririšta prie LT/EN tekstų – tiesiog heuristika)
+
   const p = priorityLabel.toLowerCase();
   if (p.includes("critical") || p.includes("kriti")) return "15 min";
   if (p.includes("urgent") || p.includes("skubu")) return "1 val.";
@@ -50,7 +50,7 @@ export default function TicketSummary({
   subtopic?: string;
   priority: string;
 
-  // label – gražus tekstas iš i18n ("El. paštu", "Telefono skambučiu", "Email", ...)
+  // label – tekstas iš i18n ("El. paštu", "Telefono skambučiu", "Email", ...)
   contactMethodLabel: string;
 
   // id – logikai ("email" | "phone") – kad nelūžtų nuo kalbos
