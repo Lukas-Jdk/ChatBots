@@ -1,3 +1,4 @@
+// src/components/test-bot/DemoBotsPanel.tsx
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -5,7 +6,6 @@ import ChatMessage, { type Message } from "@/components/support-bot/ChatMessage"
 import ChatInput from "@/components/support-bot/ChatInput";
 import QuickReplies, { type QuickOption } from "@/components/support-bot/QuickReplies";
 import { useLang } from "@/i18n/useLang";
-import { t } from "@/i18n";
 
 import styles from "@/components/support-bot/supportBot.module.css";
 
@@ -14,9 +14,8 @@ type ClarityChoiceId = "clear" | "unclear" | "contact";
 
 export default function DemoBotsPanel() {
   const lang = useLang();
-  const tr = t(lang);
 
-  const BOT_AVATAR = "/aaa.webp"; 
+  const BOT_AVATAR = "/aaa.webp";
 
   const [step, setStep] = useState<Step>("clarity_choice");
   const [clarityChoice, setClarityChoice] = useState<ClarityChoiceId | "">("");
@@ -161,14 +160,12 @@ export default function DemoBotsPanel() {
     window.open(url, "_blank", "noopener,noreferrer");
   }
 
-  // 1) pasirinkimas
   function pickClarity(id: string) {
     const v = id as ClarityChoiceId;
     setClarityChoice(v);
     push("user", options.find((o) => o.id === v)?.label || v);
 
     if (v === "contact") {
-      // be papildomo „kur siųsti“ – iškart draft
       push("bot", copy.done);
       openEmailDraft({ clarityChoice: "contact", rating: null, message: "" });
       setStep("done");
@@ -181,12 +178,10 @@ export default function DemoBotsPanel() {
       return;
     }
 
-    // clear
     push("bot", copy.askRating);
     setStep("rating");
   }
 
-  // 2a) jei neaišku – pirma žinutė, po to reitingas
   function submitUnclearMessage(v: string) {
     const cleaned = v.trim();
     setMessage(cleaned);
@@ -195,13 +190,11 @@ export default function DemoBotsPanel() {
     setStep("rating");
   }
 
-  // 2b) reitingas
   function pickRating(id: string) {
     const r = Number(id);
     setRating(Number.isFinite(r) ? r : null);
     push("user", id);
 
-    // jei "unclear" – jau turim žinutę -> užbaigiam iškart
     if (clarityChoice === "unclear") {
       push("bot", copy.done);
       openEmailDraft({ clarityChoice, rating: Number.isFinite(r) ? r : null, message });
@@ -209,12 +202,10 @@ export default function DemoBotsPanel() {
       return;
     }
 
-    // jei "clear" – leidžiam optional komentarą
     push("bot", copy.askOptional);
     setStep("optional_note");
   }
 
-  // 3) optional komentaras (clear flow)
   function submitOptionalNote(v: string) {
     const cleaned = v.trim();
     push("user", cleaned || "—");

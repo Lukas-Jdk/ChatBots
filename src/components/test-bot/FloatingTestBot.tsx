@@ -2,22 +2,31 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import Image from "next/image";
 import styles from "./floatingTestBot.module.css";
 
 import { useLang } from "@/i18n/useLang";
-import { t } from "@/i18n";
-
 import DemoBotsPanel from "./DemoBotsPanel";
 
 const AUTOSTART_KEY = "testbot_autostart_done";
 const OPEN_KEY = "testbot_open_state";
 
+function readOpen(): boolean {
+  try {
+    return localStorage.getItem(OPEN_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
 export default function FloatingTestBot() {
   const lang = useLang();
-  const tr = t(lang);
 
-  const [open, setOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const [open, setOpen] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    return readOpen();
+  });
+
   const didAutostart = useRef(false);
 
   const labels = useMemo(() => {
@@ -28,22 +37,9 @@ export default function FloatingTestBot() {
     };
   }, [lang]);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
-  // restore open state
   useEffect(() => {
-    if (!mounted) return;
-    const saved = localStorage.getItem(OPEN_KEY);
-    if (saved === "1") setOpen(true);
-  }, [mounted]);
-
-  // autostart once
-  useEffect(() => {
-    if (!mounted) return;
     if (didAutostart.current) return;
-
     didAutostart.current = true;
 
     const already = localStorage.getItem(AUTOSTART_KEY) === "1";
@@ -56,12 +52,10 @@ export default function FloatingTestBot() {
     }, 1000);
 
     return () => window.clearTimeout(tmr);
-  }, [mounted]);
+  }, []);
 
-  
+ 
   useEffect(() => {
-    if (!mounted) return;
-
     const onOpen = () => {
       setOpen(true);
       localStorage.setItem(OPEN_KEY, "1");
@@ -69,11 +63,8 @@ export default function FloatingTestBot() {
     };
 
     window.addEventListener("demobots:open-feedback", onOpen);
-
-    return () => {
-      window.removeEventListener("demobots:open-feedback", onOpen);
-    };
-  }, [mounted]);
+    return () => window.removeEventListener("demobots:open-feedback", onOpen);
+  }, []);
 
   function toggle(next?: boolean) {
     const v = typeof next === "boolean" ? next : !open;
@@ -84,7 +75,6 @@ export default function FloatingTestBot() {
 
   return (
     <div className={styles.wrap} aria-label="Floating demo bot">
-      {/* Bubble */}
       <button
         type="button"
         className={styles.bubble}
@@ -92,20 +82,21 @@ export default function FloatingTestBot() {
         aria-label={open ? labels.close : labels.open}
         title={open ? labels.close : labels.open}
       >
-        <img
+        <Image
           className={styles.bubbleImg}
           src="/chatas.webp"
           alt=""
           aria-hidden="true"
+          width={60}
+          height={60}
         />
       </button>
 
-      {/* Panel */}
       <div className={`${styles.panel} ${open ? styles.panelOpen : ""}`}>
         <div className={styles.panelHead}>
           <div className={styles.panelTitleRow}>
             <div className={styles.avatar} aria-hidden="true">
-              <img src="/aaa.webp" alt="" />
+              <Image src="/aaa.webp" alt="" width={38} height={38} />
             </div>
             <div className={styles.panelTitle}>{labels.title}</div>
           </div>

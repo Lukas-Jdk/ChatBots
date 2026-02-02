@@ -1,90 +1,72 @@
 // src/components/Header/LanguageSwitch.tsx
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import Image from "next/image";
 import styles from "./header.module.css";
+
+import { useLang, setLang } from "@/i18n/useLang";
 import type { Lang } from "@/i18n";
 
-const STORAGE_KEY = "ljd_lang";
-
-const LANGS = [
-  { code: "en", label: "EN", name: "English", flag: "/flags/en.webp" },
-  { code: "lt", label: "LT", name: "Lietuvių", flag: "/flags/lt.webp" },
-] as const;
+type LangOption = { id: Lang; label: string; flagSrc: string };
 
 export default function LanguageSwitch() {
+  const lang = useLang();
   const [open, setOpen] = useState(false);
-  const [lang, setLang] = useState<Lang>("en");
-  const ref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved === "en" || saved === "lt") setLang(saved);
-    else localStorage.setItem(STORAGE_KEY, "en");
-  }, []);
+  const options: LangOption[] = useMemo(
+    () => [
+      { id: "lt", label: "LT", flagSrc: "/flags/lt.webp" },
+      { id: "en", label: "EN", flagSrc: "/flags/en.webp" },
+    ],
+    []
+  );
 
-  useEffect(() => {
-    function onClick(e: MouseEvent) {
-      if (!ref.current?.contains(e.target as Node)) setOpen(false);
-    }
-    document.addEventListener("mousedown", onClick);
-    return () => document.removeEventListener("mousedown", onClick);
-  }, []);
-
-  const current = LANGS.find((l) => l.code === lang) ?? LANGS[0];
-
-  function choose(next: Lang) {
-    localStorage.setItem(STORAGE_KEY, next);
-    setLang(next);
-    setOpen(false);
-    window.location.reload();
-  }
+  const current = options.find((o) => o.id === lang) ?? options[0];
 
   return (
-    <div className={styles.langWrap} ref={ref}>
+    <div className={styles.langWrap}>
       <button
         type="button"
         className={styles.langBtn}
         onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
       >
         <Image
-          src={current.flag}
+          className={styles.langFlag}
+          src={current.flagSrc}
           alt=""
           width={18}
-          height={12}
-          className={styles.langFlag}
+          height={13}
+          priority={false}
         />
+
         <span className={styles.langCode}>{current.label}</span>
         <span className={styles.langChevron}>▾</span>
       </button>
 
       {open && (
-        <div className={styles.langMenu}>
-          {LANGS.map((l) => {
-            const active = l.code === lang;
-            return (
-              <button
-                key={l.code}
-                className={`${styles.langItem} ${
-                  active ? styles.langItemActive : ""
-                }`}
-                onClick={() => choose(l.code)}
-              >
-                <Image
-                  src={l.flag}
-                  alt=""
-                  width={18}
-                  height={12}
-                  className={styles.langFlag}
-                />
-                <div className={styles.langItemText}>
-                  <div className={styles.langItemLabel}>{l.label}</div>
-                  <div className={styles.langItemName}>{l.name}</div>
-                </div>
-              </button>
-            );
-          })}
+        <div className={styles.langMenu} role="menu">
+          {options.map((o) => (
+            <button
+              key={o.id}
+              type="button"
+              className={styles.langItem}
+              onClick={() => {
+                setLang(o.id);
+                setOpen(false);
+              }}
+            >
+              <Image
+                className={styles.langFlag}
+                src={o.flagSrc}
+                alt=""
+                width={18}
+                height={13}
+              />
+              <span>{o.label}</span>
+            </button>
+          ))}
         </div>
       )}
     </div>

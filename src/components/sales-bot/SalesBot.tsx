@@ -30,17 +30,19 @@ import styles from "@/components/support-bot/supportBot.module.css";
 type Variant = "sales" | "test";
 type Mode = "embedded" | "page";
 
-type Step =
-  | "goal"
-  | "traffic"
-  | "channel"
-  | "crm"
-  | "languages"
-  | "handoff"
-  | "email"
-  | "done";
-
+type Step = "goal" | "traffic" | "channel" | "crm" | "languages" | "handoff" | "email" | "done";
 type BotTr = ReturnType<typeof t>["salesBot"];
+
+type FlowItem<Id extends string> = { id: Id; key: string };
+
+function labelFrom<Id extends string>(
+  list: readonly FlowItem<Id>[],
+  id: Id,
+  map: Record<string, string>
+) {
+  const found = list.find((x) => x.id === id);
+  return found ? map[found.key] : "";
+}
 
 function buildRecommendation(args: {
   goalId: SalesGoalId;
@@ -89,7 +91,6 @@ export default function SalesBot({
   const lang = useLang();
   const tr = t(lang);
 
-  //  bot tekstai
   const bot = (variant === "test" ? tr.testBot : tr.salesBot) as BotTr;
 
   const [step, setStep] = useState<Step>("goal");
@@ -104,30 +105,18 @@ export default function SalesBot({
   const [recommendation, setRecommendation] = useState("");
 
   const [messages, setMessages] = useState<Message[]>(() => [
-    {
-      id: "m1",
-      role: "bot",
-      text: mode === "embedded" ? bot.welcomeEmbedded : bot.welcome,
-    },
+    { id: "m1", role: "bot", text: mode === "embedded" ? bot.welcomeEmbedded : bot.welcome },
   ]);
 
   const listRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    listRef.current?.scrollTo({
-      top: listRef.current.scrollHeight,
-      behavior: "smooth",
-    });
+    listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: "smooth" });
   }, [messages, step]);
 
- 
   useEffect(() => {
     setMessages([
-      {
-        id: "m1",
-        role: "bot",
-        text: mode === "embedded" ? bot.welcomeEmbedded : bot.welcome,
-      },
+      { id: "m1", role: "bot", text: mode === "embedded" ? bot.welcomeEmbedded : bot.welcome },
     ]);
     setStep("goal");
     setGoalId("");
@@ -142,10 +131,7 @@ export default function SalesBot({
   }, [lang, variant]);
 
   function push(role: "bot" | "user", text: string) {
-    setMessages((prev) => [
-      ...prev,
-      { id: `${Date.now()}-${Math.random()}`, role, text },
-    ]);
+    setMessages((prev) => [...prev, { id: `${Date.now()}-${Math.random()}`, role, text }]);
   }
 
   const goalOptions: QuickOption[] = useMemo(
@@ -173,16 +159,10 @@ export default function SalesBot({
     [bot]
   );
 
-  const labelFrom = <T extends { id: string; key: string }>(
-    list: readonly T[],
-    id: string,
-    map: Record<string, string>
-  ) => map[list.find((x) => x.id === id)!.key];
-
   function pickGoal(id: string) {
     const v = id as SalesGoalId;
     setGoalId(v);
-    push("user", labelFrom(SALES_GOALS as any, v, bot.goals));
+    push("user", labelFrom(SALES_GOALS, v, bot.goals));
     push("bot", bot.askTraffic);
     setStep("traffic");
   }
@@ -190,7 +170,7 @@ export default function SalesBot({
   function pickTraffic(id: string) {
     const v = id as TrafficLevelId;
     setTrafficId(v);
-    push("user", labelFrom(TRAFFIC_LEVELS as any, v, bot.traffic));
+    push("user", labelFrom(TRAFFIC_LEVELS, v, bot.traffic));
     push("bot", bot.askChannel);
     setStep("channel");
   }
@@ -198,7 +178,7 @@ export default function SalesBot({
   function pickChannel(id: string) {
     const v = id as SalesChannelId;
     setChannelId(v);
-    push("user", labelFrom(SALES_CHANNELS as any, v, bot.channels));
+    push("user", labelFrom(SALES_CHANNELS, v, bot.channels));
     push("bot", bot.askCrm);
     setStep("crm");
   }
@@ -206,7 +186,7 @@ export default function SalesBot({
   function pickCrm(id: string) {
     const v = id as CrmStatusId;
     setCrmId(v);
-    push("user", labelFrom(CRM_STATUS as any, v, bot.crm));
+    push("user", labelFrom(CRM_STATUS, v, bot.crm));
     push("bot", bot.askLanguages);
     setStep("languages");
   }
@@ -214,7 +194,7 @@ export default function SalesBot({
   function pickLanguages(id: string) {
     const v = id as LanguageNeedsId;
     setLanguagesId(v);
-    push("user", labelFrom(LANGUAGE_NEEDS as any, v, bot.languages));
+    push("user", labelFrom(LANGUAGE_NEEDS, v, bot.languages));
     push("bot", bot.askHandoff);
     setStep("handoff");
   }
@@ -222,7 +202,7 @@ export default function SalesBot({
   function pickHandoff(id: string) {
     const v = id as HandoffPrefId;
     setHandoffId(v);
-    push("user", labelFrom(HANDOFF_PREF as any, v, bot.handoffPref));
+    push("user", labelFrom(HANDOFF_PREF, v, bot.handoffPref));
 
     const rec = buildRecommendation({
       goalId: goalId as SalesGoalId,
@@ -232,8 +212,8 @@ export default function SalesBot({
       handoffId: v,
       bot,
     });
-    setRecommendation(rec);
 
+    setRecommendation(rec);
     push("bot", bot.askEmail);
     setStep("email");
   }
@@ -249,7 +229,6 @@ export default function SalesBot({
     push("bot", bot.done);
     setStep("done");
 
-    //  atidaro floating panelę
     if (variant === "test") {
       window.setTimeout(() => {
         window.dispatchEvent(new CustomEvent("demobots:open-feedback"));
@@ -260,12 +239,12 @@ export default function SalesBot({
   function openEmailDraft() {
     const to = "lukas.juodeikis.dev@gmail.com";
 
-    const goalLabel = labelFrom(SALES_GOALS as any, goalId as string, bot.goals);
-    const trafficLabel = labelFrom(TRAFFIC_LEVELS as any, trafficId as string, bot.traffic);
-    const channelLabel = labelFrom(SALES_CHANNELS as any, channelId as string, bot.channels);
-    const crmLabel = labelFrom(CRM_STATUS as any, crmId as string, bot.crm);
-    const langLabel = labelFrom(LANGUAGE_NEEDS as any, languagesId as string, bot.languages);
-    const handoffLabel = labelFrom(HANDOFF_PREF as any, handoffId as string, bot.handoffPref);
+    const goalLabel = goalId ? labelFrom(SALES_GOALS, goalId as SalesGoalId, bot.goals) : "";
+    const trafficLabel = trafficId ? labelFrom(TRAFFIC_LEVELS, trafficId as TrafficLevelId, bot.traffic) : "";
+    const channelLabel = channelId ? labelFrom(SALES_CHANNELS, channelId as SalesChannelId, bot.channels) : "";
+    const crmLabel = crmId ? labelFrom(CRM_STATUS, crmId as CrmStatusId, bot.crm) : "";
+    const langLabel = languagesId ? labelFrom(LANGUAGE_NEEDS, languagesId as LanguageNeedsId, bot.languages) : "";
+    const handoffLabel = handoffId ? labelFrom(HANDOFF_PREF, handoffId as HandoffPrefId, bot.handoffPref) : "";
 
     const subject = `${bot.emailSubjectPrefix} ${goalLabel} — ${trafficLabel}`;
 
@@ -300,9 +279,7 @@ export default function SalesBot({
     setHandoffId("");
     setEmail("");
     setRecommendation("");
-    setMessages([
-      { id: "m1", role: "bot", text: mode === "embedded" ? bot.welcomeEmbedded : bot.welcome },
-    ]);
+    setMessages([{ id: "m1", role: "bot", text: mode === "embedded" ? bot.welcomeEmbedded : bot.welcome }]);
   }
 
   const sum = tr.summaries.salesSummary;
@@ -357,12 +334,12 @@ export default function SalesBot({
               labels={sum.labels}
               cta={sum.cta}
               note={sum.note}
-              goal={labelFrom(SALES_GOALS as any, goalId as string, bot.goals)}
-              traffic={labelFrom(TRAFFIC_LEVELS as any, trafficId as string, bot.traffic)}
-              channel={labelFrom(SALES_CHANNELS as any, channelId as string, bot.channels)}
-              crm={labelFrom(CRM_STATUS as any, crmId as string, bot.crm)}
-              languages={labelFrom(LANGUAGE_NEEDS as any, languagesId as string, bot.languages)}
-              handoff={labelFrom(HANDOFF_PREF as any, handoffId as string, bot.handoffPref)}
+              goal={goalId ? labelFrom(SALES_GOALS, goalId as SalesGoalId, bot.goals) : ""}
+              traffic={trafficId ? labelFrom(TRAFFIC_LEVELS, trafficId as TrafficLevelId, bot.traffic) : ""}
+              channel={channelId ? labelFrom(SALES_CHANNELS, channelId as SalesChannelId, bot.channels) : ""}
+              crm={crmId ? labelFrom(CRM_STATUS, crmId as CrmStatusId, bot.crm) : ""}
+              languages={languagesId ? labelFrom(LANGUAGE_NEEDS, languagesId as LanguageNeedsId, bot.languages) : ""}
+              handoff={handoffId ? labelFrom(HANDOFF_PREF, handoffId as HandoffPrefId, bot.handoffPref) : ""}
               recommendation={recommendation}
               email={email}
               onEmailDraft={openEmailDraft}

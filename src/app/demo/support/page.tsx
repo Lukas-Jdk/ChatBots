@@ -23,7 +23,6 @@ export default function SupportDemoPage() {
             <Link className={styles.back} href="/">
               ← {tr.support.back}
             </Link>
-          
           </div>
 
           <h1 className={styles.h1}>
@@ -34,15 +33,10 @@ export default function SupportDemoPage() {
 
           <div className={styles.grid}>
             <div className={styles.demo}>
-              <ChatShell
-                title={tr.support.chatTitle}
-               
-                theme="support"
-              >
-                <SupportBot mode="page" />
+              <ChatShell title={tr.support.chatTitle} theme="support">
+                {/* key={lang} – kad pasikeitus kalbai persikrautų visas botas švariai */}
+                <SupportBot key={lang} mode="page" />
               </ChatShell>
-
-             
             </div>
 
             <div className={styles.side}>
@@ -71,25 +65,25 @@ export default function SupportDemoPage() {
                 <p className={styles.cardText}>{tr.support.nextText}</p>
 
                 <div className={styles.actions}>
-                <button
-                 className={`btn ${styles.ctaSupport }`} type="button"
-                  onClick={() => {
-                    const to = "lukas.juodeikis.dev@gmail.com";
-                    const subject = "Chatbot inquiry";
-                    const body =
-                      "Sveiki,\n\nDomina chatbot sprendimas mano verslui.";
+                  <button
+                    className={`btn ${styles.ctaSupport}`}
+                    type="button"
+                    onClick={() => {
+                      const to = "lukas.juodeikis.dev@gmail.com";
+                      const subject = "Chatbot inquiry";
+                      const body = "Sveiki,\n\nDomina chatbot sprendimas mano verslui.";
 
-                    const url =
-                      "https://mail.google.com/mail/?view=cm&fs=1" +
-                      `&to=${encodeURIComponent(to)}` +
-                      `&su=${encodeURIComponent(subject)}` +
-                      `&body=${encodeURIComponent(body)}`;
+                      const url =
+                        "https://mail.google.com/mail/?view=cm&fs=1" +
+                        `&to=${encodeURIComponent(to)}` +
+                        `&su=${encodeURIComponent(subject)}` +
+                        `&body=${encodeURIComponent(body)}`;
 
-                    window.open(url, "_blank", "noopener,noreferrer");
-                  }}
-                >
-                   {tr.faq.nextPrimary}
-                </button>
+                      window.open(url, "_blank", "noopener,noreferrer");
+                    }}
+                  >
+                    {tr.faq.nextPrimary}
+                  </button>
                 </div>
               </div>
             </div>

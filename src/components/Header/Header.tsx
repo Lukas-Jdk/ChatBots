@@ -11,13 +11,14 @@ import styles from "./header.module.css";
 import { useLang } from "@/i18n/useLang";
 import { t } from "@/i18n";
 
-export default function Header() {
+function HeaderInner() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   const lang = useLang();
   const tr = t(lang);
+
 
   useEffect(() => {
     function onClick(e: MouseEvent) {
@@ -26,10 +27,6 @@ export default function Header() {
     document.addEventListener("mousedown", onClick);
     return () => document.removeEventListener("mousedown", onClick);
   }, []);
-
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
 
   const mobileItems = [
     { label: tr.nav.home, href: "/" },
@@ -56,7 +53,7 @@ export default function Header() {
                 type="button"
                 className={styles.menuBtn}
                 onClick={() => setOpen((v) => !v)}
-                aria-label="Open menu"
+                aria-label={open ? "Close menu" : "Open menu"}
                 aria-expanded={open}
               >
                 ☰
@@ -77,6 +74,7 @@ export default function Header() {
                         className={`${styles.mobileLink} ${
                           active ? styles.mobileLinkActive : ""
                         }`}
+                        onClick={() => setOpen(false)} 
                       >
                         {it.label}
                       </Link>
@@ -92,4 +90,11 @@ export default function Header() {
       </div>
     </header>
   );
+}
+
+export default function Header() {
+  const pathname = usePathname();
+
+ 
+  return <HeaderInner key={pathname} />;
 }

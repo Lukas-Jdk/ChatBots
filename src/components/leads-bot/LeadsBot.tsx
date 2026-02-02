@@ -2,9 +2,13 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import ChatMessage, { type Message } from "@/components/support-bot/ChatMessage";
+import ChatMessage, {
+  type Message,
+} from "@/components/support-bot/ChatMessage";
 import ChatInput from "@/components/support-bot/ChatInput";
-import QuickReplies, { type QuickOption } from "@/components/support-bot/QuickReplies";
+import QuickReplies, {
+  type QuickOption,
+} from "@/components/support-bot/QuickReplies";
 import LeadSummary from "./LeadSummary";
 
 import {
@@ -101,7 +105,7 @@ export default function LeadsBot({ mode = "page" }: { mode?: Mode }) {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
-  // ✅ nauji state pavadinimai pagal LeadSummary
+
   const [fitLevel, setFitLevel] = useState<FitLevel>("warm");
   const [fitScore, setFitScore] = useState(70);
   const [reasons, setReasons] = useState<string[]>([]);
@@ -110,7 +114,8 @@ export default function LeadsBot({ mode = "page" }: { mode?: Mode }) {
     {
       id: "m1",
       role: "bot",
-      text: mode === "embedded" ? tr.leadsBot.welcomeEmbedded : tr.leadsBot.welcome,
+      text:
+        mode === "embedded" ? tr.leadsBot.welcomeEmbedded : tr.leadsBot.welcome,
     },
   ]);
 
@@ -129,7 +134,10 @@ export default function LeadsBot({ mode = "page" }: { mode?: Mode }) {
         {
           id: "m1",
           role: "bot",
-          text: mode === "embedded" ? tr.leadsBot.welcomeEmbedded : tr.leadsBot.welcome,
+          text:
+            mode === "embedded"
+              ? tr.leadsBot.welcomeEmbedded
+              : tr.leadsBot.welcome,
         },
       ]);
     }
@@ -137,36 +145,63 @@ export default function LeadsBot({ mode = "page" }: { mode?: Mode }) {
   }, [lang]);
 
   function push(role: "bot" | "user", text: string) {
-    setMessages((prev) => [...prev, { id: `${Date.now()}-${Math.random()}`, role, text }]);
+    setMessages((prev) => [
+      ...prev,
+      { id: `${Date.now()}-${Math.random()}`, role, text },
+    ]);
   }
 
   const intentOptions: QuickOption[] = useMemo(
-    () => LEAD_INTENTS.map((x) => ({ id: x.id, label: tr.leadsBot.intents[x.key] })),
-    [tr]
+    () =>
+      LEAD_INTENTS.map((x) => ({
+        id: x.id,
+        label: tr.leadsBot.intents[x.key],
+      })),
+    [tr],
   );
   const businessOptions: QuickOption[] = useMemo(
-    () => BUSINESS_TYPES.map((x) => ({ id: x.id, label: tr.leadsBot.businessTypes[x.key] })),
-    [tr]
+    () =>
+      BUSINESS_TYPES.map((x) => ({
+        id: x.id,
+        label: tr.leadsBot.businessTypes[x.key],
+      })),
+    [tr],
   );
   const sizeOptions: QuickOption[] = useMemo(
-    () => COMPANY_SIZES.map((x) => ({ id: x.id, label: tr.leadsBot.companySizes[x.key] })),
-    [tr]
+    () =>
+      COMPANY_SIZES.map((x) => ({
+        id: x.id,
+        label: tr.leadsBot.companySizes[x.key],
+      })),
+    [tr],
   );
   const timeframeOptions: QuickOption[] = useMemo(
-    () => TIMEFRAMES.map((x) => ({ id: x.id, label: tr.leadsBot.timeframes[x.key] })),
-    [tr]
+    () =>
+      TIMEFRAMES.map((x) => ({
+        id: x.id,
+        label: tr.leadsBot.timeframes[x.key],
+      })),
+    [tr],
   );
   const budgetOptions: QuickOption[] = useMemo(
-    () => BUDGET_RANGES.map((x) => ({ id: x.id, label: tr.leadsBot.budgets[x.key] })),
-    [tr]
+    () =>
+      BUDGET_RANGES.map((x) => ({
+        id: x.id,
+        label: tr.leadsBot.budgets[x.key],
+      })),
+    [tr],
   );
 
   const labelIntent = (id: LeadIntentId | "") =>
     id ? tr.leadsBot.intents[LEAD_INTENTS.find((x) => x.id === id)!.key] : "";
   const labelBusiness = (id: BusinessTypeId | "") =>
-    id ? tr.leadsBot.businessTypes[BUSINESS_TYPES.find((x) => x.id === id)!.key] : "";
+    id
+      ? tr.leadsBot.businessTypes[BUSINESS_TYPES.find((x) => x.id === id)!.key]
+      : "";
   const labelSize = (id: CompanySizeId | "") =>
-    id ? tr.leadsBot.companySizes[COMPANY_SIZES.find((x) => x.id === id)!.key] : "";
+    id
+      ? tr.leadsBot.companySizes[COMPANY_SIZES.find((x) => x.id === id)!.key]
+      : "";
   const labelTimeframe = (id: TimeframeId | "") =>
     id ? tr.leadsBot.timeframes[TIMEFRAMES.find((x) => x.id === id)!.key] : "";
   const labelBudget = (id: BudgetRangeId | "") =>
@@ -235,10 +270,10 @@ export default function LeadsBot({ mode = "page" }: { mode?: Mode }) {
 
     const computed = computeInterestAndScore({
       tr,
-      intentId: intentId as any,
-      timeframeId: timeframeId as any,
-      budgetId: budgetId as any,
-      companySizeId: sizeId as any,
+      intentId,
+      timeframeId,
+      budgetId,
+      companySizeId: sizeId,
     });
 
     setFitScore(computed.fitScore);
@@ -252,7 +287,7 @@ export default function LeadsBot({ mode = "page" }: { mode?: Mode }) {
     const to = "lukas.juodeikis.dev@gmail.com";
 
     const subject = `${tr.leadsBot.emailSubjectPrefix} ${labelIntent(intentId as LeadIntentId)} — ${labelBusiness(
-      businessId as BusinessTypeId
+      businessId as BusinessTypeId,
     )} — ${labelTimeframe(timeframeId as TimeframeId)}`;
 
     const body =
@@ -293,12 +328,14 @@ export default function LeadsBot({ mode = "page" }: { mode?: Mode }) {
       {
         id: "m1",
         role: "bot",
-        text: mode === "embedded" ? tr.leadsBot.welcomeEmbedded : tr.leadsBot.welcome,
+        text:
+          mode === "embedded"
+            ? tr.leadsBot.welcomeEmbedded
+            : tr.leadsBot.welcome,
       },
     ]);
   }
 
-  // ✅ summary tekstai
   const lookingFor = labelIntent(intentId as LeadIntentId);
   const businessType = labelBusiness(businessId as BusinessTypeId);
   const companySize = labelSize(sizeId as CompanySizeId);
@@ -366,7 +403,11 @@ export default function LeadsBot({ mode = "page" }: { mode?: Mode }) {
               onEmailDraft={openEmailDraft}
             />
 
-            <button className="btn btnGhost btnBlock" type="button" onClick={reset}>
+            <button
+              className="btn btnGhost btnBlock"
+              type="button"
+              onClick={reset}
+            >
               {tr.leadsBot.restart}
             </button>
           </div>
@@ -374,11 +415,18 @@ export default function LeadsBot({ mode = "page" }: { mode?: Mode }) {
       </div>
 
       {step === "email" && (
-        <ChatInput placeholder={tr.leadsBot.emailPlaceholder} type="email" onSend={submitEmail} />
+        <ChatInput
+          placeholder={tr.leadsBot.emailPlaceholder}
+          type="email"
+          onSend={submitEmail}
+        />
       )}
 
       {step === "message" && (
-        <ChatInput placeholder={tr.leadsBot.messagePlaceholder} onSend={submitMessage} />
+        <ChatInput
+          placeholder={tr.leadsBot.messagePlaceholder}
+          onSend={submitMessage}
+        />
       )}
     </div>
   );

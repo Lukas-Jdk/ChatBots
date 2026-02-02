@@ -1,4 +1,5 @@
 // src/components/support-bot/ChatMessage.tsx
+import Image from "next/image";
 import styles from "./supportBot.module.css";
 
 export type Message = {
@@ -19,7 +20,14 @@ export default function ChatMessage({
   return (
     <div className={`${styles.msgRow} ${isBot ? styles.msgRowBot : styles.msgRowUser}`}>
       {isBot && botAvatarSrc ? (
-        <img className={styles.botAvatar} src={botAvatarSrc} alt="" aria-hidden="true" />
+        <Image
+          className={styles.botAvatar}
+          src={botAvatarSrc}
+          alt=""
+          aria-hidden="true"
+          width={28}
+          height={28}
+        />
       ) : null}
 
       <div className={`${styles.bubble} ${isBot ? styles.bubbleBot : styles.bubbleUser}`}>

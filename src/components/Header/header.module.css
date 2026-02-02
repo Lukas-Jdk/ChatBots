@@ -172,9 +172,10 @@
   appearance: none;
   cursor: pointer;
 
-  display: inline-flex;
+  display: flex;
+  
   align-items: center;
-  gap: 8px;
+  gap: 3px;
 
   padding: 6px 10px;
   border-radius: var(--radius-pill);
@@ -200,8 +201,9 @@
 }
 
 .langFlag {
+  margin-top: 3px;
   width: 18px;
-  height: 12px;
+  height: 13px;
   border-radius: 2px;
   object-fit: cover;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
@@ -209,6 +211,7 @@
 
 .langCode {
   line-height: 1;
+  
 }
 
 .langChevron {
@@ -223,7 +226,7 @@
   right: 0;
   top: calc(100% + 8px);
 
-  width: 210px;
+  width: 100px;
   padding: 6px;
 
   border-radius: var(--radius-lg);
@@ -237,12 +240,9 @@
 .langItem {
   width: 100%;
   cursor: pointer;
-
   display: grid;
   grid-template-columns: auto 1fr;
-  gap: 10px;
   align-items: center;
-
   padding: 8px 10px;
   border-radius: 12px;
 
@@ -279,7 +279,7 @@
 }
 
 /* mobile: hide nav */
-@media (max-width: 720px) {
+@media (max-width: 1020px) {
   .bar {
     grid-template-columns: auto auto;
   }

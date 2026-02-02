@@ -10,7 +10,7 @@ import { t } from "@/i18n";
 export default function FaqAccordion() {
   const [open, setOpen] = useState<number | null>(null);
 
-  const lang = useLang();
+  const lang = useLang();       
   const tr = t(lang);
   const items = tr.faq.items;
 
@@ -19,6 +19,7 @@ export default function FaqAccordion() {
       {items.map((item, i) => (
         <div key={i} className={styles.item}>
           <button
+            type="button"
             className={styles.question}
             onClick={() => setOpen(open === i ? null : i)}
           >
@@ -26,7 +27,7 @@ export default function FaqAccordion() {
             <span className={styles.icon}>{open === i ? "−" : "+"}</span>
           </button>
 
-          {open === i && <div className={styles.answer}>{item.a}</div>}
+          {open === i ? <div className={styles.answer}>{item.a}</div> : null}
         </div>
       ))}
     </div>
