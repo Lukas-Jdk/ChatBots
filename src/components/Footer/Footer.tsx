@@ -8,16 +8,25 @@ export const Footer = () => {
       <div className="container">
         <div className={styles.footerInner}>
           <div className={styles.left}>
-            © {new Date().getFullYear()}{" "}
-             DemoBots - build by <span className={styles.footerName}>LjD. </span>All rights reserved.
+            © {new Date().getFullYear()} DemoBots — built by{" "}
+            <Link
+              href="https://lukas-juodeikis-portfolio.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.footerName}
+            >
+              LjD.
+            </Link>{" "}
+            All rights reserved.
           </div>
 
           <nav className={styles.links} aria-label="Footer links">
             <Link className={styles.link} href="/terms">
-              | Terms |
+              Terms
             </Link>
+            <span className={styles.sep}>|</span>
             <Link className={styles.link} href="/privacy">
-            Privacy |
+              Privacy
             </Link>
           </nav>
         </div>
