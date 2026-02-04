@@ -6,9 +6,44 @@ import Header from "@/components/Header/Header";
 import { Footer } from "@/components/Footer/Footer";
 
 export const metadata: Metadata = {
-  title: "Chatbot Solutions | Support Assistant Demo",
+  metadataBase: new URL("https://chat-bots-psi.vercel.app"),
+
+  title: {
+    default: "DemoBots — Chatbot Demonstrations",
+    template: "%s | DemoBots",
+  },
+
   description:
-    "Service Business Support Assistant Bot — live demo and landing page.",
+    "Interactive chatbot demonstrations: FAQ bot, Support Assistant, Leads Qualification, Sales Assistant and Test Bot demos.",
+
+  openGraph: {
+    type: "website",
+    url: "https://chat-bots-psi.vercel.app/",
+    siteName: "DemoBots",
+    title: "DemoBots — Chatbot Demonstrations",
+    description:
+      "Interactive chatbot demonstrations: FAQ bot, Support Assistant, Leads Qualification, Sales Assistant and Test Bot demos.",
+    images: [
+      {
+        url: "/og.png",
+        width: 1200,
+        height: 630,
+        alt: "DemoBots — Chatbot Demonstrations",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "DemoBots — Chatbot Demonstrations",
+    description:
+      "Interactive chatbot demonstrations: FAQ bot, Support Assistant, Leads Qualification, Sales Assistant and Test Bot demos.",
+    images: ["/og.png"],
+  },
+
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 const inter = Inter({
