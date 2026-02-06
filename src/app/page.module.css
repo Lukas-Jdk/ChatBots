@@ -15,11 +15,13 @@
 
 .h1 {
   margin: 0;
-  font-size: 34px;
+font-size: clamp(28px, 5vw, 44px);
   font-weight: 800;
   letter-spacing: -0.02em;
   color: var(--color-text-main);
 }
+
+
 
 .h1 span {
   background: var(--btn-primary-bg);
@@ -282,3 +284,8 @@
   color: var(--color-text-muted);
   font-size: 12px;
 }
+
+
+
+
+
